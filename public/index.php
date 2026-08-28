@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * This file is part of CodeIgniter 4 framework.
+ */
+
 use CodeIgniter\Boot;
 use Config\Paths;
 
