@@ -89,3 +89,11 @@ $routes->group('pimpinan', ['filter' => 'pimpinan', 'namespace' => 'App\Controll
 
 // === PUBLIC ===
 $routes->get('/', 'Home::index');
+$routes->get('profil/(:segment)', 'Profile::show/$1');
+$routes->get('regulasi', 'Regulation::index');
+$routes->get('layanan/(:segment)', 'Service::show/$1');
+$routes->get('informasi/(:segment)', 'Service::show/$1');
+$routes->get('informasi-publik', 'Information::index');
+$routes->get('informasi-publik/(:segment)', 'Information::category/$1');
+$routes->get('infografis', 'Infographic::index');
+$routes->get('data', 'Data::index');
