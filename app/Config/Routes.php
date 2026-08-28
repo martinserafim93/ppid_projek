@@ -26,7 +26,60 @@ $routes->get('test', function() {
 
 $routes->group('admin', ['filter' => 'admin', 'namespace' => 'App\Controllers\Admin'], static function ($routes) {
     $routes->get('dashboard', 'Dashboard::index');
-    // Route admin lainnya akan ditambah di issue berikutnya
+    
+    // Pages
+    $routes->get('pages', 'Pages::index');
+    $routes->get('pages/create', 'Pages::create');
+    $routes->post('pages/store', 'Pages::store');
+    $routes->get('pages/edit/(:num)', 'Pages::edit/$1');
+    $routes->post('pages/update/(:num)', 'Pages::update/$1');
+    $routes->get('pages/delete/(:num)', 'Pages::delete/$1');
+
+    // Regulations
+    $routes->get('regulations', 'Regulations::index');
+    $routes->get('regulations/create', 'Regulations::create');
+    $routes->post('regulations/store', 'Regulations::store');
+    $routes->get('regulations/edit/(:num)', 'Regulations::edit/$1');
+    $routes->post('regulations/update/(:num)', 'Regulations::update/$1');
+    $routes->get('regulations/delete/(:num)', 'Regulations::delete/$1');
+
+    // Public Informations
+    $routes->get('public-informations', 'PublicInformations::index');
+    $routes->get('public-informations/create', 'PublicInformations::create');
+    $routes->post('public-informations/store', 'PublicInformations::store');
+    $routes->get('public-informations/edit/(:num)', 'PublicInformations::edit/$1');
+    $routes->post('public-informations/update/(:num)', 'PublicInformations::update/$1');
+    $routes->get('public-informations/delete/(:num)', 'PublicInformations::delete/$1');
+
+    // Infographics
+    $routes->get('infographics', 'Infographics::index');
+    $routes->get('infographics/create', 'Infographics::create');
+    $routes->post('infographics/store', 'Infographics::store');
+    $routes->get('infographics/edit/(:num)', 'Infographics::edit/$1');
+    $routes->post('infographics/update/(:num)', 'Infographics::update/$1');
+    $routes->get('infographics/delete/(:num)', 'Infographics::delete/$1');
+
+    // Documents
+    $routes->get('documents', 'Documents::index');
+    $routes->get('documents/create', 'Documents::create');
+    $routes->post('documents/store', 'Documents::store');
+    $routes->get('documents/edit/(:num)', 'Documents::edit/$1');
+    $routes->post('documents/update/(:num)', 'Documents::update/$1');
+    $routes->get('documents/delete/(:num)', 'Documents::delete/$1');
+    $routes->get('documents/download/(:num)', 'Documents::download/$1');
+
+    // Users
+    $routes->get('users', 'Users::index');
+    $routes->get('users/create', 'Users::create');
+    $routes->post('users/store', 'Users::store');
+    $routes->get('users/edit/(:num)', 'Users::edit/$1');
+    $routes->post('users/update/(:num)', 'Users::update/$1');
+    $routes->get('users/toggle/(:num)', 'Users::toggleActive/$1');
+    $routes->post('users/reset-password/(:num)', 'Users::resetPassword/$1');
+
+    // Settings
+    $routes->get('settings', 'Settings::index');
+    $routes->post('settings/update', 'Settings::update');
 });
 
 // === PIMPINAN (dilindungi filter pimpinan) ===
