@@ -1,0 +1,157 @@
+:root {
+    --kemenag-green: #00755c;
+    --kemenag-green-hover: #005a46;
+    --kemenag-gold: #f2a900;
+    --bg-color: #f4f7f6;
+    --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+body {
+    background-color: var(--bg-color);
+    font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+}
+
+.auth-wrapper {
+    width: 100%;
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 15px;
+}
+
+.auth-card {
+    border: none;
+    border-radius: 16px;
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+    background-color: #ffffff;
+}
+
+/* Split screen layout */
+.auth-row {
+    display: flex;
+    flex-wrap: wrap;
+    min-height: 550px;
+}
+
+.auth-sidebar {
+    background: linear-gradient(135deg, var(--kemenag-green) 0%, #004d3c 100%);
+    color: white;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-sidebar::after {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M54.627 0l.83.83v58.34h-58.34l-.83-.83L54.627 0zM27.314 0l.83.83v29.17h-29.17l-.83-.83L27.314 0zm0 29.17l.83.83v29.17h-29.17l-.83-.83L27.314 29.17z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+.auth-sidebar img.logo {
+    max-width: 180px;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
+}
+
+.auth-sidebar h2 {
+    font-weight: 700;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.auth-sidebar p {
+    font-size: 1rem;
+    opacity: 0.9;
+    position: relative;
+    z-index: 1;
+}
+
+.auth-form-wrapper {
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.auth-form-wrapper h3 {
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.auth-form-wrapper .text-muted {
+    margin-bottom: 2rem;
+}
+
+.form-control {
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    transition: all 0.2s ease;
+}
+
+.form-control:focus {
+    border-color: var(--kemenag-green);
+    box-shadow: 0 0 0 0.25rem rgba(0, 117, 92, 0.15);
+}
+
+.form-label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.btn-primary {
+    background-color: var(--kemenag-green);
+    border-color: var(--kemenag-green);
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover, .btn-primary:focus {
+    background-color: var(--kemenag-green-hover);
+    border-color: var(--kemenag-green-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 117, 92, 0.2);
+}
+
+.auth-link {
+    color: var(--kemenag-green);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.auth-link:hover {
+    color: var(--kemenag-green-hover);
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .auth-sidebar {
+        padding: 2rem;
+        min-height: 250px;
+    }
+    .auth-form-wrapper {
+        padding: 2rem;
+    }
+}
