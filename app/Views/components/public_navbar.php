@@ -3,6 +3,14 @@
 $uri = service('uri');
 $segment1 = $uri->getTotalSegments() >= 1 ? $uri->getSegment(1) : '';
 $segment2 = $uri->getTotalSegments() >= 2 ? $uri->getSegment(2) : '';
+
+// Mengambil menu dinamis dari database
+$pageModel = new \App\Models\PageModel();
+$activePages = $pageModel->where('is_active', 1)->orderBy('sort_order', 'ASC')->findAll();
+
+$menuProfil = array_filter($activePages, fn($p) => in_array($p['category'], ['profil_kanwil', 'profil_ppid']));
+$menuLayanan = array_filter($activePages, fn($p) => $p['category'] === 'standar_layanan');
+$menuInformasi = array_filter($activePages, fn($p) => $p['category'] === 'layanan_informasi');
 ?>
 <nav class="navbar navbar-expand-lg navbar-dark navbar-ppid sticky-top">
     <div class="container">
@@ -29,11 +37,14 @@ $segment2 = $uri->getTotalSegments() >= 2 ? $uri->getSegment(2) : '';
                         Profil
                     </a>
                     <ul class="dropdown-menu shadow-lg border-0" aria-labelledby="navbarProfil">
-                        <li><a class="dropdown-item <?= $segment2 == 'sejarah-kanwil' ? 'active text-primary' : '' ?>" href="<?= base_url('profil/sejarah-kanwil') ?>">Sejarah Kanwil</a></li>
-                        <li><a class="dropdown-item <?= $segment2 == 'profil-ppid' ? 'active text-primary' : '' ?>" href="<?= base_url('profil/profil-ppid') ?>">Profil PPID</a></li>
-                        <li><a class="dropdown-item <?= $segment2 == 'struktur-organisasi' ? 'active text-primary' : '' ?>" href="<?= base_url('profil/struktur-organisasi') ?>">Struktur Organisasi</a></li>
-                        <li><a class="dropdown-item <?= $segment2 == 'tugas-dan-fungsi' ? 'active text-primary' : '' ?>" href="<?= base_url('profil/tugas-dan-fungsi') ?>">Tugas dan Fungsi PPID</a></li>
-                        <li><a class="dropdown-item <?= $segment2 == 'visi-dan-misi' ? 'active text-primary' : '' ?>" href="<?= base_url('profil/visi-dan-misi') ?>">Visi dan Misi</a></li>
+                        <?php foreach ($menuProfil as $page): ?>
+                            <li>
+                                <a class="dropdown-item <?= $segment2 == $page['slug'] ? 'active text-primary' : '' ?>" 
+                                   href="<?= base_url('profil/' . $page['slug']) ?>">
+                                    <?= esc($page['title']) ?>
+                                </a>
+                            </li>
+                        <?php endforeach; ?>
                     </ul>
                 </li>
                 
@@ -46,12 +57,14 @@ $segment2 = $uri->getTotalSegments() >= 2 ? $uri->getSegment(2) : '';
                         Standar Layanan
                     </a>
                     <ul class="dropdown-menu shadow-lg border-0" aria-labelledby="navbarLayanan">
-                        <li><a class="dropdown-item <?= $segment2 == 'maklumat-pelayanan' ? 'active text-primary' : '' ?>" href="<?= base_url('layanan/maklumat-pelayanan') ?>">Maklumat Pelayanan</a></li>
-                        <li><a class="dropdown-item <?= $segment2 == 'pedoman-pengelolaan' ? 'active text-primary' : '' ?>" href="<?= base_url('layanan/pedoman-pengelolaan') ?>">Pedoman Pengelolaan Organisasi</a></li>
-                        <li><a class="dropdown-item <?= $segment2 == 'jadwal-layanan' ? 'active text-primary' : '' ?>" href="<?= base_url('layanan/jadwal-layanan') ?>">Jadwal Layanan</a></li>
-                        <li><a class="dropdown-item <?= $segment2 == 'biaya-layanan' ? 'active text-primary' : '' ?>" href="<?= base_url('layanan/biaya-layanan') ?>">Biaya/Tarif Layanan</a></li>
-                        <li><a class="dropdown-item <?= $segment2 == 'sop-ppid' ? 'active text-primary' : '' ?>" href="<?= base_url('layanan/sop-ppid') ?>">SOP PPID</a></li>
-                        <li><a class="dropdown-item <?= $segment2 == 'standar-operasional' ? 'active text-primary' : '' ?>" href="<?= base_url('layanan/standar-operasional') ?>">Standar Operasional (PPEM)</a></li>
+                        <?php foreach ($menuLayanan as $page): ?>
+                            <li>
+                                <a class="dropdown-item <?= $segment2 == $page['slug'] ? 'active text-primary' : '' ?>" 
+                                   href="<?= base_url('layanan/' . $page['slug']) ?>">
+                                    <?= esc($page['title']) ?>
+                                </a>
+                            </li>
+                        <?php endforeach; ?>
                     </ul>
                 </li>
 
@@ -60,10 +73,14 @@ $segment2 = $uri->getTotalSegments() >= 2 ? $uri->getSegment(2) : '';
                         Layanan Informasi
                     </a>
                     <ul class="dropdown-menu shadow-lg border-0" aria-labelledby="navbarInfoLayanan">
-                        <li><a class="dropdown-item <?= $segment2 == 'tata-cara-permohonan' ? 'active text-primary' : '' ?>" href="<?= base_url('informasi/tata-cara-permohonan') ?>">Tata Cara Permohonan Info</a></li>
-                        <li><a class="dropdown-item <?= $segment2 == 'tata-cara-keberatan' ? 'active text-primary' : '' ?>" href="<?= base_url('informasi/tata-cara-keberatan') ?>">Tata Cara Pengajuan Keberatan</a></li>
-                        <li><a class="dropdown-item <?= $segment2 == 'tata-cara-sengketa' ? 'active text-primary' : '' ?>" href="<?= base_url('informasi/tata-cara-sengketa') ?>">Tata Cara Sengketa Informasi</a></li>
-                        <li><a class="dropdown-item <?= $segment2 == 'hak-dan-kewajiban' ? 'active text-primary' : '' ?>" href="<?= base_url('informasi/hak-dan-kewajiban') ?>">Hak & Kewajiban Pemohon</a></li>
+                        <?php foreach ($menuInformasi as $page): ?>
+                            <li>
+                                <a class="dropdown-item <?= $segment2 == $page['slug'] ? 'active text-primary' : '' ?>" 
+                                   href="<?= base_url('informasi/' . $page['slug']) ?>">
+                                    <?= esc($page['title']) ?>
+                                </a>
+                            </li>
+                        <?php endforeach; ?>
                     </ul>
                 </li>
                 

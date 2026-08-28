@@ -143,6 +143,7 @@
     </div>
 </div>
 
+<?= $this->section('scripts') ?>
 <script>
 $(document).ready(function() {
     $('#content').summernote({
@@ -188,5 +189,6 @@ function previewImage(input) {
     }
 }
 </script>
+<?= $this->endSection() ?>
 
 <?= $this->endSection() ?>
