@@ -10,7 +10,6 @@
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 <div class="card-glass border-0 p-4 p-md-5">
-                    <h2 class="heading-font fw-bold mb-4 text-primary text-center"><?= esc($page['title']) ?></h2>
                     
                     <?php if (!empty($page['image'])): ?>
                         <div class="text-center mb-5" data-aos="fade-up">
