@@ -60,6 +60,13 @@ Vagrantfile
 /writable/uploads/*
 !/writable/uploads/index.html
 
+# Ignore public uploads (for testing/development)
+/public/uploads/*
+!/public/uploads/index.html
+
+# Ignore issue/task files
+issue.md
+
 /writable/debugbar/*
 !/writable/debugbar/index.html
 
