@@ -72,5 +72,8 @@
     <script src="<?= base_url('assets/js/admin/form-validation.js') ?>"></script>
     <script src="<?= base_url('assets/js/admin/image-preview.js') ?>"></script>
     
+    <!-- Custom Scripts for specific views -->
+    <?= $this->renderSection('scripts') ?>
+    
 </body>
 </html>
