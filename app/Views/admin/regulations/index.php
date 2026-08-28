@@ -4,9 +4,14 @@
 
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h1 class="h3 mb-0 text-gray-800">Kelola Regulasi</h1>
-    <a href="<?= base_url('admin/regulations/create') ?>" class="btn btn-primary">
-        <i class="bi bi-plus-lg me-1"></i> Tambah Regulasi
-    </a>
+    <div>
+        <a href="<?= base_url('admin/categories/regulations') ?>" class="btn btn-outline-secondary me-2">
+            <i class="bi bi-tags me-1"></i> Kelola Kategori Tipe
+        </a>
+        <a href="<?= base_url('admin/regulations/create') ?>" class="btn btn-primary">
+            <i class="bi bi-plus-lg me-1"></i> Tambah Regulasi
+        </a>
+    </div>
 </div>
 
 <?php if (session()->getFlashdata('message')) : ?>
@@ -28,12 +33,14 @@
         <h6 class="m-0 font-weight-bold">Daftar Regulasi & Dasar Hukum</h6>
         <form action="" method="get" class="d-flex align-items-center" style="gap: 10px;">
             <select name="type" class="form-select form-select-sm" onchange="this.form.submit()">
-                <option value="">Semua Tipe Regulasi</option>
-                <option value="uu" <?= ($type ?? '') == 'uu' ? 'selected' : '' ?>>Undang-Undang (UU)</option>
-                <option value="pp" <?= ($type ?? '') == 'pp' ? 'selected' : '' ?>>Peraturan Pemerintah (PP)</option>
-                <option value="perki" <?= ($type ?? '') == 'perki' ? 'selected' : '' ?>>Peraturan KI (Perki)</option>
-                <option value="pma" <?= ($type ?? '') == 'pma' ? 'selected' : '' ?>>Peraturan Menteri (PMA)</option>
-                <option value="sk" <?= ($type ?? '') == 'sk' ? 'selected' : '' ?>>Surat Keputusan (SK)</option>
+                <option value="">Semua Kategori</option>
+                <?php if (!empty($categories)) : ?>
+                    <?php foreach ($categories as $cat) : ?>
+                        <option value="<?= esc($cat['slug']) ?>" <?= ($type ?? '') == $cat['slug'] ? 'selected' : '' ?>>
+                            <?= esc($cat['name']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </select>
         </form>
     </div>
@@ -44,7 +51,7 @@
                     <tr>
                         <th width="5%" class="text-center">No</th>
                         <th width="35%">Judul / Tentang</th>
-                        <th width="15%" class="text-center">Tipe</th>
+                        <th width="15%" class="text-center">Kategori</th>
                         <th width="15%">Nomor & Tahun</th>
                         <th width="15%" class="text-center">File PDF</th>
                         <th width="15%" class="text-center">Aksi</th>
@@ -71,24 +78,22 @@
                                 </td>
                                 <td class="text-center">
                                     <?php
-                                    $typeLabels = [
-                                        'uu' => 'UU',
-                                        'pp' => 'PP',
-                                        'perki' => 'Perki',
-                                        'pma' => 'PMA',
-                                        'sk' => 'SK'
-                                    ];
-                                    $typeClass = [
-                                        'uu' => 'bg-danger',
-                                        'pp' => 'bg-warning text-dark',
-                                        'perki' => 'bg-primary',
-                                        'pma' => 'bg-success',
-                                        'sk' => 'bg-info text-dark'
-                                    ];
-                                    $label = $typeLabels[$item['type']] ?? strtoupper($item['type']);
-                                    $class = $typeClass[$item['type']] ?? 'bg-secondary';
+                                    $label = '';
+                                    if (!empty($item['type'])) {
+                                        $label = strtoupper($item['type']);
+                                        if (!empty($categories)) {
+                                            foreach ($categories as $cat) {
+                                                if ($cat['slug'] === $item['type']) {
+                                                    $label = $cat['name'];
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
                                     ?>
-                                    <span class="badge <?= $class ?> px-2 py-1"><?= $label ?></span>
+                                    <?php if ($label): ?>
+                                        <span class="badge bg-primary px-2 py-1"><?= esc($label) ?></span>
+                                    <?php endif; ?>
                                 </td>
                                 <td>
                                     <?php if ($item['number']) : ?>

@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Models\RegulationModel;
+use App\Models\CategoryModel;
 
 class Regulations extends BaseController
 {
@@ -25,11 +26,14 @@ class Regulations extends BaseController
             $query = $query->where('type', $type);
         }
 
+        $categoryModel = new CategoryModel();
+
         $data = [
-            'title' => 'Kelola Regulasi',
+            'title'       => 'Kelola Regulasi',
             'regulations' => $query->paginate(10),
-            'pager' => $this->regulationModel->pager,
-            'type' => $type
+            'pager'       => $this->regulationModel->pager,
+            'type'        => $type,
+            'categories'  => $categoryModel->where('type', 'regulations')->findAll(),
         ];
 
         return view('admin/regulations/index', $data);
@@ -37,8 +41,11 @@ class Regulations extends BaseController
 
     public function create()
     {
+        $categoryModel = new CategoryModel();
+
         $data = [
-            'title' => 'Tambah Regulasi Baru'
+            'title'      => 'Tambah Regulasi Baru',
+            'categories' => $categoryModel->where('type', 'regulations')->findAll(),
         ];
 
         return view('admin/regulations/create', $data);
@@ -48,7 +55,7 @@ class Regulations extends BaseController
     {
         $rules = [
             'title'       => 'required|min_length[3]',
-            'type'        => 'required|in_list[uu,pp,perki,pma,sk]',
+            'type'        => 'required',
             'number'      => 'permit_empty',
             'year'        => 'permit_empty|numeric|exact_length[4]',
             'description' => 'permit_empty',
@@ -98,9 +105,12 @@ class Regulations extends BaseController
             return redirect()->to('admin/regulations')->with('error', 'Regulasi tidak ditemukan.');
         }
 
+        $categoryModel = new CategoryModel();
+
         $data = [
             'title'      => 'Edit Regulasi',
-            'regulation' => $regulation
+            'regulation' => $regulation,
+            'categories' => $categoryModel->where('type', 'regulations')->findAll(),
         ];
 
         return view('admin/regulations/edit', $data);
@@ -116,7 +126,7 @@ class Regulations extends BaseController
 
         $rules = [
             'title'       => 'required|min_length[3]',
-            'type'        => 'required|in_list[uu,pp,perki,pma,sk]',
+            'type'        => 'required',
             'number'      => 'permit_empty',
             'year'        => 'permit_empty|numeric|exact_length[4]',
             'description' => 'permit_empty',

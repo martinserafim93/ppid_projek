@@ -4,9 +4,14 @@
 
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h1 class="h3 mb-0 text-gray-800">Kelola Informasi Publik</h1>
-    <a href="<?= base_url('admin/public-informations/create') ?>" class="btn btn-primary">
-        <i class="bi bi-plus-lg me-1"></i> Tambah Informasi
-    </a>
+    <div>
+        <a href="<?= base_url('admin/categories/public-informations') ?>" class="btn btn-outline-secondary me-2">
+            <i class="bi bi-tags me-1"></i> Kelola Kategori
+        </a>
+        <a href="<?= base_url('admin/public-informations/create') ?>" class="btn btn-primary">
+            <i class="bi bi-plus-lg me-1"></i> Tambah Informasi
+        </a>
+    </div>
 </div>
 
 <?php if (session()->getFlashdata('message')) : ?>
@@ -25,32 +30,20 @@
 
 <!-- Nav Tabs for Categories -->
 <ul class="nav nav-tabs mb-4 border-bottom-0" role="tablist">
-    <li class="nav-item" role="presentation">
-        <a href="<?= base_url('admin/public-informations?category=berkala') ?>" class="nav-link <?= $active_category == 'berkala' ? 'active fw-bold' : 'text-muted' ?>" style="<?= $active_category == 'berkala' ? 'border-top: 3px solid var(--primary-color, #1B5E20);' : '' ?>">
-            <i class="bi bi-calendar3 me-1"></i> Informasi Berkala
-        </a>
-    </li>
-    <li class="nav-item" role="presentation">
-        <a href="<?= base_url('admin/public-informations?category=serta_merta') ?>" class="nav-link <?= $active_category == 'serta_merta' ? 'active fw-bold' : 'text-muted' ?>" style="<?= $active_category == 'serta_merta' ? 'border-top: 3px solid var(--danger-color, #dc3545);' : '' ?>">
-            <i class="bi bi-lightning-charge me-1"></i> Informasi Serta Merta
-        </a>
-    </li>
-    <li class="nav-item" role="presentation">
-        <a href="<?= base_url('admin/public-informations?category=tersedia') ?>" class="nav-link <?= $active_category == 'tersedia' ? 'active fw-bold' : 'text-muted' ?>" style="<?= $active_category == 'tersedia' ? 'border-top: 3px solid var(--info-color, #0dcaf0);' : '' ?>">
-            <i class="bi bi-check2-circle me-1"></i> Informasi Tersedia
-        </a>
-    </li>
-    <li class="nav-item" role="presentation">
-        <a href="<?= base_url('admin/public-informations?category=dikecualikan') ?>" class="nav-link <?= $active_category == 'dikecualikan' ? 'active fw-bold' : 'text-muted' ?>" style="<?= $active_category == 'dikecualikan' ? 'border-top: 3px solid var(--secondary-color, #6c757d);' : '' ?>">
-            <i class="bi bi-shield-lock me-1"></i> Informasi Dikecualikan
-        </a>
-    </li>
+    <?php if (!empty($categories)) : ?>
+        <?php foreach ($categories as $cat) : ?>
+            <li class="nav-item" role="presentation">
+                <a href="<?= base_url('admin/public-informations?category=' . esc($cat['slug'])) ?>" 
+                   class="nav-link <?= $active_category == $cat['slug'] ? 'active fw-bold' : 'text-muted' ?>" 
+                   style="<?= $active_category == $cat['slug'] ? 'border-top: 3px solid var(--primary-color, #1B5E20);' : '' ?>">
+                    <i class="bi bi-folder2-open me-1"></i> <?= esc($cat['name']) ?>
+                </a>
+            </li>
+        <?php endforeach; ?>
+    <?php endif; ?>
 </ul>
 
-<div class="card shadow-sm border-0 border-top border-3 <?= 
-    $active_category == 'berkala' ? 'border-primary' : 
-    ($active_category == 'serta_merta' ? 'border-danger' : 
-    ($active_category == 'tersedia' ? 'border-info' : 'border-secondary')) ?>">
+<div class="card shadow-sm border-0 border-top border-3 border-primary">
     <div class="card-body p-0">
         <div class="table-responsive">
             <table class="table table-hover align-middle mb-0">

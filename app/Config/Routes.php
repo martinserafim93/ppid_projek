@@ -27,6 +27,14 @@ $routes->get('test', function() {
 $routes->group('admin', ['filter' => 'admin', 'namespace' => 'App\Controllers\Admin'], static function ($routes) {
     $routes->get('dashboard', 'Dashboard::index');
     
+    // Categories
+    $routes->get('categories/(:segment)', 'Category::index/$1');
+    $routes->get('categories/(:segment)/create', 'Category::create/$1');
+    $routes->post('categories/store', 'Category::store');
+    $routes->get('categories/edit/(:num)', 'Category::edit/$1');
+    $routes->post('categories/update/(:num)', 'Category::update/$1');
+    $routes->get('categories/delete/(:num)', 'Category::delete/$1');
+
     // Pages
     $routes->get('pages', 'Pages::index');
     $routes->get('pages/create', 'Pages::create');

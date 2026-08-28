@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\RegulationModel;
+use App\Models\CategoryModel;
 
 class Regulation extends BaseController
 {
@@ -22,16 +23,19 @@ class Regulation extends BaseController
         if (!empty($search)) {
             $query->groupStart()
                   ->like('title', $search)
-                  ->orLike('regulation_number', $search)
+                  ->orLike('number', $search)
                   ->groupEnd();
         }
         
+        $categoryModel = new CategoryModel();
+
         $data = [
             'title'       => 'Regulasi dan Produk Hukum',
             'regulations' => $query->orderBy('year', 'DESC')->paginate(10),
             'pager'       => $regulationModel->pager,
             'type'        => $type,
             'search'      => $search,
+            'categories'  => $categoryModel->where('type', 'regulations')->findAll(),
             'breadcrumb'  => [
                 ['label' => 'Regulasi', 'active' => true]
             ]
