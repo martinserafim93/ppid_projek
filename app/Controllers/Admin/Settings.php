@@ -118,6 +118,8 @@ class Settings extends BaseController
                 }
             }
         }
+        // Bersihkan cache settings agar perubahan langsung tampil di situs publik
+        cache()->delete('site_settings');
 
         return redirect()->to('admin/settings')->with('message', 'Pengaturan website berhasil diperbarui.');
     }
