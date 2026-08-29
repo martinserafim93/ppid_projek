@@ -96,6 +96,10 @@ $routes->group('pimpinan', ['filter' => 'pimpinan', 'namespace' => 'App\Controll
 });
 
 // === PUBLIC ===
+// Dokumen publik (SOP dll)
+$routes->get('dokumen/download/(:num)', 'Document::download/$1');
+$routes->get('dokumen/(:segment)', 'Document::category/$1');
+
 $routes->get('/', 'Home::index');
 $routes->get('profil/(:segment)', 'Profile::show/$1');
 $routes->get('regulasi', 'Regulation::index');
