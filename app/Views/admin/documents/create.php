@@ -82,8 +82,11 @@
                         <div class="mb-4">
                             <label for="category" class="form-label fw-semibold">Kategori Dokumen <span class="text-danger">*</span></label>
                             <select class="form-select" id="category" name="category" required>
-                                <option value="umum" <?= old('category') == 'umum' ? 'selected' : '' ?>>Dokumen Umum</option>
-                                <option value="statistik" <?= old('category') == 'statistik' ? 'selected' : '' ?>>Data & Statistik Tahunan</option>
+                                <?php foreach (($categories ?? []) as $cat): ?>
+                                    <option value="<?= esc($cat['slug']) ?>" <?= old('category') == $cat['slug'] ? 'selected' : '' ?>>
+                                        <?= esc($cat['name']) ?>
+                                    </option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                         
