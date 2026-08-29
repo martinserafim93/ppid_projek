@@ -4,25 +4,25 @@ use CodeIgniter\Router\RouteCollection;
 
 /** @var RouteCollection $routes */
 
-// === AUTH ===
+// === ADMIN & PIMPINAN AUTH (Lama) ===
 $routes->group('auth', static function ($routes) {
     $routes->get('login', 'Auth::login');
     $routes->post('login', 'Auth::login');
-    $routes->get('register', 'Auth::register');
-    $routes->post('register', 'Auth::register');
     $routes->get('logout', 'Auth::logout');
 });
 
-// === ADMIN (dilindungi filter admin) ===
-$routes->get('test', function() {
-    $request = service('request');
-    $collection = service('routes');
-    $router = service('router', $collection, $request);
-    $router->handle('auth/login');
-    $out = "Controller: " . $router->controllerName() . "<br>";
-    $out .= "Method: " . $router->methodName() . "<br>";
-    return $out;
+// === USER AUTH (Pemohon) ===
+$routes->group('user', static function ($routes) {
+    $routes->get('login', 'UserAuth::login');
+    $routes->post('login', 'UserAuth::login');
+    $routes->get('register', 'UserAuth::register');
+    $routes->post('register', 'UserAuth::register');
+    $routes->get('logout', 'UserAuth::logout');
 });
+
+
+
+// === ADMIN (dilindungi filter admin) ===
 
 $routes->group('admin', ['filter' => 'admin', 'namespace' => 'App\Controllers\Admin'], static function ($routes) {
     $routes->get('dashboard', 'Dashboard::index');
@@ -76,14 +76,34 @@ $routes->group('admin', ['filter' => 'admin', 'namespace' => 'App\Controllers\Ad
     $routes->get('documents/delete/(:num)', 'Documents::delete/$1');
     $routes->get('documents/download/(:num)', 'Documents::download/$1');
 
+    // Pemohon Management
+    $routes->get('pemohon', 'Pemohon::index');
+    $routes->get('pemohon/create', 'Pemohon::create');
+    $routes->post('pemohon/store', 'Pemohon::store');
+    $routes->get('pemohon/edit/(:num)', 'Pemohon::edit/$1');
+    $routes->post('pemohon/update/(:num)', 'Pemohon::update/$1');
+    $routes->get('pemohon/toggle/(:num)', 'Pemohon::toggleActive/$1');
+    $routes->post('pemohon/reset-password/(:num)', 'Pemohon::resetPassword/$1');
+
     // Users
     $routes->get('users', 'Users::index');
     $routes->get('users/create', 'Users::create');
     $routes->post('users/store', 'Users::store');
     $routes->get('users/edit/(:num)', 'Users::edit/$1');
     $routes->post('users/update/(:num)', 'Users::update/$1');
+    $routes->get('users/delete/(:num)', 'Users::delete/$1');
     $routes->get('users/toggle/(:num)', 'Users::toggleActive/$1');
     $routes->post('users/reset-password/(:num)', 'Users::resetPassword/$1');
+
+    // Requests (Permohonan Informasi)
+    $routes->get('requests', 'Requests::index');
+    $routes->get('requests/create', 'Requests::create');
+    $routes->post('requests/store', 'Requests::store');
+    $routes->get('requests/detail/(:num)', 'Requests::detail/$1');
+    $routes->post('requests/update/(:num)', 'Requests::update/$1'); // Update Status
+    $routes->get('requests/edit/(:num)', 'Requests::edit/$1');
+    $routes->post('requests/update_data/(:num)', 'Requests::updateData/$1'); // Update Data
+    $routes->get('requests/delete/(:num)', 'Requests::delete/$1');
 
     // Settings
     $routes->get('settings', 'Settings::index');
@@ -96,6 +116,19 @@ $routes->group('pimpinan', ['filter' => 'pimpinan', 'namespace' => 'App\Controll
 });
 
 // === PUBLIC ===
+$routes->group('permohonan', static function ($routes) {
+    $routes->get('buat', 'Request_::create');
+    $routes->post('store', 'Request_::store');
+    $routes->get('sukses/(:segment)', 'Request_::success/$1');
+    $routes->get('lacak', 'Request_::track');
+    $routes->post('lacak', 'Request_::search');
+    
+    // User routes (requires login)
+    $routes->get('riwayat', 'Request_::history');
+    $routes->get('detail/(:num)', 'Request_::detail/$1');
+    $routes->post('keberatan/(:num)', 'Request_::objection/$1');
+});
+
 // Dokumen publik (SOP dll)
 $routes->get('dokumen/download/(:num)', 'Document::download/$1');
 $routes->get('dokumen/(:segment)', 'Document::category/$1');

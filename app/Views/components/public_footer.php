@@ -47,7 +47,7 @@
                     <li><a href="<?= base_url('informasi-publik/berkala') ?>" class="footer-link">Informasi Berkala</a></li>
                     <li><a href="<?= base_url('layanan/maklumat-pelayanan') ?>" class="footer-link">Maklumat Pelayanan</a></li>
                     <li><a href="<?= base_url('data') ?>" class="footer-link">Data & Statistik</a></li>
-                    <li><a href="<?= base_url('auth/login') ?>" class="footer-link">Login Admin</a></li>
+                    <li><a href="<?= base_url('user/login') ?>" class="footer-link">Login Pemohon</a></li>
                 </ul>
             </div>
             

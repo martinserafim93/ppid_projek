@@ -11,6 +11,11 @@
             <i class="bi bi-speedometer2"></i>
             <span>Dashboard</span>
         </a>
+
+        <a href="<?= base_url('admin/requests') ?>" class="nav-link <?= isActiveMenu('admin/requests') ?>">
+            <i class="bi bi-envelope-paper"></i>
+            <span>Kelola Permohonan</span>
+        </a>
         
         <a href="<?= base_url('admin/pages') ?>" class="nav-link <?= isActiveMenu('admin/pages') ?>">
             <i class="bi bi-file-earmark-text"></i>
@@ -40,6 +45,11 @@
         <a href="<?= base_url('admin/users') ?>" class="nav-link <?= isActiveMenu('admin/users') ?>">
             <i class="bi bi-people"></i>
             <span>Manajemen User</span>
+        </a>
+
+        <a href="<?= base_url('admin/pemohon') ?>" class="nav-link <?= isActiveMenu('admin/pemohon') ?>">
+            <i class="bi bi-person-vcard"></i>
+            <span>Manajemen Pemohon</span>
         </a>
         
         <a href="<?= base_url('admin/settings') ?>" class="nav-link <?= isActiveMenu('admin/settings') ?>">
