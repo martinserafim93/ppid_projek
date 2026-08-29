@@ -99,11 +99,11 @@
                                     <?php endif; ?>
                                 </td>
                                 <td class="text-center">
-                                    <div class="btn-group btn-group-sm">
-                                        <a href="<?= base_url('admin/public-informations/edit/' . $item['id']) ?>" class="btn btn-outline-primary" title="Edit">
+                                    <div class="d-flex justify-content-center gap-1">
+                                        <a href="<?= base_url('admin/public-informations/edit/' . $item['id']) ?>" class="btn btn-sm btn-light text-primary border" title="Edit">
                                             <i class="bi bi-pencil"></i>
                                         </a>
-                                        <button type="button" class="btn btn-outline-danger btn-delete" data-id="<?= $item['id'] ?>" data-title="<?= esc($item['title']) ?>" title="Hapus">
+                                        <button type="button" class="btn btn-sm btn-light text-danger border btn-delete" data-id="<?= $item['id'] ?>" data-title="<?= esc($item['title']) ?>" title="Hapus">
                                             <i class="bi bi-trash"></i>
                                         </button>
                                     </div>
