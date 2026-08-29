@@ -52,13 +52,13 @@
                                 <td class="px-4 text-muted"><?= $no++ ?></td>
                                 <td class="fw-medium text-dark"><?= esc($category['name']) ?></td>
                                 <td><span class="badge bg-light text-dark border"><?= esc($category['slug']) ?></span></td>
-                                <td><?= esc($category['description']) ?: '<span class="text-muted fst-italic">Tidak ada deskripsi</span>' ?></td>
+                                <td><?= esc($category['description']) ?: '<span class="text-light-subtle">-</span>' ?></td>
                                 <td class="text-center">
-                                    <div class="btn-group btn-group-sm">
-                                        <a href="<?= base_url('admin/categories/edit/' . $category['id']) ?>" class="btn btn-outline-primary" title="Edit">
+                                    <div class="d-flex justify-content-center gap-1">
+                                        <a href="<?= base_url('admin/categories/edit/' . $category['id']) ?>" class="btn btn-sm btn-light text-primary border" title="Edit">
                                             <i class="bi bi-pencil"></i>
                                         </a>
-                                        <a href="<?= base_url('admin/categories/delete/' . $category['id']) ?>" class="btn btn-outline-danger" onclick="return confirmDelete(event, '<?= addslashes($category['name']) ?>', 'Kategori')" title="Hapus">
+                                        <a href="<?= base_url('admin/categories/delete/' . $category['id']) ?>" class="btn btn-sm btn-light text-danger border" onclick="return confirmDelete(event, '<?= addslashes($category['name']) ?>', 'Kategori')" title="Hapus">
                                             <i class="bi bi-trash"></i>
                                         </a>
                                     </div>

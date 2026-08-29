@@ -39,10 +39,11 @@
                 <div class="form-text">Opsional. Penjelasan singkat mengenai kategori ini.</div>
             </div>
 
-            <div class="d-flex justify-content-end gap-2 mt-4">
-                <a href="<?= base_url('admin/categories/' . esc($type)) ?>" class="btn btn-light">Batal</a>
-                <button type="submit" class="btn btn-primary px-4">
-                    <i class="bi bi-save me-1"></i> Simpan
+            <hr class="my-4 text-secondary opacity-25">
+            <div class="d-flex justify-content-end gap-3 mt-4">
+                <a href="<?= base_url('admin/categories/' . esc($type)) ?>" class="btn btn-light btn-lg border fw-medium px-4">Batal</a>
+                <button type="submit" class="btn btn-primary btn-lg fw-semibold px-5 shadow-sm">
+                    <i class="bi bi-save me-2"></i> Simpan Kategori
                 </button>
             </div>
         </form>
