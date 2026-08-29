@@ -44,14 +44,16 @@
                     <div class="row mb-4">
                         <!-- Tipe -->
                         <div class="col-md-4">
-                            <label for="type" class="form-label fw-semibold">Tipe Regulasi <span class="text-danger">*</span></label>
+                            <label for="type" class="form-label fw-semibold">Kategori Regulasi <span class="text-danger">*</span></label>
                             <select class="form-select" id="type" name="type" required>
-                                <option value="">-- Pilih Tipe --</option>
-                                <option value="uu" <?= old('type', $regulation['type']) == 'uu' ? 'selected' : '' ?>>Undang-Undang (UU)</option>
-                                <option value="pp" <?= old('type', $regulation['type']) == 'pp' ? 'selected' : '' ?>>Peraturan Pemerintah (PP)</option>
-                                <option value="perki" <?= old('type', $regulation['type']) == 'perki' ? 'selected' : '' ?>>Peraturan KI (Perki)</option>
-                                <option value="pma" <?= old('type', $regulation['type']) == 'pma' ? 'selected' : '' ?>>Peraturan Menteri (PMA)</option>
-                                <option value="sk" <?= old('type', $regulation['type']) == 'sk' ? 'selected' : '' ?>>Surat Keputusan (SK)</option>
+                                <option value="">-- Pilih Kategori --</option>
+                                <?php if (!empty($categories)) : ?>
+                                    <?php foreach ($categories as $cat) : ?>
+                                        <option value="<?= esc($cat['slug']) ?>" <?= old('type', $regulation['type']) == $cat['slug'] ? 'selected' : '' ?>>
+                                            <?= esc($cat['name']) ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
                             </select>
                         </div>
                         

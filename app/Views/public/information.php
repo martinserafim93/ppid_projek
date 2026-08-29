@@ -15,34 +15,49 @@
 
         <div class="card-glass border-0 overflow-hidden" data-aos="fade-up" data-aos-delay="100">
             <!-- Nav Tabs -->
-            <ul class="nav nav-tabs nav-tabs-custom px-4 pt-4 border-bottom-0 mb-0 d-flex flex-nowrap overflow-auto" id="infoTab" role="tablist">
-                <li class="nav-item flex-shrink-0" role="presentation">
-                    <a class="nav-link <?= $activeTab === 'berkala' ? 'active' : '' ?>" href="<?= base_url('informasi-publik/berkala') ?>">
-                        <i class="bi bi-journal-text me-2"></i>Berkala
-                    </a>
-                </li>
-                <li class="nav-item flex-shrink-0" role="presentation">
-                    <a class="nav-link <?= $activeTab === 'serta-merta' ? 'active' : '' ?>" href="<?= base_url('informasi-publik/serta-merta') ?>">
-                        <i class="bi bi-lightning me-2"></i>Serta Merta
-                    </a>
-                </li>
-                <li class="nav-item flex-shrink-0" role="presentation">
-                    <a class="nav-link <?= $activeTab === 'tersedia' ? 'active' : '' ?>" href="<?= base_url('informasi-publik/tersedia') ?>">
-                        <i class="bi bi-archive me-2"></i>Setiap Saat
-                    </a>
-                </li>
-                <li class="nav-item flex-shrink-0" role="presentation">
-                    <a class="nav-link <?= $activeTab === 'dikecualikan' ? 'active' : '' ?>" href="<?= base_url('informasi-publik/dikecualikan') ?>">
-                        <i class="bi bi-shield-lock me-2"></i>Dikecualikan
-                    </a>
-                </li>
+            <ul class="nav nav-tabs nav-tabs-custom px-4 pt-4 pb-1 border-bottom-0 mb-0 d-flex flex-nowrap" id="infoTab" role="tablist" style="overflow-x: auto; overflow-y: hidden;">
+                <?php if (!empty($categories)): ?>
+                    <?php foreach ($categories as $cat): ?>
+                        <li class="nav-item flex-shrink-0" role="presentation">
+                            <a class="nav-link <?= $activeTab === $cat['slug'] ? 'active' : '' ?>" href="<?= base_url('informasi-publik/' . $cat['slug']) ?>">
+                                <i class="bi bi-folder2-open me-2"></i><?= esc($cat['name']) ?>
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </ul>
 
             <div class="p-4 bg-white">
                 <!-- Search -->
                 <form action="<?= base_url('informasi-publik/' . $activeTab) ?>" method="GET" class="mb-4">
-                    <div class="row justify-content-end">
-                        <div class="col-md-6 col-lg-4">
+                    <div class="row justify-content-end g-3">
+                        <?php if (!empty($subCategories)): ?>
+                        <div class="col-md-4 col-lg-3">
+                            <select name="sub_category" class="form-select" onchange="this.form.submit()">
+                                <option value="">-- Semua Sub Kategori --</option>
+                                <?php foreach ($subCategories as $sc): ?>
+                                    <option value="<?= esc($sc['sub_category']) ?>" <?= ($subCat ?? '') == $sc['sub_category'] ? 'selected' : '' ?>>
+                                        <?= esc($sc['sub_category']) ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <?php endif; ?>
+                        
+                        <?php if (!empty($years)): ?>
+                        <div class="col-md-3 col-lg-2">
+                            <select name="year" class="form-select" onchange="this.form.submit()">
+                                <option value="">-- Semua Tahun --</option>
+                                <?php foreach ($years as $yr): ?>
+                                    <option value="<?= esc($yr['year']) ?>" <?= ($yearFilter ?? '') == $yr['year'] ? 'selected' : '' ?>>
+                                        <?= esc($yr['year']) ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <?php endif; ?>
+
+                        <div class="col-md-5 col-lg-4">
                             <div class="input-group">
                                 <input type="text" name="search" class="form-control" placeholder="Cari informasi..." value="<?= esc($search ?? '') ?>">
                                 <button class="btn btn-primary-custom" type="submit"><i class="bi bi-search"></i></button>

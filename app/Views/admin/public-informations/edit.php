@@ -47,10 +47,13 @@
                             <label for="category" class="form-label fw-semibold">Kategori <span class="text-danger">*</span></label>
                             <select class="form-select" id="category" name="category" required>
                                 <option value="">-- Pilih Kategori --</option>
-                                <option value="berkala" <?= old('category', $information['category']) == 'berkala' ? 'selected' : '' ?>>Informasi Berkala</option>
-                                <option value="serta_merta" <?= old('category', $information['category']) == 'serta_merta' ? 'selected' : '' ?>>Informasi Serta Merta</option>
-                                <option value="tersedia" <?= old('category', $information['category']) == 'tersedia' ? 'selected' : '' ?>>Informasi Tersedia Setiap Saat</option>
-                                <option value="dikecualikan" <?= old('category', $information['category']) == 'dikecualikan' ? 'selected' : '' ?>>Informasi Dikecualikan</option>
+                                <?php if (!empty($categories)) : ?>
+                                    <?php foreach ($categories as $cat) : ?>
+                                        <option value="<?= esc($cat['slug']) ?>" <?= old('category', $information['category']) == $cat['slug'] ? 'selected' : '' ?>>
+                                            <?= esc($cat['name']) ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
                             </select>
                         </div>
                         

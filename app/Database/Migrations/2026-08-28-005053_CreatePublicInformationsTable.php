@@ -11,7 +11,7 @@ class CreatePublicInformationsTable extends Migration
     $this->forge->addField([
         'id'            => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'auto_increment' => true],
         'title'         => ['type' => 'VARCHAR', 'constraint' => 500],
-        'category'      => ['type' => 'ENUM', 'constraint' => ['berkala', 'serta_merta', 'tersedia', 'dikecualikan'], 'default' => 'berkala'],
+        'category'      => ['type' => 'VARCHAR', 'constraint' => 255, 'null' => true],
         'sub_category'  => ['type' => 'VARCHAR', 'constraint' => 255, 'null' => true],
         'description'   => ['type' => 'TEXT', 'null' => true],
         'file_path'     => ['type' => 'VARCHAR', 'constraint' => 255, 'null' => true],

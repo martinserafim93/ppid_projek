@@ -23,19 +23,20 @@
                 </div>
                 <div class="col-md-4">
                     <select name="type" class="form-select">
-                        <option value="">-- Semua Tipe Regulasi --</option>
-                        <option value="Undang-Undang" <?= ($type ?? '') == 'Undang-Undang' ? 'selected' : '' ?>>Undang-Undang</option>
-                        <option value="Peraturan Pemerintah" <?= ($type ?? '') == 'Peraturan Pemerintah' ? 'selected' : '' ?>>Peraturan Pemerintah</option>
-                        <option value="Peraturan Menteri" <?= ($type ?? '') == 'Peraturan Menteri' ? 'selected' : '' ?>>Peraturan Menteri (PMA)</option>
-                        <option value="Peraturan Komisi Informasi" <?= ($type ?? '') == 'Peraturan Komisi Informasi' ? 'selected' : '' ?>>Peraturan Komisi Informasi</option>
-                        <option value="Surat Keputusan" <?= ($type ?? '') == 'Surat Keputusan' ? 'selected' : '' ?>>Surat Keputusan</option>
-                        <option value="Lainnya" <?= ($type ?? '') == 'Lainnya' ? 'selected' : '' ?>>Lainnya</option>
+                        <option value="">-- Semua Kategori --</option>
+                        <?php if (!empty($categories)): ?>
+                            <?php foreach ($categories as $cat): ?>
+                                <option value="<?= esc($cat['slug']) ?>" <?= ($type ?? '') == $cat['slug'] ? 'selected' : '' ?>>
+                                    <?= esc($cat['name']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     </select>
                 </div>
-                <div class="col-md-3 d-grid d-md-flex gap-2">
+                <div class="col-md-3 d-grid d-md-flex gap-2 align-items-center">
                     <button type="submit" class="btn btn-primary-custom flex-grow-1">Filter</button>
                     <?php if(!empty($search) || !empty($type)): ?>
-                        <a href="<?= base_url('regulasi') ?>" class="btn btn-outline-secondary">Reset</a>
+                        <a href="<?= base_url('regulasi') ?>" class="btn btn-light text-secondary fw-medium px-4 border-0">Reset</a>
                     <?php endif; ?>
                 </div>
             </form>
@@ -47,7 +48,7 @@
                     <thead>
                         <tr>
                             <th width="5%" class="text-center">No</th>
-                            <th width="15%">Tipe Regulasi</th>
+                            <th width="15%">Kategori Regulasi</th>
                             <th width="20%">Nomor / Tahun</th>
                             <th width="45%">Judul / Tentang</th>
                             <th width="15%" class="text-center">Aksi</th>
@@ -62,17 +63,35 @@
                                 </td>
                             </tr>
                         <?php else: ?>
-                            <?php $no = 1 + (10 * ($pager->getCurrentPage() - 1)); ?>
+                            <?php 
+                            $no = 1 + (10 * ($pager->getCurrentPage() - 1)); 
+                            ?>
                             <?php foreach ($regulations as $reg): ?>
+                                <?php
+                                $label = '';
+                                if (!empty($reg['type'])) {
+                                    $label = strtoupper($reg['type']);
+                                    if (!empty($categories)) {
+                                        foreach ($categories as $cat) {
+                                            if ($cat['slug'] === $reg['type']) {
+                                                $label = $cat['name'];
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                                ?>
                                 <tr>
                                     <td class="text-center"><?= $no++ ?></td>
                                     <td>
-                                        <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill fw-medium">
-                                            <?= esc($reg['type']) ?>
-                                        </span>
+                                        <?php if ($label): ?>
+                                            <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill fw-medium">
+                                                <?= esc($label) ?>
+                                            </span>
+                                        <?php endif; ?>
                                     </td>
                                     <td>
-                                        <strong><?= esc($reg['regulation_number']) ?></strong>
+                                        <strong><?= esc($reg['number']) ?></strong>
                                         <div class="small text-muted">Tahun <?= esc($reg['year']) ?></div>
                                     </td>
                                     <td>

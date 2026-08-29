@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Models\PublicInformationModel;
+use App\Models\CategoryModel;
 
 class PublicInformations extends BaseController
 {
@@ -18,8 +19,13 @@ class PublicInformations extends BaseController
     public function index()
     {
         $category = $this->request->getGet('category');
-        if (empty($category)) {
-            $category = 'berkala'; // Default tab
+        $categoryModel = new CategoryModel();
+        $categories = $categoryModel->where('type', 'public-informations')->findAll();
+
+        if (empty($category) && !empty($categories)) {
+            $category = $categories[0]['slug']; // Default tab is the first category
+        } elseif (empty($category)) {
+            $category = 'berkala'; // Fallback
         }
         
         $query = $this->infoModel->where('category', $category)
@@ -27,10 +33,11 @@ class PublicInformations extends BaseController
                                ->orderBy('sort_order', 'ASC');
 
         $data = [
-            'title' => 'Kelola Informasi Publik',
-            'informations' => $query->paginate(10),
-            'pager' => $this->infoModel->pager,
-            'active_category' => $category
+            'title'           => 'Kelola Informasi Publik',
+            'informations'    => $query->paginate(10),
+            'pager'           => $this->infoModel->pager,
+            'active_category' => $category,
+            'categories'      => $categories
         ];
 
         return view('admin/public-informations/index', $data);
@@ -38,8 +45,11 @@ class PublicInformations extends BaseController
 
     public function create()
     {
+        $categoryModel = new CategoryModel();
+
         $data = [
-            'title' => 'Tambah Informasi Publik Baru'
+            'title'      => 'Tambah Informasi Publik Baru',
+            'categories' => $categoryModel->where('type', 'public-informations')->findAll(),
         ];
 
         return view('admin/public-informations/create', $data);
@@ -49,7 +59,7 @@ class PublicInformations extends BaseController
     {
         $rules = [
             'title'        => 'required|min_length[3]',
-            'category'     => 'required|in_list[berkala,serta_merta,tersedia,dikecualikan]',
+            'category'     => 'required',
             'sub_category' => 'permit_empty',
             'description'  => 'permit_empty',
             'file'         => 'permit_empty|uploaded[file]|max_size[file,10240]',
@@ -97,9 +107,12 @@ class PublicInformations extends BaseController
             return redirect()->to('admin/public-informations')->with('error', 'Informasi tidak ditemukan.');
         }
 
+        $categoryModel = new CategoryModel();
+
         $data = [
             'title'       => 'Edit Informasi Publik',
-            'information' => $information
+            'information' => $information,
+            'categories'  => $categoryModel->where('type', 'public-informations')->findAll(),
         ];
 
         return view('admin/public-informations/edit', $data);
@@ -115,7 +128,7 @@ class PublicInformations extends BaseController
 
         $rules = [
             'title'        => 'required|min_length[3]',
-            'category'     => 'required|in_list[berkala,serta_merta,tersedia,dikecualikan]',
+            'category'     => 'required',
             'sub_category' => 'permit_empty',
             'description'  => 'permit_empty',
             'file'         => 'permit_empty|uploaded[file]|max_size[file,10240]',

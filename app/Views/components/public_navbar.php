@@ -84,16 +84,10 @@ $menuInformasi = array_filter($activePages, fn($p) => $p['category'] === 'layana
                     </ul>
                 </li>
                 
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle <?= $segment1 == 'informasi-publik' ? 'active' : '' ?>" href="#" id="navbarDIP" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <li class="nav-item">
+                    <a class="nav-link <?= $segment1 == 'informasi-publik' ? 'active' : '' ?>" href="<?= base_url('informasi-publik') ?>">
                         Informasi Publik
                     </a>
-                    <ul class="dropdown-menu shadow-lg border-0" aria-labelledby="navbarDIP">
-                        <li><a class="dropdown-item <?= $segment2 == 'berkala' ? 'active text-primary' : '' ?>" href="<?= base_url('informasi-publik/berkala') ?>">Informasi Berkala</a></li>
-                        <li><a class="dropdown-item <?= $segment2 == 'serta-merta' ? 'active text-primary' : '' ?>" href="<?= base_url('informasi-publik/serta-merta') ?>">Informasi Serta Merta</a></li>
-                        <li><a class="dropdown-item <?= $segment2 == 'tersedia' ? 'active text-primary' : '' ?>" href="<?= base_url('informasi-publik/tersedia') ?>">Informasi Tersedia Setiap Saat</a></li>
-                        <li><a class="dropdown-item <?= $segment2 == 'dikecualikan' ? 'active text-primary' : '' ?>" href="<?= base_url('informasi-publik/dikecualikan') ?>">Informasi Dikecualikan</a></li>
-                    </ul>
                 </li>
                 
                 <li class="nav-item dropdown">

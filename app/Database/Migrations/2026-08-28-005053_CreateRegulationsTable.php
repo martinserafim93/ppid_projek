@@ -11,7 +11,7 @@ class CreateRegulationsTable extends Migration
     $this->forge->addField([
         'id'          => ['type' => 'INT', 'constraint' => 11, 'unsigned' => true, 'auto_increment' => true],
         'title'       => ['type' => 'VARCHAR', 'constraint' => 500],
-        'type'        => ['type' => 'ENUM', 'constraint' => ['uu', 'pp', 'perki', 'pma', 'sk'], 'default' => 'uu'],
+        'type'        => ['type' => 'VARCHAR', 'constraint' => 255, 'null' => true],
         'number'      => ['type' => 'VARCHAR', 'constraint' => 100, 'null' => true],
         'year'        => ['type' => 'YEAR', 'null' => true],
         'description' => ['type' => 'TEXT', 'null' => true],
