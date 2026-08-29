@@ -124,7 +124,7 @@
                                     </div>
                                 </td>
                                 <td class="text-center">
-                                    <span class="badge bg-light text-dark border"><?= $size ?></span>
+                                    <span class="fw-medium text-secondary" style="font-size: 0.9rem;"><?= $size ?></span>
                                 </td>
                                 <td class="text-center">
                                     <?php if ($item['is_active']) : ?>
@@ -134,23 +134,22 @@
                                     <?php endif; ?>
                                 </td>
                                 <td class="text-center">
-                                    <div class="d-inline-flex align-items-center justify-content-center bg-light rounded-pill px-3 py-1 border">
-                                        <i class="bi bi-download me-2 text-primary"></i>
-                                        <span class="fw-bold"><?= number_format($item['download_count']) ?></span>
+                                    <div class="text-dark fw-medium" style="font-size: 0.95rem;">
+                                        <i class="bi bi-cloud-arrow-down text-muted me-1"></i> <?= number_format($item['download_count']) ?>
                                     </div>
                                 </td>
                                 <td class="text-center">
-                                    <div class="btn-group-vertical btn-group-sm">
-                                        <button type="button" class="btn btn-outline-info" onclick="copyLink('<?= base_url($item['file_path']) ?>')" title="Salin Link Publik">
+                                    <div class="d-flex justify-content-center gap-1">
+                                        <button type="button" class="btn btn-sm btn-light text-info border" onclick="copyLink('<?= base_url($item['file_path']) ?>')" title="Salin Link Publik">
                                             <i class="bi bi-link-45deg"></i>
                                         </button>
-                                        <a href="<?= base_url('admin/documents/download/' . $item['id']) ?>" class="btn btn-outline-success" title="Download">
+                                        <a href="<?= base_url('admin/documents/download/' . $item['id']) ?>" class="btn btn-sm btn-light text-success border" title="Download">
                                             <i class="bi bi-download"></i>
                                         </a>
-                                        <a href="<?= base_url('admin/documents/edit/' . $item['id']) ?>" class="btn btn-outline-primary" title="Edit Info">
+                                        <a href="<?= base_url('admin/documents/edit/' . $item['id']) ?>" class="btn btn-sm btn-light text-primary border" title="Edit Info">
                                             <i class="bi bi-pencil"></i>
                                         </a>
-                                        <button type="button" class="btn btn-outline-danger btn-delete" data-id="<?= $item['id'] ?>" data-title="<?= esc($item['title']) ?>" title="Hapus">
+                                        <button type="button" class="btn btn-sm btn-light text-danger border btn-delete" data-id="<?= $item['id'] ?>" data-title="<?= esc($item['title']) ?>" title="Hapus">
                                             <i class="bi bi-trash"></i>
                                         </button>
                                     </div>
