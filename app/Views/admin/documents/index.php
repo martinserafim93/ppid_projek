@@ -4,9 +4,14 @@
 
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h1 class="h3 mb-0 text-gray-800">Kelola Dokumen Publik</h1>
-    <a href="<?= base_url('admin/documents/create') ?>" class="btn btn-primary">
-        <i class="bi bi-cloud-arrow-up me-1"></i> Upload Dokumen
-    </a>
+    <div>
+        <a href="<?= base_url('admin/categories/documents') ?>" class="btn btn-outline-secondary me-2">
+            <i class="bi bi-tags me-1"></i> Kelola Kategori
+        </a>
+        <a href="<?= base_url('admin/documents/create') ?>" class="btn btn-primary">
+            <i class="bi bi-cloud-arrow-up me-1"></i> Upload Dokumen
+        </a>
+    </div>
 </div>
 
 <?php if (session()->getFlashdata('message')) : ?>

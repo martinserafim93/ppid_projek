@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Models\DocumentModel;
+use App\Models\CategoryModel;
 
 class Documents extends BaseController
 {
@@ -40,8 +41,10 @@ class Documents extends BaseController
 
     public function create()
     {
+        $categoryModel = new CategoryModel();
         $data = [
-            'title' => 'Upload Dokumen Baru'
+            'title'      => 'Upload Dokumen Baru',
+            'categories' => $categoryModel->where('type', 'documents')->findAll(),
         ];
 
         return view('admin/documents/create', $data);
@@ -100,9 +103,11 @@ class Documents extends BaseController
             return redirect()->to('admin/documents')->with('error', 'Dokumen tidak ditemukan.');
         }
 
+        $categoryModel = new CategoryModel();
         $data = [
-            'title'    => 'Edit Dokumen',
-            'document' => $document
+            'title'      => 'Edit Dokumen',
+            'document'   => $document,
+            'categories' => $categoryModel->where('type', 'documents')->findAll(),
         ];
 
         return view('admin/documents/edit', $data);
