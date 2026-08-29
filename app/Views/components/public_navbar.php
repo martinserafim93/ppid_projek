@@ -65,6 +65,12 @@ $menuInformasi = array_filter($activePages, fn($p) => $p['category'] === 'layana
                                 </a>
                             </li>
                         <?php endforeach; ?>
+                        <li>
+                            <a class="dropdown-item <?= ($segment1 == 'dokumen' && $segment2 == 'sop') ? 'active text-primary' : '' ?>"
+                               href="<?= base_url('dokumen/sop') ?>">
+                                SOP Layanan
+                            </a>
+                        </li>
                     </ul>
                 </li>
 
