@@ -37,7 +37,6 @@ class Filters extends BaseFilters
         'auth'          => \App\Filters\AuthFilter::class,
         'admin'         => \App\Filters\AdminFilter::class,
         'pimpinan'      => \App\Filters\PimpinanFilter::class,
-        'dump'          => \App\Filters\DumpFilter::class,
     ];
 
     /**
