@@ -44,7 +44,7 @@
                     <?php endif; ?>
 
                     <div class="ratio ratio-4x3 bg-light border-bottom">
-                        <img src="<?= base_url($item['image']) ?>" class="object-fit-cover" alt="<?= esc($item['title']) ?>">
+                        <img src="<?= base_url($item['image_path']) ?>" class="object-fit-cover" alt="<?= esc($item['title']) ?>">
                     </div>
                     
                     <div class="card-body p-3 z-2 bg-white">

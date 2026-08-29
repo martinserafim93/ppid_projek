@@ -60,7 +60,7 @@ class Infographics extends BaseController
 
         $data = [
             'title'       => $this->request->getPost('title'),
-            'image'       => 'uploads/infographics/' . $imageName,
+            'image_path'  => 'uploads/infographics/' . $imageName,
             'description' => $this->request->getPost('description'),
             'sort_order'  => $this->request->getPost('sort_order') ?: 0,
             'is_active'   => $this->request->getPost('is_active') ? 1 : 0,
@@ -119,10 +119,10 @@ class Infographics extends BaseController
             $imageName = uploadFile($imageFile, 'infographics');
             if ($imageName) {
                 // Delete old image
-                if (!empty($infographic['image'])) {
-                    deleteFile($infographic['image']);
+                if (!empty($infographic['image_path'])) {
+                    deleteFile($infographic['image_path']);
                 }
-                $data['image'] = 'uploads/infographics/' . $imageName;
+                $data['image_path'] = 'uploads/infographics/' . $imageName;
             } else {
                 return redirect()->back()->withInput()->with('error', 'Gagal mengupload gambar baru.');
             }
@@ -142,8 +142,8 @@ class Infographics extends BaseController
         }
 
         // Delete file if exist
-        if (!empty($infographic['image'])) {
-            deleteFile($infographic['image']);
+        if (!empty($infographic['image_path'])) {
+            deleteFile($infographic['image_path']);
         }
 
         $this->infographicModel->delete($id);
