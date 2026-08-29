@@ -79,7 +79,13 @@
                         <!-- Current Image Container -->
                         <div id="current-image-wrapper" class="mb-3">
                             <div class="border rounded bg-white p-2 shadow-sm position-relative">
-                                <img src="<?= base_url($infographic['image_path']) ?>" alt="<?= esc($infographic['title']) ?>" class="img-fluid rounded w-100 object-fit-contain" style="max-height: 250px;">
+                                <?php if (!empty($infographic['image_path'])) : ?>
+                                    <img src="<?= base_url($infographic['image_path']) ?>" alt="<?= esc($infographic['title']) ?>" class="img-fluid rounded w-100 object-fit-contain" style="max-height: 250px;">
+                                <?php else : ?>
+                                    <div class="d-flex align-items-center justify-content-center bg-secondary bg-opacity-10 rounded w-100" style="height: 200px;">
+                                        <i class="bi bi-image text-secondary fs-1"></i>
+                                    </div>
+                                <?php endif; ?>
                                 <div class="position-absolute top-0 end-0 m-2">
                                     <span class="badge bg-success shadow">Gambar Saat Ini</span>
                                 </div>

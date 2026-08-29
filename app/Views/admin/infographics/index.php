@@ -44,7 +44,13 @@
                     <?php endif; ?>
 
                     <div class="ratio ratio-4x3 bg-light border-bottom">
-                        <img src="<?= base_url($item['image_path']) ?>" class="object-fit-cover" alt="<?= esc($item['title']) ?>">
+                        <?php if (!empty($item['image_path'])) : ?>
+                            <img src="<?= base_url($item['image_path']) ?>" class="object-fit-cover" alt="<?= esc($item['title']) ?>">
+                        <?php else : ?>
+                            <div class="d-flex align-items-center justify-content-center h-100 bg-secondary bg-opacity-10">
+                                <i class="bi bi-image text-secondary fs-1"></i>
+                            </div>
+                        <?php endif; ?>
                     </div>
                     
                     <div class="card-body p-3 z-2 bg-white">
