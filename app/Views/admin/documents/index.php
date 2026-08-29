@@ -141,7 +141,7 @@
                                 </td>
                                 <td class="text-center">
                                     <div class="btn-group-vertical btn-group-sm">
-                                        <button type="button" class="btn btn-outline-info" onclick="navigator.clipboard.writeText('<?= base_url($item['file_path']) ?>').then(() => { Swal.fire({toast:true, position:'top-end', icon:'success', title:'Link publik disalin!', showConfirmButton:false, timer:2000}) }).catch(() => { prompt('Copy link berikut:', '<?= base_url($item['file_path']) ?>') })" title="Salin Link Publik">
+                                        <button type="button" class="btn btn-outline-info" onclick="copyLink('<?= base_url($item['file_path']) ?>')" title="Salin Link Publik">
                                             <i class="bi bi-link-45deg"></i>
                                         </button>
                                         <a href="<?= base_url('admin/documents/download/' . $item['id']) ?>" class="btn btn-outline-success" title="Download">
@@ -171,6 +171,31 @@
 </div>
 
 <script>
+function copyLink(url) {
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(url).then(() => {
+            Swal.fire({toast:true, position:'top-end', icon:'success', title:'Link publik disalin!', showConfirmButton:false, timer:2000});
+        });
+    } else {
+        // Fallback for HTTP/Local (non-secure context)
+        const textArea = document.createElement("textarea");
+        textArea.value = url;
+        // Move outside of screen to make it invisible
+        textArea.style.position = "absolute";
+        textArea.style.left = "-999999px";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+            document.execCommand('copy');
+            Swal.fire({toast:true, position:'top-end', icon:'success', title:'Link publik disalin!', showConfirmButton:false, timer:2000});
+        } catch (err) {
+            prompt('Silakan copy link berikut:', url);
+        }
+        textArea.remove();
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     const deleteButtons = document.querySelectorAll('.btn-delete');
     
