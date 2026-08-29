@@ -58,13 +58,10 @@
                                         <a href="<?= base_url('admin/categories/edit/' . $category['id']) ?>" class="btn btn-outline-primary" title="Edit">
                                             <i class="bi bi-pencil"></i>
                                         </a>
-                                        <button type="button" class="btn btn-outline-danger" onclick="confirmDelete(<?= $category['id'] ?>)" title="Hapus">
+                                        <a href="<?= base_url('admin/categories/delete/' . $category['id']) ?>" class="btn btn-outline-danger" onclick="return confirmDelete(event, '<?= addslashes($category['name']) ?>', 'Kategori')" title="Hapus">
                                             <i class="bi bi-trash"></i>
-                                        </button>
+                                        </a>
                                     </div>
-                                    <form id="delete-form-<?= $category['id'] ?>" action="<?= base_url('admin/categories/delete/' . $category['id']) ?>" method="get" class="d-none">
-                                        <?= csrf_field() ?>
-                                    </form>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -74,13 +71,5 @@
         </div>
     </div>
 </div>
-
-<script>
-function confirmDelete(id) {
-    if (confirm('Apakah Anda yakin ingin menghapus kategori ini?')) {
-        document.getElementById('delete-form-' + id).submit();
-    }
-}
-</script>
 
 <?= $this->endSection() ?>
