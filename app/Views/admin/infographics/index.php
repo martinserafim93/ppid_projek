@@ -53,24 +53,24 @@
                         <?php endif; ?>
                     </div>
                     
-                    <div class="card-body p-3 z-2 bg-white">
+                    <div class="card-body p-4 pt-3 z-2 bg-white d-flex flex-column">
                         <h6 class="card-title fw-bold text-dark text-truncate mb-1" title="<?= esc($item['title']) ?>">
                             <?= esc($item['title']) ?>
                         </h6>
-                        <div class="small text-muted mb-3 text-truncate">
-                            <?= !empty($item['description']) ? esc($item['description']) : '<em>Tidak ada deskripsi</em>' ?>
+                        <div class="small text-muted mb-4 text-truncate">
+                            <?= !empty($item['description']) ? esc($item['description']) : '<span class="text-light-subtle">-</span>' ?>
                         </div>
                         
                         <div class="d-flex justify-content-between align-items-center mt-auto">
-                            <span class="badge bg-light text-dark border">
-                                <i class="bi bi-sort-numeric-down"></i> <?= $item['sort_order'] ?>
-                            </span>
+                            <div class="text-secondary small fw-medium" title="Urutan Tampil">
+                                <i class="bi bi-list-ol me-1"></i> <?= $item['sort_order'] ?>
+                            </div>
                             
-                            <div class="btn-group btn-group-sm z-3" style="pointer-events: auto;">
-                                <a href="<?= base_url('admin/infographics/edit/' . $item['id']) ?>" class="btn btn-outline-primary" title="Edit">
+                            <div class="d-flex gap-1 z-3" style="pointer-events: auto;">
+                                <a href="<?= base_url('admin/infographics/edit/' . $item['id']) ?>" class="btn btn-sm btn-light text-primary border" title="Edit">
                                     <i class="bi bi-pencil"></i>
                                 </a>
-                                <button type="button" class="btn btn-outline-danger btn-delete" data-id="<?= $item['id'] ?>" data-title="<?= esc($item['title']) ?>" title="Hapus">
+                                <button type="button" class="btn btn-sm btn-light text-danger border btn-delete" data-id="<?= $item['id'] ?>" data-title="<?= esc($item['title']) ?>" title="Hapus">
                                     <i class="bi bi-trash"></i>
                                 </button>
                             </div>
