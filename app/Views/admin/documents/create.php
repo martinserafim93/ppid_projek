@@ -105,13 +105,17 @@
                             </div>
                         </div>
                         
-                        <div class="d-grid mt-4">
-                            <button type="submit" class="btn btn-primary btn-lg fw-semibold" id="btn-submit" disabled>
-                                <i class="bi bi-cloud-arrow-up me-1"></i> Upload & Simpan
-                            </button>
-                        </div>
+
                     </div>
                 </div>
+            </div>
+            
+            <hr class="my-4 text-secondary opacity-25">
+            <div class="d-flex justify-content-end">
+                <a href="<?= base_url('admin/documents') ?>" class="btn btn-light btn-lg border me-3 fw-medium">Batal</a>
+                <button type="submit" class="btn btn-primary btn-lg fw-semibold px-5 shadow-sm" id="btn-submit" disabled>
+                    <i class="bi bi-cloud-arrow-up me-2"></i> Upload & Simpan
+                </button>
             </div>
         </form>
     </div>

@@ -83,9 +83,12 @@
                     
                     <hr class="my-4">
                     
-                    <button type="submit" class="btn btn-primary btn-lg fw-semibold">
-                        <i class="bi bi-save me-1"></i> Update Informasi
-                    </button>
+                    <div class="d-flex justify-content-end mt-2">
+                        <a href="<?= base_url('admin/documents') ?>" class="btn btn-light btn-lg border me-3 fw-medium">Batal</a>
+                        <button type="submit" class="btn btn-primary btn-lg fw-semibold px-5 shadow-sm">
+                            <i class="bi bi-save me-2"></i> Update Informasi
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
