@@ -65,11 +65,7 @@
                         </div>
                     </div>
                     
-                    <div class="d-grid mt-4">
-                        <button type="submit" class="btn btn-primary btn-lg fw-semibold">
-                            <i class="bi bi-save me-1"></i> Update Infografis
-                        </button>
-                    </div>
+
                 </div>
                 
                 <div class="col-md-5">
@@ -114,6 +110,14 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            
+            <hr class="my-4 text-secondary opacity-25">
+            <div class="d-flex justify-content-end">
+                <a href="<?= base_url('admin/infographics') ?>" class="btn btn-light btn-lg border me-3 fw-medium">Batal</a>
+                <button type="submit" class="btn btn-primary btn-lg fw-semibold px-5 shadow-sm">
+                    <i class="bi bi-save me-2"></i> Update Infografis
+                </button>
             </div>
         </form>
     </div>
