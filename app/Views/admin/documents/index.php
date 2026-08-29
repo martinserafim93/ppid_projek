@@ -141,6 +141,9 @@
                                 </td>
                                 <td class="text-center">
                                     <div class="btn-group-vertical btn-group-sm">
+                                        <button type="button" class="btn btn-outline-info" onclick="navigator.clipboard.writeText('<?= base_url($item['file_path']) ?>').then(() => { Swal.fire({toast:true, position:'top-end', icon:'success', title:'Link publik disalin!', showConfirmButton:false, timer:2000}) }).catch(() => { prompt('Copy link berikut:', '<?= base_url($item['file_path']) ?>') })" title="Salin Link Publik">
+                                            <i class="bi bi-link-45deg"></i>
+                                        </button>
                                         <a href="<?= base_url('admin/documents/download/' . $item['id']) ?>" class="btn btn-outline-success" title="Download">
                                             <i class="bi bi-download"></i>
                                         </a>
