@@ -105,7 +105,39 @@ $menuInformasi = array_filter($activePages, fn($p) => $p['category'] === 'layana
                         <li><a class="dropdown-item <?= $segment1 == 'infografis' ? 'active text-primary' : '' ?>" href="<?= base_url('infografis') ?>">Galeri Infografis</a></li>
                     </ul>
                 </li>
+                
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle <?= $segment1 == 'permohonan' ? 'active' : '' ?>" href="#" id="navbarPermohonan" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Permohonan
+                    </a>
+                    <ul class="dropdown-menu shadow-lg border-0" aria-labelledby="navbarPermohonan">
+                        <li><a class="dropdown-item <?= ($segment1 == 'permohonan' && $segment2 == 'buat') ? 'active text-primary' : '' ?>" href="<?= base_url('permohonan/buat') ?>">Buat Permohonan Baru</a></li>
+                        <li><a class="dropdown-item <?= ($segment1 == 'permohonan' && $segment2 == 'lacak') ? 'active text-primary' : '' ?>" href="<?= base_url('permohonan/lacak') ?>">Lacak Status</a></li>
+                    </ul>
+                </li>
             </ul>
+
+            <!-- Login / Akun Menu -->
+            <ul class="navbar-nav ms-lg-3">
+                <?php if(session()->get('logged_in')): ?>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-warning fw-bold d-flex align-items-center" href="#" id="navbarAkun" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle me-1"></i> Akun Saya
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0" aria-labelledby="navbarAkun">
+                            <li><h6 class="dropdown-header text-truncate" style="max-width: 200px;"><?= esc(session()->get('user_name')) ?></h6></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <?php if(session()->get('user_role') === 'admin'): ?>
+                                <li><a class="dropdown-item" href="<?= base_url('admin/dashboard') ?>"><i class="bi bi-speedometer2 me-2"></i>Dashboard Admin</a></li>
+                            <?php else: ?>
+                                <li><a class="dropdown-item" href="<?= base_url('permohonan/riwayat') ?>"><i class="bi bi-clock-history me-2"></i>Riwayat Permohonan</a></li>
+                            <?php endif; ?>
+                            <li><a class="dropdown-item text-danger" href="<?= base_url('user/logout') ?>"><i class="bi bi-box-arrow-right me-2"></i>Keluar</a></li>
+                        </ul>
+                    </li>
+                <?php endif; ?>
+            </ul>
+            
         </div>
     </div>
 </nav>

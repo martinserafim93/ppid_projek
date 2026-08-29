@@ -15,9 +15,15 @@
                     Wujud komitmen kami dalam memberikan layanan informasi publik yang transparan, akuntabel, dan mudah diakses oleh seluruh lapisan masyarakat.
                 </p>
                 <div class="d-flex flex-wrap gap-3">
-                    <a href="#" class="btn btn-accent btn-lg px-4 shadow-sm">
-                        <i class="bi bi-file-earmark-text me-2"></i> Daftarkan Permohonan
-                    </a>
+                    <?php if(session()->get('logged_in')): ?>
+                        <a href="<?= base_url('permohonan/buat') ?>" class="btn btn-accent btn-lg px-4 shadow-sm">
+                            <i class="bi bi-file-earmark-text me-2"></i> Daftarkan Permohonan
+                        </a>
+                    <?php else: ?>
+                        <button type="button" class="btn btn-accent btn-lg px-4 shadow-sm" data-bs-toggle="modal" data-bs-target="#registerModal">
+                            <i class="bi bi-file-earmark-text me-2"></i> Daftarkan Permohonan
+                        </button>
+                    <?php endif; ?>
                     <a href="#" class="btn btn-outline-light btn-lg px-4">
                         <i class="bi bi-ui-checks me-2"></i> Survei Kepuasan
                     </a>
@@ -185,9 +191,9 @@
                 <?php foreach($infographics as $index => $ig): ?>
                     <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="<?= $index * 100 ?>">
                         <div class="card border-0 shadow-sm h-100 overflow-hidden" style="border-radius: var(--radius-lg);">
-                            <a href="<?= base_url($ig['image']) ?>" class="glightbox d-block position-relative" data-title="<?= esc($ig['title']) ?>" data-description="<?= esc($ig['description']) ?>">
+                            <a href="<?= base_url($ig['image_path']) ?>" class="glightbox d-block position-relative" data-title="<?= esc($ig['title']) ?>" data-description="<?= esc($ig['description']) ?>">
                                 <div class="position-relative" style="padding-top: 100%; overflow: hidden;">
-                                    <img src="<?= base_url($ig['image']) ?>" class="position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover; transition: transform 0.5s;" alt="<?= esc($ig['title']) ?>" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                                    <img src="<?= base_url($ig['image_path']) ?>" class="position-absolute top-0 start-0 w-100 h-100" style="object-fit: cover; transition: transform 0.5s;" alt="<?= esc($ig['title']) ?>" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
                                 </div>
                                 <div class="position-absolute bottom-0 start-0 w-100 p-3" style="background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);">
                                     <h6 class="text-white mb-0 text-truncate"><?= esc($ig['title']) ?></h6>
@@ -257,6 +263,37 @@
         </div>
     </div>
 </section>
+
+<!-- Register Modal -->
+<div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow" style="border-radius: var(--radius-lg);">
+            <div class="modal-header bg-primary text-white border-0" style="border-radius: var(--radius-lg) var(--radius-lg) 0 0;">
+                <h5 class="modal-title heading-font" id="registerModalLabel">Pengajuan Permohonan Informasi</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4 text-center">
+                <div class="mb-4 text-primary">
+                    <i class="bi bi-info-circle" style="font-size: 3rem;"></i>
+                </div>
+                <h5 class="fw-bold mb-3">Apakah Anda ingin mendaftar secara online?</h5>
+                <p class="text-muted mb-4">Untuk dapat mengajukan dan memantau status permohonan informasi publik melalui portal ini, Anda diwajibkan memiliki akun pemohon.</p>
+                <div class="d-grid gap-2">
+                    <a href="<?= base_url('auth/register') ?>" class="btn btn-primary-custom py-2">
+                        Ya, Daftar Akun Online
+                    </a>
+                    <a href="<?= base_url('auth/login') ?>" class="btn btn-outline-primary-custom py-2">
+                        Sudah punya akun? Masuk
+                    </a>
+                    <!-- Fallback download form manual kalau ada setting dokumen_form -->
+                    <a href="#" class="btn btn-light py-2 text-muted mt-2 border">
+                        <i class="bi bi-download me-1"></i> Unduh Form Manual (PDF)
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <?= $this->endSection() ?>
 

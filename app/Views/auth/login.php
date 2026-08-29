@@ -55,7 +55,7 @@
                 </form>
                 
                 <p class="text-center mt-4 mb-0">
-                    Belum punya akun? <a href="/auth/register" class="auth-link">Daftar di sini</a>
+                    <a href="/" class="auth-link text-muted">Kembali ke Portal Publik</a>
                 </p>
             </div>
         </div>

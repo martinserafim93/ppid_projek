@@ -9,8 +9,8 @@
                 </div>
             </div>
             <div class="col-md-4 text-end">
-                <a href="<?= base_url('auth/login') ?>" class="btn btn-sm btn-outline-primary-custom rounded-pill">
-                    <i class="bi bi-box-arrow-in-right me-1"></i> Login Admin
+                <a href="<?= base_url('user/login') ?>" class="btn btn-sm btn-outline-primary-custom rounded-pill">
+                    <i class="bi bi-box-arrow-in-right me-1"></i> Masuk / Daftar
                 </a>
             </div>
         </div>
