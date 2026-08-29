@@ -45,6 +45,15 @@
                         <input type="text" class="form-control form-control-lg" id="title" name="title" value="<?= old('title', $document['title']) ?>" required>
                     </div>
                     
+                    <!-- Kategori Dokumen -->
+                    <div class="mb-4">
+                        <label for="category" class="form-label fw-semibold">Kategori Dokumen <span class="text-danger">*</span></label>
+                        <select class="form-select form-control-lg" id="category" name="category" required>
+                            <option value="umum" <?= old('category', $document['category']) == 'umum' ? 'selected' : '' ?>>Dokumen Umum</option>
+                            <option value="statistik" <?= old('category', $document['category']) == 'statistik' ? 'selected' : '' ?>>Data & Statistik Tahunan</option>
+                        </select>
+                    </div>
+                    
                     <!-- Keterangan/Deskripsi -->
                     <div class="mb-4">
                         <label for="description" class="form-label fw-semibold">Deskripsi</label>

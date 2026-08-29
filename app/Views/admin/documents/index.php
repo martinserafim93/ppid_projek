@@ -108,7 +108,12 @@
                                             <i class="bi <?= $icon ?> <?= $iconClass ?> fs-2"></i>
                                         </div>
                                         <div>
-                                            <div class="fw-semibold text-dark mb-1"><?= esc($item['title']) ?></div>
+                                            <div class="fw-semibold text-dark mb-1">
+                                                <?= esc($item['title']) ?>
+                                                <?php if($item['category'] == 'statistik'): ?>
+                                                    <span class="badge bg-info ms-1" style="font-size: 0.65rem;">Statistik</span>
+                                                <?php endif; ?>
+                                            </div>
                                             <?php if (!empty($item['description'])) : ?>
                                                 <div class="small text-muted text-truncate" style="max-width: 300px;"><?= esc($item['description']) ?></div>
                                             <?php endif; ?>

@@ -52,6 +52,7 @@ class Documents extends BaseController
         $rules = [
             'title'       => 'required|min_length[3]',
             'description' => 'permit_empty',
+            'category'    => 'permit_empty',
             'file'        => 'uploaded[file]|max_size[file,15360]|ext_in[file,pdf,doc,docx,xls,xlsx,ppt,pptx,zip,rar]',
             'is_active'   => 'permit_empty'
         ];
@@ -77,6 +78,7 @@ class Documents extends BaseController
         $data = [
             'title'          => $this->request->getPost('title'),
             'description'    => $this->request->getPost('description'),
+            'category'       => $this->request->getPost('category') ?: 'umum',
             'file_path'      => 'uploads/documents/' . $fileName,
             'file_size'      => $fileSize,
             'file_type'      => $fileType,
@@ -117,6 +119,7 @@ class Documents extends BaseController
         $rules = [
             'title'       => 'required|min_length[3]',
             'description' => 'permit_empty',
+            'category'    => 'permit_empty',
             'file'        => 'permit_empty|uploaded[file]|max_size[file,15360]|ext_in[file,pdf,doc,docx,xls,xlsx,ppt,pptx,zip,rar]',
             'is_active'   => 'permit_empty'
         ];
@@ -128,6 +131,7 @@ class Documents extends BaseController
         $data = [
             'title'       => $this->request->getPost('title'),
             'description' => $this->request->getPost('description'),
+            'category'    => $this->request->getPost('category') ?: 'umum',
             'is_active'   => $this->request->getPost('is_active') ? 1 : 0,
         ];
 
