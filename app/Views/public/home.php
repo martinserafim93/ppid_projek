@@ -279,10 +279,10 @@
                 <h5 class="fw-bold mb-3">Apakah Anda ingin mendaftar secara online?</h5>
                 <p class="text-muted mb-4">Untuk dapat mengajukan dan memantau status permohonan informasi publik melalui portal ini, Anda diwajibkan memiliki akun pemohon.</p>
                 <div class="d-grid gap-2">
-                    <a href="<?= base_url('auth/register') ?>" class="btn btn-primary-custom py-2">
+                    <a href="<?= base_url('user/register') ?>" class="btn btn-primary-custom py-2">
                         Ya, Daftar Akun Online
                     </a>
-                    <a href="<?= base_url('auth/login') ?>" class="btn btn-outline-primary-custom py-2">
+                    <a href="<?= base_url('user/login') ?>" class="btn btn-outline-primary-custom py-2">
                         Sudah punya akun? Masuk
                     </a>
                     <!-- Fallback download form manual kalau ada setting dokumen_form -->
