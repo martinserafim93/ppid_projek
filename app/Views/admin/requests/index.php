@@ -86,15 +86,15 @@
                                     </span>
                                 </td>
                                 <td>
-                                    <div class="d-flex gap-1 justify-content-center">
-                                        <a href="<?= base_url('admin/requests/detail/' . $req['slug']) ?>" class="btn btn-sm btn-outline-primary rounded-circle" title="Detail">
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <a href="<?= base_url('admin/requests/detail/' . $req['slug']) ?>" class="btn btn-sm btn-light text-primary border rounded-circle shadow-sm" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center;" title="Detail">
                                             <i class="bi bi-search"></i>
                                         </a>
-                                        <a href="<?= base_url('admin/requests/edit/' . $req['slug']) ?>" class="btn btn-sm btn-outline-warning rounded-circle" title="Edit">
-                                            <i class="bi bi-pencil"></i>
+                                        <a href="<?= base_url('admin/requests/edit/' . $req['slug']) ?>" class="btn btn-sm btn-light text-warning border rounded-circle shadow-sm" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center;" title="Edit">
+                                            <i class="bi bi-pencil-fill"></i>
                                         </a>
-                                        <button type="button" class="btn btn-sm btn-outline-danger rounded-circle btn-delete" data-slug="<?= $req['slug'] ?>" data-title="<?= esc($req['ticket_number']) ?>" title="Hapus">
-                                            <i class="bi bi-trash"></i>
+                                        <button type="button" class="btn btn-sm btn-light text-danger border rounded-circle shadow-sm btn-delete" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center;" data-slug="<?= $req['slug'] ?>" data-title="<?= esc($req['ticket_number']) ?>" title="Hapus">
+                                            <i class="bi bi-trash-fill"></i>
                                         </button>
                                     </div>
                                 </td>

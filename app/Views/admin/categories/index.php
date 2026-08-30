@@ -3,18 +3,7 @@
 <?= $this->section('content') ?>
 
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <div>
-        <h1 class="h3 mb-1 text-gray-800 fw-bold"><?= esc($title) ?></h1>
-        <p class="text-muted mb-0">Kelola daftar kategori tipe untuk mengelompokkan data secara terstruktur.</p>
-    </div>
-    <div class="d-flex gap-2">
-        <a href="<?= base_url('admin/' . esc($type)) ?>" class="btn btn-light border shadow-sm rounded-pill px-3 d-flex align-items-center">
-            <i class="bi bi-arrow-left me-2"></i> Kembali
-        </a>
-        <a href="<?= base_url('admin/categories/' . esc($type) . '/create') ?>" class="btn btn-primary shadow-sm rounded-pill px-4 d-flex align-items-center fw-medium">
-            <i class="bi bi-plus-circle-fill me-2"></i> Tambah Kategori
-        </a>
-    </div>
+    <h2 class="h3 mb-0 text-gray-800"><?= esc($title) ?></h2>
 </div>
 
 <?php if (session()->getFlashdata('success')) : ?>
@@ -33,17 +22,30 @@
     </div>
 <?php endif; ?>
 
-<div class="card border-0 shadow-sm rounded-4 mb-4 overflow-hidden">
+<div class="card shadow-sm border-0 mb-4">
+    <div class="card-header bg-white border-0 py-3">
+        <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
+            <h5 class="mb-0 fw-bold text-dark"><i class="bi bi-tags me-2 text-primary"></i>Daftar Kategori <?= esc(ucfirst($type)) ?></h5>
+            <div class="d-flex flex-column flex-md-row gap-2 align-items-md-center">
+                <a href="<?= base_url('admin/' . esc($type)) ?>" class="btn btn-light btn-sm border shadow-sm rounded-pill px-3 hover-lift">
+                    <i class="bi bi-arrow-left me-1 text-primary"></i> Kembali
+                </a>
+                <a href="<?= base_url('admin/categories/' . esc($type) . '/create') ?>" class="btn btn-primary btn-sm shadow-sm rounded-pill px-3 hover-lift">
+                    <i class="bi bi-plus-lg me-1"></i> Tambah Kategori
+                </a>
+            </div>
+        </div>
+    </div>
     <div class="card-body p-0">
-        <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0">
-                <thead class="bg-light text-dark">
+        <div class="table-responsive px-2 pb-3">
+            <table class="table table-hover align-middle border-bottom mb-0">
+                <thead class="table-light">
                     <tr>
-                        <th class="px-4 py-3 fw-semibold border-bottom-0 text-muted" width="5%">No</th>
-                        <th class="py-3 fw-semibold border-bottom-0 text-muted">Nama Kategori</th>
-                        <th class="py-3 fw-semibold border-bottom-0 text-muted">Slug</th>
-                        <th class="py-3 fw-semibold border-bottom-0 text-muted">Deskripsi</th>
-                        <th class="text-center py-3 fw-semibold border-bottom-0 text-muted" width="15%">Aksi</th>
+                        <th class="py-3 text-muted text-uppercase fw-semibold text-center" style="font-size: 0.8rem;" width="5%">No</th>
+                        <th class="py-3 text-muted text-uppercase fw-semibold" style="font-size: 0.8rem;">Nama Kategori</th>
+                        <th class="py-3 text-muted text-uppercase fw-semibold text-center" style="font-size: 0.8rem;">Slug</th>
+                        <th class="py-3 text-muted text-uppercase fw-semibold" style="font-size: 0.8rem;">Deskripsi</th>
+                        <th class="py-3 text-muted text-uppercase fw-semibold text-center" style="font-size: 0.8rem;" width="15%">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="border-top-0">
@@ -60,9 +62,9 @@
                     <?php else : ?>
                         <?php $no = 1; foreach ($categories as $category) : ?>
                             <tr>
-                                <td class="px-4 py-3 text-muted"><?= $no++ ?></td>
+                                <td class="py-3 text-center"><?= $no++ ?></td>
                                 <td class="py-3 fw-bold text-dark"><?= esc($category['name']) ?></td>
-                                <td class="py-3">
+                                <td class="py-3 text-center">
                                     <span class="badge bg-light text-secondary border px-2 py-1 rounded-pill fw-normal">
                                         <i class="bi bi-tag-fill me-1 text-light-subtle"></i> <?= esc($category['slug']) ?>
                                     </span>

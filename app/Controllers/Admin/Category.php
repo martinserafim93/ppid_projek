@@ -49,9 +49,11 @@ class Category extends BaseController
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
+        $slug = $this->makeUniqueSlug(url_title($name, '-', true), $type);
+
         $this->categoryModel->save([
             'name'        => $name,
-            'slug'        => url_title($name, '-', true),
+            'slug'        => $slug,
             'type'        => $type,
             'description' => $this->request->getPost('description'),
         ]);
@@ -86,6 +88,9 @@ class Category extends BaseController
 
         $type = $category['type'];
         $name = $this->request->getPost('name');
+        
+        $newSlug = $this->makeUniqueSlug(url_title($name, '-', true), $type, $id);
+        $oldSlug = $category['slug'];
 
         $rules = [
             'name' => 'required|min_length[3]|max_length[255]'
@@ -95,11 +100,35 @@ class Category extends BaseController
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
+        $db = \Config\Database::connect();
+        $db->transStart();
+
         $this->categoryModel->update($id, [
             'name'        => $name,
-            // Slug tidak diupdate saat edit agar relasi dengan data lama tidak terputus
+            'slug'        => $newSlug,
             'description' => $this->request->getPost('description'),
         ]);
+
+        // Cascade update
+        if ($newSlug !== $oldSlug) {
+            $db->table('regulations')
+               ->where('type', $oldSlug)
+               ->update(['type' => $newSlug]);
+            
+            $db->table('documents')
+               ->where('category', $oldSlug)
+               ->update(['category' => $newSlug]);
+            
+            $db->table('public_informations')
+               ->where('category', $oldSlug)
+               ->update(['category' => $newSlug]);
+        }
+
+        $db->transComplete();
+
+        if ($db->transStatus() === false) {
+            return redirect()->back()->with('error', 'Gagal mengupdate kategori dan referensinya.');
+        }
 
         return redirect()->to('admin/categories/' . $type)->with('success', 'Kategori berhasil diperbarui.');
     }
@@ -116,5 +145,29 @@ class Category extends BaseController
         $this->categoryModel->delete($id);
 
         return redirect()->to('admin/categories/' . $type)->with('success', 'Kategori berhasil dihapus.');
+    }
+
+    private function makeUniqueSlug($baseSlug, $type, $excludeId = null)
+    {
+        if (empty($baseSlug)) {
+            $baseSlug = 'kategori';
+        }
+        
+        $slug = $baseSlug;
+        $counter = 1;
+        
+        while (true) {
+            $builder = $this->categoryModel->where('slug', $slug)->where('type', $type);
+            if ($excludeId !== null) {
+                $builder->where('id !=', $excludeId);
+            }
+            if ($builder->countAllResults() == 0) {
+                break;
+            }
+            $slug = $baseSlug . '-' . $counter;
+            $counter++;
+        }
+        
+        return $slug;
     }
 }

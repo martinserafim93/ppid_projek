@@ -145,6 +145,7 @@ $routes->get('statistik', 'Statistic::index');
 $routes->get('/', 'Home::index');
 $routes->get('profil/(:segment)', 'Profile::show/$1');
 $routes->get('regulasi', 'Regulation::index');
+$routes->get('regulasi/(:segment)', 'Regulation::show/$1');
 $routes->get('layanan/(:segment)', 'Service::show/$1');
 $routes->get('informasi/(:segment)', 'Service::show/$1');
 $routes->get('informasi-publik', 'Information::index');

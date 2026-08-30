@@ -122,12 +122,12 @@
                                     <?php endif; ?>
                                 </td>
                                 <td class="text-center">
-                                    <div class="d-flex gap-1 justify-content-center">
-                                        <a href="<?= base_url('admin/pages/edit/' . $item['slug']) ?>" class="btn btn-sm btn-outline-primary rounded-circle" title="Edit">
-                                            <i class="bi bi-pencil"></i>
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <a href="<?= base_url('admin/pages/edit/' . $item['slug']) ?>" class="btn btn-sm btn-light text-primary border rounded-circle shadow-sm" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center;" title="Edit">
+                                            <i class="bi bi-pencil-fill"></i>
                                         </a>
-                                        <button type="button" class="btn btn-sm btn-outline-danger rounded-circle btn-delete" data-id="<?= $item['slug'] ?>" data-title="<?= esc($item['title']) ?>" title="Hapus">
-                                            <i class="bi bi-trash"></i>
+                                        <button type="button" class="btn btn-sm btn-light text-danger border rounded-circle shadow-sm btn-delete" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center;" data-id="<?= $item['slug'] ?>" data-title="<?= esc($item['title']) ?>" title="Hapus">
+                                            <i class="bi bi-trash-fill"></i>
                                         </button>
                                     </div>
                                 </td>

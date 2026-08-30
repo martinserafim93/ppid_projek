@@ -13,7 +13,7 @@ class Regulations extends BaseController
     public function __construct()
     {
         $this->regulationModel = new RegulationModel();
-        helper(['form', 'url', 'upload', 'admin']);
+        helper(['form', 'url', 'upload', 'admin', 'slug']);
     }
 
     public function index()
@@ -88,6 +88,8 @@ class Regulations extends BaseController
             'is_active'   => $this->request->getPost('is_active') ? 1 : 0,
         ];
 
+        $data['slug'] = createSlugFromTitle($data['title'], RegulationModel::class, null, 'regulasi');
+
         if ($fileName) {
             $data['file_path'] = 'uploads/regulations/' . $fileName;
         }
@@ -147,6 +149,10 @@ class Regulations extends BaseController
             'sort_order'  => $this->request->getPost('sort_order') ?: 0,
             'is_active'   => $this->request->getPost('is_active') ? 1 : 0,
         ];
+
+        if ($regulation['title'] !== $data['title']) {
+            $data['slug'] = createSlugFromTitle($data['title'], RegulationModel::class, (int) $id, 'regulasi');
+        }
 
         // Handle file upload
         $fileObj = $this->request->getFile('file');

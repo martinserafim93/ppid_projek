@@ -27,7 +27,7 @@
     <link href="<?= base_url('assets/vendor/glightbox/glightbox.min.css') ?>" rel="stylesheet">
     
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/css/style.css?v=' . time()) ?>">
     
     <?= $this->renderSection('styles') ?>
 </head>

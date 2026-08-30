@@ -47,7 +47,10 @@
                     <!-- Judul/Tentang -->
                     <div class="mb-4">
                         <label for="title" class="form-label fw-semibold text-dark">Judul / Tentang Regulasi <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control form-control-lg bg-light border-0" id="title" name="title" value="<?= old('title') ?>" required placeholder="Contoh: Keterbukaan Informasi Publik">
+                            <input type="text" class="form-control form-control-lg bg-light border-0" id="title" name="title" value="<?= old('title') ?>" required placeholder="Masukkan judul regulasi">
+                            <div class="form-text small mt-2">
+                                <i class="bi bi-link-45deg"></i> Pratinjau URL: <span class="text-primary" id="slug-preview">/regulasi/...</span>
+                            </div>
                     </div>
                     
                     <div class="row g-3 mb-4">
@@ -64,6 +67,12 @@
                                     <?php endforeach; ?>
                                 <?php endif; ?>
                             </select>
+                            <?php if (empty($categories)) : ?>
+                                <div class="form-text small mt-2 text-danger">
+                                    <i class="bi bi-exclamation-triangle me-1"></i> Belum ada kategori regulasi. <br>
+                                    <a href="<?= base_url('admin/categories/regulations/create') ?>" class="text-danger fw-semibold text-decoration-underline">Buat Kategori Baru</a>
+                                </div>
+                            <?php endif; ?>
                         </div>
                         
                         <!-- Nomor -->
@@ -116,7 +125,7 @@
                     <!-- Status Aktif -->
                     <div class="mb-4 p-3 bg-white rounded-3 shadow-sm border border-light">
                         <div class="form-check form-switch form-switch-md mb-0 d-flex align-items-center">
-                            <input class="form-check-input mt-0 me-3 shadow-none" type="checkbox" role="switch" id="is_active" name="is_active" value="1" <?= old('is_active', '1') == '1' ? 'checked' : '' ?> style="width: 2.5em; height: 1.25em; cursor: pointer;">
+                            <input class="form-check-input mt-0 me-3 shadow-none" type="checkbox" role="switch" id="is_active" name="is_active" value="1" <?= old('is_active', '1') == '1' ? 'checked' : '' ?> style="cursor: pointer;">
                             <label class="form-check-label fw-semibold text-dark" for="is_active" style="cursor: pointer;">
                                 Publish Regulasi
                                 <span class="d-block fw-normal text-muted small mt-1">Tampilkan regulasi ini di website publik</span>
@@ -134,5 +143,22 @@
         </div>
     </div>
 </form>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const titleInput = document.getElementById('title');
+    const slugPreview = document.getElementById('slug-preview');
+
+    if (titleInput && slugPreview) {
+        titleInput.addEventListener('input', function() {
+            let slug = this.value.toLowerCase()
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/^-+|-+$/g, '');
+            
+            slugPreview.textContent = slug ? '/regulasi/' + slug : '/regulasi/...';
+        });
+    }
+});
+</script>
 
 <?= $this->endSection() ?>

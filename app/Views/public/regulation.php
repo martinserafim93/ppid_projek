@@ -85,7 +85,7 @@
                                     <td class="text-center"><?= $no++ ?></td>
                                     <td>
                                         <?php if ($label): ?>
-                                            <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill fw-medium">
+                                            <span class="badge bg-primary-custom-subtle text-primary-custom px-3 py-2 rounded-pill fw-medium">
                                                 <?= esc($label) ?>
                                             </span>
                                         <?php endif; ?>
@@ -100,13 +100,16 @@
                                         </div>
                                     </td>
                                     <td class="text-center">
-                                        <?php if (!empty($reg['file_path'])): ?>
-                                            <a href="<?= base_url($reg['file_path']) ?>" target="_blank" class="btn btn-sm btn-outline-primary-custom" title="Unduh PDF">
-                                                <i class="bi bi-download me-1"></i> Unduh
+                                        <div class="d-flex flex-column gap-2 justify-content-center align-items-center">
+                                            <a href="<?= base_url('regulasi/' . esc($reg['slug'] ?? '')) ?>" class="btn btn-sm btn-outline-primary-custom w-100" title="Detail">
+                                                <i class="bi bi-eye me-1"></i> Detail
                                             </a>
-                                        <?php else: ?>
-                                            <span class="text-muted small">Tidak ada lampiran</span>
-                                        <?php endif; ?>
+                                            <?php if (!empty($reg['file_path'])): ?>
+                                                <a href="<?= base_url($reg['file_path']) ?>" target="_blank" class="btn btn-sm btn-outline-primary-custom w-100" title="Unduh PDF">
+                                                    <i class="bi bi-download me-1"></i> Unduh
+                                                </a>
+                                            <?php endif; ?>
+                                        </div>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

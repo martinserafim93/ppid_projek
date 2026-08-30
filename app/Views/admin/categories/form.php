@@ -37,6 +37,14 @@
                 <label for="name" class="form-label fw-semibold text-dark">Nama Kategori <span class="text-danger">*</span></label>
                 <input type="text" class="form-control form-control-lg bg-light border-0" id="name" name="name" 
                        value="<?= old('name', $category['name'] ?? '') ?>" required placeholder="Masukkan nama kategori">
+                <?php if ($isEdit): ?>
+                    <div class="alert alert-warning d-flex align-items-center mt-3 mb-0 border-0 rounded-3 py-2 small">
+                        <i class="bi bi-exclamation-triangle-fill text-warning me-2 fs-5"></i>
+                        <div>
+                            <strong>Perhatian:</strong> Mengubah nama kategori akan secara otomatis mengubah slug dan memperbarui referensi pada seluruh data terkait.
+                        </div>
+                    </div>
+                <?php endif; ?>
             </div>
 
             <div class="mb-4">

@@ -95,21 +95,21 @@
                                     </span>
                                 </td>
                                 <td class="text-center">
-                                    <div class="btn-group btn-group-sm">
-                                        <a href="<?= base_url('admin/pemohon/edit/' . $user['id']) ?>" class="btn btn-outline-primary" title="Edit Data">
-                                            <i class="bi bi-pencil"></i> Edit
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <a href="<?= base_url('admin/pemohon/edit/' . $user['id']) ?>" class="btn btn-sm btn-light text-primary border rounded-circle shadow-sm" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center;" title="Edit Data">
+                                            <i class="bi bi-pencil-fill"></i>
                                         </a>
-                                        <button type="button" class="btn btn-outline-warning btn-reset" 
+                                        <button type="button" class="btn btn-sm btn-light text-warning border rounded-circle shadow-sm btn-reset" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center;"
                                             data-id="<?= $user['id'] ?>" 
                                             data-name="<?= esc($user['name']) ?>"
                                             title="Reset Password">
-                                            <i class="bi bi-key"></i> Reset
+                                            <i class="bi bi-key-fill"></i>
                                         </button>
-                                        <button type="button" class="btn btn-outline-danger btn-delete" 
+                                        <button type="button" class="btn btn-sm btn-light text-danger border rounded-circle shadow-sm btn-delete" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center;"
                                             data-id="<?= $user['id'] ?>" 
                                             data-name="<?= esc($user['name']) ?>"
                                             title="Hapus Pemohon">
-                                            <i class="bi bi-trash"></i> Hapus
+                                            <i class="bi bi-trash-fill"></i>
                                         </button>
                                     </div>
                                 </td>

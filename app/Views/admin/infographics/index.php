@@ -66,12 +66,12 @@
                                 <i class="bi bi-list-ol me-1"></i> <?= $item['sort_order'] ?>
                             </div>
                             
-                            <div class="d-flex gap-1 z-3" style="pointer-events: auto;">
-                                <a href="<?= base_url('admin/infographics/edit/' . $item['id']) ?>" class="btn btn-sm btn-light text-primary border" title="Edit">
-                                    <i class="bi bi-pencil"></i>
+                            <div class="d-flex justify-content-center gap-2 z-3" style="pointer-events: auto;">
+                                <a href="<?= base_url('admin/infographics/edit/' . $item['id']) ?>" class="btn btn-sm btn-light text-primary border rounded-circle shadow-sm" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center;" title="Edit">
+                                    <i class="bi bi-pencil-fill"></i>
                                 </a>
-                                <button type="button" class="btn btn-sm btn-light text-danger border btn-delete" data-id="<?= $item['id'] ?>" data-title="<?= esc($item['title']) ?>" title="Hapus">
-                                    <i class="bi bi-trash"></i>
+                                <button type="button" class="btn btn-sm btn-light text-danger border rounded-circle shadow-sm btn-delete" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center;" data-id="<?= $item['id'] ?>" data-title="<?= esc($item['title']) ?>" title="Hapus">
+                                    <i class="bi bi-trash-fill"></i>
                                 </button>
                             </div>
                         </div>
