@@ -20,7 +20,9 @@ class Dashboard extends BaseController
             'approvedRequests'=> $requestModel->where('status', 'approved')->countAllResults(),
             'rejectedRequests'=> $requestModel->where('status', 'rejected')->countAllResults(),
             'avgRating'       => $surveyModel->selectAvg('rating')->first()['rating'] ?? 0,
-            'recentRequests'  => $requestModel->orderBy('created_at', 'DESC')->findAll(5),
+            'recentRequests'  => $requestModel->select('requests.*, users.name as applicant_name')
+                                              ->join('users', 'users.id = requests.user_id', 'left')
+                                              ->orderBy('created_at', 'DESC')->findAll(5),
 
             // Data untuk Chart.js
             'monthlyData'     => $this->getMonthlyData(),
@@ -38,13 +40,15 @@ class Dashboard extends BaseController
         $search = $this->request->getGet('search');
         $status = $this->request->getGet('status');
 
-        $query = $requestModel->orderBy('created_at', 'DESC');
+        $query = $requestModel->select('requests.*, users.name as applicant_name, users.email as applicant_email')
+                              ->join('users', 'users.id = requests.user_id', 'left')
+                              ->orderBy('requests.created_at', 'DESC');
 
         if (!empty($search)) {
             $query->groupStart()
-                  ->like('ticket_number', $search)
-                  ->orLike('subject', $search)
-                  ->orLike('applicant_name', $search)
+                  ->like('requests.ticket_number', $search)
+                  ->orLike('requests.subject', $search)
+                  ->orLike('users.name', $search)
                   ->groupEnd();
         }
 
@@ -119,8 +123,9 @@ class Dashboard extends BaseController
         
         $db      = \Config\Database::connect();
         $builder = $db->table('surveys');
-        $builder->select('surveys.*, requests.ticket_number, requests.applicant_name');
+        $builder->select('surveys.*, requests.ticket_number, users.name as applicant_name');
         $builder->join('requests', 'requests.id = surveys.request_id', 'left');
+        $builder->join('users', 'users.id = requests.user_id', 'left');
         $builder->orderBy('surveys.created_at', 'DESC');
         
         $data = [
