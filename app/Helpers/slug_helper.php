@@ -14,9 +14,10 @@ if (!function_exists('generateSlug')) {
      * @param mixed $model Model untuk check uniqueness (opsional)
      * @param string $field Field name untuk check uniqueness (default: 'slug')
      * @param int|null $excludeId ID yang di-exclude saat check uniqueness (untuk update)
+     * @param string $fallback Kata cadangan jika teks hanya berisi non-Latin
      * @return string Generated slug
      */
-    function generateSlug(string $text, $model = null, string $field = 'slug', ?int $excludeId = null): string
+    function generateSlug(string $text, $model = null, string $field = 'slug', ?int $excludeId = null, string $fallback = 'halaman'): string
     {
         // Convert to lowercase
         $slug = strtolower($text);
@@ -32,7 +33,7 @@ if (!function_exists('generateSlug')) {
         
         // Fallback: jika slug kosong (judul tidak mengandung huruf/angka Latin)
         if ($slug === '') {
-            $slug = 'halaman';
+            $slug = $fallback;
         }
         
         // If no model provided, return slug as is
@@ -131,10 +132,11 @@ if (!function_exists('createSlugFromTitle')) {
      * @param string $title Title yang akan dijadikan slug
      * @param string $modelClass Fully qualified model class name
      * @param int|null $currentId Current record ID (untuk update)
+     * @param string $fallback Kata cadangan jika teks hanya berisi non-Latin
      * @return string Generated unique slug
      */
-    function createSlugFromTitle(string $title, string $modelClass, ?int $currentId = null): string
+    function createSlugFromTitle(string $title, string $modelClass, ?int $currentId = null, string $fallback = 'halaman'): string
     {
-        return generateSlug($title, $modelClass, 'slug', $currentId);
+        return generateSlug($title, $modelClass, 'slug', $currentId, $fallback);
     }
 }

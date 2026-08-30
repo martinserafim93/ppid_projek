@@ -35,20 +35,25 @@
                 </div>
 
                 <?php if (session()->getFlashdata('error')): ?>
-                    <div class="alert alert-danger alert-dismissible fade show border-0 shadow-sm" role="alert">
-                        <i class="bi bi-exclamation-triangle-fill me-2"></i> <?= session()->getFlashdata('error') ?>
+                    <div class="alert alert-danger alert-dismissible fade show border-0 shadow-sm rounded-4 d-flex align-items-center p-3 mb-4" role="alert">
+                        <i class="bi bi-exclamation-octagon-fill fs-4 me-3"></i>
+                        <div><?= session()->getFlashdata('error') ?></div>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 <?php endif; ?>
 
                 <?php if (empty($requests)): ?>
                     <div class="card-glass border-0 shadow-sm rounded-4 text-center p-5">
-                        <div class="text-muted mb-4">
-                            <i class="bi bi-inbox" style="font-size: 4rem;"></i>
+                        <div class="bg-primary-custom-subtle text-primary-custom rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style="width: 100px; height: 100px;">
+                            <i class="bi bi-inbox-fill" style="font-size: 3rem;"></i>
                         </div>
-                        <h5 class="fw-bold text-dark">Belum Ada Riwayat</h5>
-                        <p class="text-muted">Anda belum pernah mengajukan permohonan informasi publik.</p>
-                        <a href="<?= base_url('permohonan/buat') ?>" class="btn btn-primary-custom px-4 py-2 mt-2">Buat Permohonan Sekarang</a>
+                        <h4 class="fw-bold text-dark mb-3">Belum Ada Permohonan</h4>
+                        <p class="text-muted mx-auto mb-4" style="max-width: 500px;">
+                            Daftar riwayat permohonan Anda akan tampil di sini. Ajukan permohonan informasi publik pertama Anda untuk melacak status dan mendapatkan dokumen resmi yang Anda butuhkan.
+                        </p>
+                        <a href="<?= base_url('permohonan/buat') ?>" class="btn btn-primary-custom px-4 py-2 rounded-pill shadow-sm hover-lift fw-medium">
+                            <i class="bi bi-plus-lg me-2"></i> Buat Permohonan Sekarang
+                        </a>
                     </div>
                 <?php else: ?>
                     <div class="row g-4">

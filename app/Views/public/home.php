@@ -269,27 +269,31 @@
 <!-- Register Modal -->
 <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0 shadow" style="border-radius: var(--radius-lg);">
-            <div class="modal-header bg-primary text-white border-0" style="border-radius: var(--radius-lg) var(--radius-lg) 0 0;">
-                <h5 class="modal-title heading-font" id="registerModalLabel">Pengajuan Permohonan Informasi</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+            <div class="modal-header border-0 pb-0 justify-content-end">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body p-4 text-center">
-                <div class="mb-4 text-primary">
-                    <i class="bi bi-info-circle" style="font-size: 3rem;"></i>
+            <div class="modal-body p-4 pt-0 text-center">
+                <div class="bg-primary-custom-subtle text-primary-custom rounded-circle d-inline-flex align-items-center justify-content-center mb-4" style="width: 80px; height: 80px;">
+                    <i class="bi bi-shield-lock-fill" style="font-size: 2.5rem;"></i>
                 </div>
-                <h5 class="fw-bold mb-3">Apakah Anda ingin mendaftar secara online?</h5>
-                <p class="text-muted mb-4">Untuk dapat mengajukan dan memantau status permohonan informasi publik melalui portal ini, Anda diwajibkan memiliki akun pemohon.</p>
-                <div class="d-grid gap-2">
-                    <a href="<?= base_url('user/register') ?>" class="btn btn-primary-custom py-2">
-                        Ya, Daftar Akun Online
+                <h4 class="fw-bold text-dark mb-3">Autentikasi Diperlukan</h4>
+                <p class="text-muted mx-auto mb-4" style="max-width: 400px;">
+                    Untuk keamanan privasi dan agar Anda dapat memantau status permohonan informasi secara real-time, silakan masuk atau daftar akun terlebih dahulu.
+                </p>
+                <div class="d-grid gap-3 mx-auto" style="max-width: 350px;">
+                    <a href="<?= base_url('user/login') ?>" class="btn btn-primary-custom py-2 rounded-pill fw-medium shadow-sm hover-lift">
+                        Masuk ke Akun
                     </a>
-                    <a href="<?= base_url('user/login') ?>" class="btn btn-outline-primary-custom py-2">
-                        Sudah punya akun? Masuk
+                    <a href="<?= base_url('user/register') ?>" class="btn btn-outline-primary-custom py-2 rounded-pill fw-medium hover-lift">
+                        Belum punya akun? Daftar
                     </a>
                     <?php if($form = getSetting('form_manual')): ?>
-                        <!-- Fallback download form manual kalau ada setting dokumen_form -->
-                        <a href="<?= base_url($form) ?>" target="_blank" class="btn btn-light py-2 text-muted mt-2 border">
+                        <div class="position-relative my-2">
+                            <hr class="text-muted opacity-25">
+                            <span class="position-absolute top-50 start-50 translate-middle bg-white px-2 small text-muted">ATAU</span>
+                        </div>
+                        <a href="<?= base_url($form) ?>" target="_blank" class="btn btn-light py-2 text-muted border rounded-pill hover-lift">
                             <i class="bi bi-download me-1"></i> Unduh Form Manual (PDF)
                         </a>
                     <?php endif; ?>

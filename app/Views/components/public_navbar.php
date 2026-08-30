@@ -27,7 +27,7 @@ $menuInformasi = array_filter($activePages, fn($p) => $p['category'] === 'layana
         </button>
         
         <div class="collapse navbar-collapse" id="mainNavbar">
-            <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-1">
+            <ul class="navbar-nav w-100 justify-content-between mb-2 mb-lg-0 gap-1">
                 <li class="nav-item">
                     <a class="nav-link <?= $segment1 == '' ? 'active' : '' ?>" href="<?= base_url() ?>">Beranda</a>
                 </li>

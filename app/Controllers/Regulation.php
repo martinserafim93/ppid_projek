@@ -43,4 +43,26 @@ class Regulation extends BaseController
         
         return view('public/regulation', $data);
     }
+
+    public function show($slug)
+    {
+        $regulationModel = new RegulationModel();
+        $regulation = $regulationModel->where('slug', $slug)->where('is_active', 1)->first();
+        if (! $regulation) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        $categoryModel = new CategoryModel();
+        $category = $categoryModel->where('type', 'regulations')->where('slug', $regulation['type'])->first();
+
+        return view('public/regulation_detail', [
+            'title'      => $regulation['title'],
+            'regulation' => $regulation,
+            'category'   => $category,
+            'breadcrumb' => [
+                ['label' => 'Regulasi', 'url' => base_url('regulasi')],
+                ['label' => $regulation['title'], 'active' => true],
+            ],
+        ]);
+    }
 }

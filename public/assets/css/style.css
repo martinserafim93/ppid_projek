@@ -139,6 +139,14 @@ h1, h2, h3, h4, h5, h6, .heading-font {
     color: var(--accent-dark);
 }
 
+/* Utilities */
+.text-primary-custom {
+    color: var(--primary) !important;
+}
+.bg-primary-custom-subtle {
+    background-color: rgba(27, 94, 32, 0.1) !important;
+}
+
 /* === LAYOUT ELEMENTS === */
 
 /* Topbar */
@@ -230,8 +238,6 @@ h1, h2, h3, h4, h5, h6, .heading-font {
     opacity: 0.9;
     margin-bottom: 40px;
     max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 /* Breadcrumb */

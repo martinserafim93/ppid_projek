@@ -144,18 +144,18 @@
                                     </div>
                                 </td>
                                 <td class="text-center">
-                                    <div class="d-flex justify-content-center gap-1">
-                                        <button type="button" class="btn btn-sm btn-light text-info border" onclick="copyLink('<?= base_url($item['file_path']) ?>')" title="Salin Link Publik">
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <button type="button" class="btn btn-sm btn-light text-info border rounded-circle shadow-sm" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center;" onclick="copyLink('<?= base_url($item['file_path']) ?>')" title="Salin Link Publik">
                                             <i class="bi bi-link-45deg"></i>
                                         </button>
-                                        <a href="<?= base_url('admin/documents/download/' . $item['id']) ?>" class="btn btn-sm btn-light text-success border" title="Download">
+                                        <a href="<?= base_url('admin/documents/download/' . $item['id']) ?>" class="btn btn-sm btn-light text-success border rounded-circle shadow-sm" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center;" title="Download">
                                             <i class="bi bi-download"></i>
                                         </a>
-                                        <a href="<?= base_url('admin/documents/edit/' . $item['id']) ?>" class="btn btn-sm btn-light text-primary border" title="Edit Info">
-                                            <i class="bi bi-pencil"></i>
+                                        <a href="<?= base_url('admin/documents/edit/' . $item['id']) ?>" class="btn btn-sm btn-light text-primary border rounded-circle shadow-sm" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center;" title="Edit Info">
+                                            <i class="bi bi-pencil-fill"></i>
                                         </a>
-                                        <button type="button" class="btn btn-sm btn-light text-danger border btn-delete" data-id="<?= $item['id'] ?>" data-title="<?= esc($item['title']) ?>" title="Hapus">
-                                            <i class="bi bi-trash"></i>
+                                        <button type="button" class="btn btn-sm btn-light text-danger border rounded-circle shadow-sm btn-delete" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center;" data-id="<?= $item['id'] ?>" data-title="<?= esc($item['title']) ?>" title="Hapus">
+                                            <i class="bi bi-trash-fill"></i>
                                         </button>
                                     </div>
                                 </td>

@@ -3,14 +3,9 @@
 <?= $this->section('content') ?>
 
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Kelola Regulasi</h1>
     <div>
-        <a href="<?= base_url('admin/categories/regulations') ?>" class="btn btn-outline-secondary me-2">
-            <i class="bi bi-tags me-1"></i> Kelola Kategori Tipe
-        </a>
-        <a href="<?= base_url('admin/regulations/create') ?>" class="btn btn-primary">
-            <i class="bi bi-plus-lg me-1"></i> Tambah Regulasi
-        </a>
+        <h1 class="h3 mb-1 text-gray-800 fw-bold">Kelola Regulasi</h1>
+        <p class="text-muted mb-0">Kelola dokumen regulasi & dasar hukum PPID.</p>
     </div>
 </div>
 
@@ -28,43 +23,59 @@
     </div>
 <?php endif; ?>
 
-<div class="card shadow-sm mb-4">
-    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between bg-white">
-        <h6 class="m-0 font-weight-bold">Daftar Regulasi & Dasar Hukum</h6>
-        <form action="" method="get" class="d-flex align-items-center" style="gap: 10px;">
-            <select name="type" class="form-select form-select-sm" onchange="this.form.submit()">
-                <option value="">Semua Kategori</option>
-                <?php if (!empty($categories)) : ?>
-                    <?php foreach ($categories as $cat) : ?>
-                        <option value="<?= esc($cat['slug']) ?>" <?= ($type ?? '') == $cat['slug'] ? 'selected' : '' ?>>
-                            <?= esc($cat['name']) ?>
-                        </option>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-            </select>
-        </form>
+<div class="card shadow-sm border-0 mb-4">
+    <div class="card-header bg-white border-0 py-3">
+        <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
+            <h5 class="mb-0 fw-bold text-dark"><i class="bi bi-journal-text me-2 text-primary"></i>Daftar Regulasi & Dasar Hukum</h5>
+            <div class="d-flex flex-column flex-md-row gap-2 align-items-md-center">
+                <form action="" method="get" class="d-flex align-items-center flex-wrap" style="gap: 8px;">
+                    <select name="type" class="form-select form-select-sm" onchange="this.form.submit()" style="max-width: 180px;">
+                        <option value="">Semua Kategori</option>
+                        <?php if (!empty($categories)) : ?>
+                            <?php foreach ($categories as $cat) : ?>
+                                <option value="<?= esc($cat['slug']) ?>" <?= ($type ?? '') == $cat['slug'] ? 'selected' : '' ?>>
+                                    <?= esc($cat['name']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </select>
+                </form>
+                <a href="<?= base_url('admin/categories/regulations') ?>" class="btn btn-light btn-sm border shadow-sm rounded-pill px-3 ms-md-2 hover-lift">
+                    <i class="bi bi-tags me-1 text-primary"></i> Kelola Kategori
+                </a>
+                <a href="<?= base_url('admin/regulations/create') ?>" class="btn btn-primary btn-sm shadow-sm rounded-pill px-3 hover-lift">
+                    <i class="bi bi-plus-lg me-1"></i> Tambah Regulasi
+                </a>
+            </div>
+        </div>
     </div>
     <div class="card-body p-0">
-        <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0">
+        <div class="table-responsive px-2 pb-3">
+            <table class="table table-hover align-middle border-bottom mb-0">
                 <thead class="table-light">
                     <tr>
-                        <th width="5%" class="text-center">No</th>
-                        <th width="35%">Judul / Tentang</th>
-                        <th width="15%" class="text-center">Kategori</th>
-                        <th width="15%">Nomor & Tahun</th>
-                        <th width="15%" class="text-center">File PDF</th>
-                        <th width="15%" class="text-center">Aksi</th>
+                        <th class="py-3 text-muted text-uppercase fw-semibold text-center" style="font-size: 0.8rem;" width="5%">No</th>
+                        <th class="py-3 text-muted text-uppercase fw-semibold" style="font-size: 0.8rem;" width="35%">Judul / Tentang</th>
+                        <th class="py-3 text-muted text-uppercase fw-semibold text-center" style="font-size: 0.8rem;" width="15%">Kategori</th>
+                        <th class="py-3 text-muted text-uppercase fw-semibold" style="font-size: 0.8rem;" width="15%">Nomor & Tahun</th>
+                        <th class="py-3 text-muted text-uppercase fw-semibold text-center" style="font-size: 0.8rem;" width="15%">File PDF</th>
+                        <th class="py-3 text-muted text-uppercase fw-semibold text-center" style="font-size: 0.8rem;" width="15%">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php if (empty($regulations)) : ?>
                         <tr>
-                            <td colspan="6" class="text-center py-4 text-muted">Belum ada data regulasi.</td>
+                            <td colspan="6" class="text-center py-5">
+                                <div class="d-flex flex-column align-items-center justify-content-center text-muted">
+                                    <i class="bi bi-inbox fs-1 mb-3 text-secondary opacity-50"></i>
+                                    <h5 class="fw-bold mb-1">Belum Ada Regulasi</h5>
+                                    <p class="small mb-0">Saat ini tidak ada data regulasi yang tersedia.</p>
+                                </div>
+                            </td>
                         </tr>
                     <?php else : ?>
                         <?php 
-                        $page = isset($_GET['page']) ? $_GET['page'] : 1;
+                        $page = $pager->getCurrentPage();
                         $no = 1 + (10 * ($page - 1));
                         foreach ($regulations as $item) : 
                         ?>
@@ -72,6 +83,7 @@
                                 <td class="text-center"><?= $no++ ?></td>
                                 <td>
                                     <div class="fw-semibold text-dark"><?= esc($item['title']) ?></div>
+                                    <div class="small text-muted mb-1"><i class="bi bi-link-45deg"></i> /regulasi/<?= esc($item['slug'] ?? '...') ?></div>
                                     <?php if (!empty($item['description'])) : ?>
                                         <div class="small text-muted text-truncate" style="max-width: 300px;"><?= esc($item['description']) ?></div>
                                     <?php endif; ?>
@@ -113,12 +125,12 @@
                                     <?php endif; ?>
                                 </td>
                                 <td class="text-center">
-                                    <div class="btn-group btn-group-sm">
-                                        <a href="<?= base_url('admin/regulations/edit/' . $item['id']) ?>" class="btn btn-outline-primary" title="Edit">
-                                            <i class="bi bi-pencil"></i>
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <a href="<?= base_url('admin/regulations/edit/' . $item['id']) ?>" class="btn btn-sm btn-light text-primary border rounded-circle shadow-sm" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center;" title="Edit">
+                                            <i class="bi bi-pencil-fill"></i>
                                         </a>
-                                        <button type="button" class="btn btn-outline-danger btn-delete" data-id="<?= $item['id'] ?>" data-title="<?= esc($item['title']) ?>" title="Hapus">
-                                            <i class="bi bi-trash"></i>
+                                        <button type="button" class="btn btn-sm btn-light text-danger border rounded-circle shadow-sm btn-delete" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center;" data-id="<?= $item['id'] ?>" data-title="<?= esc($item['title']) ?>" title="Hapus">
+                                            <i class="bi bi-trash-fill"></i>
                                         </button>
                                     </div>
                                 </td>
