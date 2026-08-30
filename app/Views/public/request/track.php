@@ -150,7 +150,7 @@
                             <div class="alert alert-primary border-0 mt-4 d-flex align-items-center">
                                 <i class="bi bi-info-circle-fill me-3 fs-4"></i>
                                 <div class="small">
-                                    Ingin melihat detail balasan atau mengunduh lampiran resmi? <a href="<?= base_url('auth/login') ?>" class="fw-bold text-primary">Login ke Akun Anda</a>
+                                    Ingin melihat detail balasan atau mengunduh lampiran resmi? <a href="<?= base_url('user/login') ?>" class="fw-bold text-primary">Login ke Akun Anda</a>
                                 </div>
                             </div>
                             <?php endif; ?>
