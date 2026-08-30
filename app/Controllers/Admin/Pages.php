@@ -114,9 +114,9 @@ class Pages extends BaseController
         return redirect()->to('admin/pages')->with('message', 'Halaman berhasil ditambahkan.');
     }
 
-    public function edit($id)
+    public function edit($slug)
     {
-        $page = $this->pageModel->find($id);
+        $page = $this->pageModel->where('slug', $slug)->first();
 
         if (!$page) {
             return redirect()->to('admin/pages')->with('error', 'Halaman tidak ditemukan.');
@@ -130,13 +130,15 @@ class Pages extends BaseController
         return view('admin/pages/edit', $data);
     }
 
-    public function update($id)
+    public function update($slug)
     {
-        $page = $this->pageModel->find($id);
+        $page = $this->pageModel->where('slug', $slug)->first();
 
         if (!$page) {
             return redirect()->to('admin/pages')->with('error', 'Halaman tidak ditemukan.');
         }
+        
+        $id = $page['id'];
 
         $rules = [
             'title'    => 'required|min_length[3]',
@@ -212,13 +214,15 @@ class Pages extends BaseController
         return redirect()->to('admin/pages')->with('message', 'Halaman berhasil diupdate.');
     }
 
-    public function delete($id)
+    public function delete($slug)
     {
-        $page = $this->pageModel->find($id);
+        $page = $this->pageModel->where('slug', $slug)->first();
 
         if (!$page) {
             return redirect()->to('admin/pages')->with('error', 'Halaman tidak ditemukan.');
         }
+        
+        $id = $page['id'];
 
         // Delete files if exist
         if (!empty($page['image'])) {
