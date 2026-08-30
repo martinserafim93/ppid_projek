@@ -6,6 +6,9 @@
     <meta name="description" content="Dashboard Admin - PPID Kalimantan Utara">
     <title><?= esc($title ?? 'Dashboard') ?> - PPID Kaltara</title>
     
+    <?php $favicon = getSetting('site_favicon') ?: 'assets/img/kemenag-new-2025.png'; ?>
+    <link rel="icon" href="<?= base_url($favicon) ?>">
+    
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

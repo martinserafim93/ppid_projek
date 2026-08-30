@@ -9,7 +9,7 @@
     <div class="container">
         <div class="text-center mb-5" data-aos="fade-up">
             <h6 class="text-primary fw-bold text-uppercase" style="letter-spacing: 2px;">Publikasi Laporan</h6>
-            <h2 class="heading-font fw-bold">Data & Statistik Tahunan</h2>
+            <h2 class="heading-font fw-bold">Dokumen dan Statistik Tahunan</h2>
             <p class="text-muted max-w-700 mx-auto mt-3">Laporan statistik dan dokumen data sektoral yang dipublikasikan oleh Kantor Wilayah Kementerian Agama Provinsi Kalimantan Utara.</p>
         </div>
 

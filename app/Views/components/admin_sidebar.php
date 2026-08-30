@@ -1,7 +1,7 @@
 <aside class="sidebar" id="sidebar">
     <!-- Logo Section -->
     <div class="sidebar-logo">
-        <img src="<?= base_url('assets/img/kemenag-new-2025.png') ?>" alt="Logo Kemenag">
+        <img src="<?= base_url(getSetting('site_logo') ?: 'assets/img/kemenag-new-2025.png') ?>" alt="Logo Kemenag">
         <h5>PPID KALTARA</h5>
     </div>
 

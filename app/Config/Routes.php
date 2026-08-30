@@ -84,6 +84,7 @@ $routes->group('admin', ['filter' => 'admin', 'namespace' => 'App\Controllers\Ad
     $routes->post('pemohon/update/(:num)', 'Pemohon::update/$1');
     $routes->get('pemohon/toggle/(:num)', 'Pemohon::toggleActive/$1');
     $routes->post('pemohon/reset-password/(:num)', 'Pemohon::resetPassword/$1');
+    $routes->post('pemohon/delete/(:num)', 'Pemohon::delete/$1');
 
     // Users
     $routes->get('users', 'Users::index');
@@ -111,8 +112,12 @@ $routes->group('admin', ['filter' => 'admin', 'namespace' => 'App\Controllers\Ad
 });
 
 // === PIMPINAN (dilindungi filter pimpinan) ===
-$routes->group('pimpinan', ['filter' => 'pimpinan', 'namespace' => 'App\Controllers\Pimpinan'], static function ($routes) {
-    $routes->get('dashboard', 'Dashboard::index');
+$routes->group('pimpinan', ['filter' => 'pimpinan'], function($routes) {
+    $routes->get('dashboard', 'Pimpinan\Dashboard::index');
+    $routes->get('monitoring', 'Pimpinan\Dashboard::monitoring');
+    $routes->get('laporan', 'Pimpinan\Dashboard::laporan');
+    $routes->get('laporan/export', 'Pimpinan\Dashboard::exportCsv');
+    $routes->get('survei', 'Pimpinan\Dashboard::surveys');
 });
 
 // === PUBLIC ===
@@ -127,11 +132,15 @@ $routes->group('permohonan', static function ($routes) {
     $routes->get('riwayat', 'Request_::history');
     $routes->get('detail/(:num)', 'Request_::detail/$1');
     $routes->post('keberatan/(:num)', 'Request_::objection/$1');
+    $routes->post('survei/(:num)', 'Request_::submitSurvey/$1');
 });
 
 // Dokumen publik (SOP dll)
 $routes->get('dokumen/download/(:num)', 'Document::download/$1');
 $routes->get('dokumen/(:segment)', 'Document::category/$1');
+
+// Statistik publik
+$routes->get('statistik', 'Statistic::index');
 
 $routes->get('/', 'Home::index');
 $routes->get('profil/(:segment)', 'Profile::show/$1');
