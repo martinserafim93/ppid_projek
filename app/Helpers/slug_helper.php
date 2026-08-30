@@ -30,6 +30,11 @@ if (!function_exists('generateSlug')) {
         // Trim dashes from start and end
         $slug = trim($slug, '-');
         
+        // Fallback: jika slug kosong (judul tidak mengandung huruf/angka Latin)
+        if ($slug === '') {
+            $slug = 'halaman';
+        }
+        
         // If no model provided, return slug as is
         if ($model === null) {
             return $slug;

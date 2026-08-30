@@ -20,6 +20,15 @@
                     <div class="content-body" data-aos="fade-up" data-aos-delay="200">
                         <?= $page['content'] ?>
                     </div>
+                    
+                    <?php if (!empty($page['file_path'])): ?>
+                        <div class="mt-5 pt-4 border-top" data-aos="fade-up" data-aos-delay="300">
+                            <h5 class="fw-bold mb-3"><i class="bi bi-paperclip me-2 text-primary"></i>Lampiran Dokumen</h5>
+                            <a href="<?= base_url($page['file_path']) ?>" target="_blank" class="btn btn-outline-primary rounded-pill px-4 hover-lift">
+                                <i class="bi bi-download me-2"></i>Unduh Lampiran
+                            </a>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

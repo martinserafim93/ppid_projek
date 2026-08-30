@@ -39,9 +39,9 @@ $routes->group('admin', ['filter' => 'admin', 'namespace' => 'App\Controllers\Ad
     $routes->get('pages', 'Pages::index');
     $routes->get('pages/create', 'Pages::create');
     $routes->post('pages/store', 'Pages::store');
-    $routes->get('pages/edit/(:num)', 'Pages::edit/$1');
-    $routes->post('pages/update/(:num)', 'Pages::update/$1');
-    $routes->get('pages/delete/(:num)', 'Pages::delete/$1');
+    $routes->get('pages/edit/(:segment)', 'Pages::edit/$1');
+    $routes->post('pages/update/(:segment)', 'Pages::update/$1');
+    $routes->get('pages/delete/(:segment)', 'Pages::delete/$1');
 
     // Regulations
     $routes->get('regulations', 'Regulations::index');

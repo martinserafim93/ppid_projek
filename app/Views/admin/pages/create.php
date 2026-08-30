@@ -3,7 +3,7 @@
 <?= $this->section('content') ?>
 
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Tambah Halaman</h1>
+    <h2 class="h3 mb-0 text-gray-800">Tambah Halaman</h2>
     <a href="<?= base_url('admin/pages') ?>" class="btn btn-outline-secondary">
         <i class="bi bi-arrow-left me-1"></i> Kembali
     </a>
@@ -68,11 +68,8 @@
                         <!-- Gambar Cover -->
                         <div class="mb-4">
                             <label for="image" class="form-label fw-semibold">Gambar Utama</label>
-                            <input type="file" class="form-control form-control-sm" id="image" name="image" accept="image/*" onchange="previewImage(this)">
+                            <input type="file" class="form-control form-control-sm" id="image" name="image" accept="image/*">
                             <div class="form-text small">Format: JPG, PNG. Maksimal 2MB.</div>
-                            <div class="mt-2 text-center d-none" id="image-preview-container">
-                                <img id="image-preview" src="#" alt="Preview" class="img-fluid rounded border" style="max-height: 150px; object-fit: cover;">
-                            </div>
                         </div>
 
                         <!-- Lampiran File -->
@@ -92,7 +89,7 @@
                         <!-- Status Aktif -->
                         <div class="mb-4">
                             <label class="form-label fw-semibold">Status Publish</label>
-                            <div class="form-check form-switch form-switch-md">
+                            <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" role="switch" id="is_active" name="is_active" value="1" <?= old('is_active', '1') == '1' ? 'checked' : '' ?>>
                                 <label class="form-check-label ms-2" for="is_active">Aktif (Bisa diakses publik)</label>
                             </div>
@@ -128,24 +125,7 @@ $(document).ready(function() {
     });
 });
 
-function previewImage(input) {
-    var container = document.getElementById('image-preview-container');
-    var preview = document.getElementById('image-preview');
-    
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        
-        reader.onload = function(e) {
-            preview.src = e.target.result;
-            container.classList.remove('d-none');
-        }
-        
-        reader.readAsDataURL(input.files[0]);
-    } else {
-        preview.src = '#';
-        container.classList.add('d-none');
-    }
-}
+
 </script>
 <?= $this->endSection() ?>
 

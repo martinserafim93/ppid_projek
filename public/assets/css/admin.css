@@ -673,3 +673,5 @@ html {
 
 .hover-lift { transition: transform 0.2s ease, box-shadow 0.2s ease; }
 .hover-lift:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+
+.bg-gold { background-color: #C9A84C !important; }
