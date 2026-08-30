@@ -29,19 +29,19 @@
                 <h6 class="m-0 font-weight-bold text-primary">Informasi Tiket: <?= esc($request['ticket_number']) ?></h6>
                 <?php 
                     $status = $request['status'];
-                    $badgeClass = 'secondary';
+                    $badgeClass = 'warning';
                     $statusText = 'Pending';
                     
-                    if($status == 'process') { $badgeClass = 'warning'; $statusText = 'Diproses'; }
+                    if($status == 'process') { $badgeClass = 'info'; $statusText = 'Diproses'; }
                     else if($status == 'approved') { $badgeClass = 'success'; $statusText = 'Disetujui'; }
                     else if($status == 'rejected') { $badgeClass = 'danger'; $statusText = 'Ditolak'; }
-                    else if($status == 'objection') { $badgeClass = 'info'; $statusText = 'Keberatan'; }
+                    else if($status == 'objection') { $badgeClass = 'dark'; $statusText = 'Keberatan'; }
                 ?>
                 <span class="badge bg-<?= $badgeClass ?> bg-opacity-10 text-<?= $badgeClass ?> border border-<?= $badgeClass ?> px-3 py-2 rounded-pill fs-6">
                     <?= $statusText ?>
                 </span>
             </div>
-            <div class="card-body">
+            <div class="card-body p-4">
                 <div class="row mb-3">
                     <div class="col-sm-4 text-muted fw-semibold">Pemohon</div>
                     <div class="col-sm-8 fw-bold"><?= esc($request['user_name']) ?></div>
@@ -70,7 +70,7 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-4 text-muted fw-semibold">Tanggal Diajukan</div>
-                    <div class="col-sm-8"><?= date('d M Y H:i', strtotime($request['created_at'])) ?> WIB</div>
+                    <div class="col-sm-8"><?= formatWita($request['created_at']) ?> WITA</div>
                 </div>
 
                 <?php if(!empty($files)): ?>
@@ -86,6 +86,32 @@
                 <?php endif; ?>
             </div>
         </div>
+
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-white py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Pesan Balasan Admin</h6>
+            </div>
+            <div class="card-body p-4">
+                <?php if (!empty($request['response'])): ?>
+                    <div class="text-muted small mb-1"><?= esc($request['user_name']) ?> / Admin PPID</div>
+                    <div class="border rounded p-3 bg-light mb-3">
+                        <?= nl2br(esc($request['response'])) ?>
+                    </div>
+                    <?php if (!empty($request['responded_at'])): ?>
+                        <div class="small text-muted">
+                            <i class="bi bi-clock me-1"></i>Dibalas: <?= formatWita($request['responded_at']) ?> WITA
+                        </div>
+                    <?php endif; ?>
+                    <?php if (!empty($request['response_file'])): ?>
+                        <a href="<?= base_url($request['response_file']) ?>" target="_blank" class="btn btn-sm btn-outline-primary mt-2">
+                            <i class="bi bi-file-earmark-arrow-down me-1"></i> Dokumen Balasan
+                        </a>
+                    <?php endif; ?>
+                <?php else: ?>
+                    <div class="text-muted">Belum ada pesan balasan untuk permohonan ini.</div>
+                <?php endif; ?>
+            </div>
+        </div>
     </div>
 
     <!-- Kolom Kanan: Aksi Proses -->
@@ -94,8 +120,8 @@
             <div class="card-header bg-white py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Proses Permohonan</h6>
             </div>
-            <div class="card-body">
-                <form action="<?= base_url('admin/requests/update/' . $request['id']) ?>" method="POST" enctype="multipart/form-data">
+            <div class="card-body p-4">
+                <form id="updateRequestForm" action="<?= base_url('admin/requests/update/' . $request['slug']) ?>" method="POST" enctype="multipart/form-data">
                     <?= csrf_field() ?>
                     
                     <div class="mb-3">
@@ -113,7 +139,7 @@
 
                     <div class="mb-3" id="responseWrap">
                         <label class="form-label fw-bold" id="responseLabel">Balasan / Alasan Penolakan</label>
-                        <textarea name="response" class="form-control" rows="5" placeholder="Tuliskan keterangan..."><?= esc($request['response']) ?></textarea>
+                        <textarea name="response" class="form-control" rows="5" placeholder="Tuliskan keterangan..." required><?= esc($request['response']) ?></textarea>
                         <small class="text-muted mt-1 d-block" id="responseHelp">Wajib diisi jika menolak permohonan. (Untuk Keberatan, riwayat keberatan user juga tercatat di sini)</small>
                     </div>
 
@@ -130,7 +156,7 @@
                         <small class="text-muted">Hanya muncul jika status Disetujui (Approved).</small>
                     </div>
 
-                    <button type="submit" class="btn btn-primary w-100" onclick="return confirm('Simpan pembaruan status permohonan ini?')">
+                    <button type="submit" class="btn btn-primary w-100 hover-lift">
                         <i class="bi bi-save me-1"></i> Simpan Pembaruan
                     </button>
                 </form>
@@ -151,20 +177,39 @@
 
         if (status === 'approved') {
             fileWrap.style.display = 'block';
-            responseLabel.innerText = 'Pesan Balasan (Opsional)';
-            responseHelp.innerText = 'Tambahkan keterangan tambahan jika diperlukan.';
+            responseLabel.innerHTML = 'Pesan Balasan untuk Pemohon <span class="text-danger">*</span>';
+            responseHelp.innerText = 'Pesan ini akan terlihat oleh pemohon. Wajib diisi.';
         } else if (status === 'rejected') {
             fileWrap.style.display = 'none';
             responseLabel.innerHTML = 'Alasan Penolakan <span class="text-danger">*</span>';
             responseHelp.innerText = 'Wajib diisi mengapa permohonan ini ditolak.';
         } else {
             fileWrap.style.display = 'none';
-            responseLabel.innerText = 'Catatan Internal / Balasan';
-            responseHelp.innerText = 'Catatan progres pemrosesan (opsional).';
+            responseLabel.innerHTML = 'Pesan Balasan untuk Pemohon <span class="text-danger">*</span>';
+            responseHelp.innerText = 'Pesan ini akan terlihat oleh pemohon. Wajib diisi.';
         }
     }
 
     // Run on load
-    document.addEventListener('DOMContentLoaded', toggleFields);
+    document.addEventListener('DOMContentLoaded', function() {
+        toggleFields();
+        
+        document.getElementById('updateRequestForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            Swal.fire({
+                title: 'Simpan Pembaruan Status?',
+                text: "Pastikan pesan balasan sudah sesuai.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#1B5E20',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Ya, Simpan'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    event.target.submit();
+                }
+            });
+        });
+    });
 </script>
 <?= $this->endSection() ?>

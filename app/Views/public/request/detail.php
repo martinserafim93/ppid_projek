@@ -20,7 +20,7 @@
                         <a href="<?= base_url('permohonan/riwayat') ?>" class="list-group-item list-group-item-action p-3 active bg-primary bg-opacity-10 text-primary border-start border-4 border-primary">
                             <i class="bi bi-clock-history me-2"></i> Riwayat Permohonan
                         </a>
-                        <a href="<?= base_url('auth/logout') ?>" class="list-group-item list-group-item-action text-danger p-3">
+                        <a href="<?= base_url('user/logout') ?>" class="list-group-item list-group-item-action text-danger p-3" onclick="event.preventDefault(); Swal.fire({title: 'Konfirmasi Keluar', text: 'Apakah Anda yakin ingin keluar dari portal?', icon: 'warning', showCancelButton: true, confirmButtonColor: '#dc3545', cancelButtonColor: '#6c757d', confirmButtonText: 'Ya, Keluar'}).then((result) => { if (result.isConfirmed) { window.location.href = this.href; } });">
                             <i class="bi bi-box-arrow-right me-2"></i> Keluar
                         </a>
                     </div>
@@ -96,7 +96,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="text-muted small text-uppercase fw-semibold mb-1">Tanggal Pengajuan</div>
-                                <p class="text-dark mb-0"><?= date('d F Y H:i', strtotime($request['created_at'])) ?> WIB</p>
+                                <p class="text-dark mb-0"><?= formatWita($request['created_at'], 'd F Y H:i') ?> WITA</p>
                             </div>
                             <div class="col-12">
                                 <div class="text-muted small text-uppercase fw-semibold mb-1">Rincian Informasi</div>
@@ -135,6 +135,12 @@
                         </h5>
                         
                         <?php if($status == 'approved'): ?>
+                            <?php if (!empty($request['response'])): ?>
+                                <div class="bg-white rounded p-3 border mb-3">
+                                    <div class="text-muted small text-uppercase fw-semibold mb-1">Pesan Balasan Admin</div>
+                                    <?= nl2br(esc($request['response'])) ?>
+                                </div>
+                            <?php endif; ?>
                             <p class="mb-4">Permohonan Anda telah disetujui. Silakan unduh dokumen/informasi yang Anda minta melalui lampiran resmi di bawah ini.</p>
                             <?php if(!empty($request['response_file'])): ?>
                                 <a href="<?= base_url($request['response_file']) ?>" class="btn btn-success px-4 py-2 shadow-sm" target="_blank">
@@ -162,13 +168,13 @@
                         <h5 class="heading-font fw-bold text-danger mb-3"><i class="bi bi-shield-exclamation me-2"></i> Ajukan Keberatan</h5>
                         <p class="text-muted mb-4">Jika Anda merasa penolakan ini tidak sesuai dengan ketentuan Keterbukaan Informasi Publik, Anda memiliki hak untuk mengajukan keberatan.</p>
                         
-                        <form action="<?= base_url('permohonan/keberatan/' . $request['id']) ?>" method="POST">
+                        <form action="<?= base_url('permohonan/keberatan/' . $request['slug']) ?>" method="POST" onsubmit="event.preventDefault(); swalConfirm(this, 'Kirim pengajuan keberatan sekarang?', 'Ya, Kirim', '#dc3545')">
                             <?= csrf_field() ?>
                             <div class="mb-4">
                                 <label for="objection_reason" class="form-label fw-semibold">Alasan Keberatan <span class="text-danger">*</span></label>
                                 <textarea class="form-control" id="objection_reason" name="objection_reason" rows="4" placeholder="Jelaskan alasan mengapa Anda mengajukan keberatan atas penolakan ini..." required></textarea>
                             </div>
-                            <button type="submit" class="btn btn-danger px-4" onclick="return confirm('Kirim pengajuan keberatan sekarang?');">
+                            <button type="submit" class="btn btn-danger px-4">
                                 <i class="bi bi-send-fill me-2"></i> Kirim Pengajuan Keberatan
                             </button>
                         </form>
@@ -188,7 +194,7 @@
                         <?php else: ?>
                             <p class="text-muted mb-4">Silakan berikan penilaian Anda terhadap layanan informasi yang telah kami berikan.</p>
                             
-                            <form action="<?= base_url('permohonan/survei/' . $request['id']) ?>" method="POST">
+                            <form action="<?= base_url('permohonan/survei/' . $request['slug']) ?>" method="POST" onsubmit="event.preventDefault(); swalConfirm(this, 'Kirim penilaian sekarang?', 'Ya, Kirim', '#198754')">
                                 <?= csrf_field() ?>
                                 
                                 <div class="mb-4">
@@ -218,7 +224,7 @@
                                     <label for="feedback" class="form-label fw-semibold">Ulasan / Saran (Opsional)</label>
                                     <textarea class="form-control" id="feedback" name="feedback" rows="3" placeholder="Tuliskan ulasan atau saran Anda untuk perbaikan layanan kami..."></textarea>
                                 </div>
-                                <button type="submit" class="btn btn-success px-4" onclick="return confirm('Kirim penilaian sekarang?');">
+                                <button type="submit" class="btn btn-success px-4">
                                     <i class="bi bi-send-fill me-2"></i> Kirim Penilaian
                                 </button>
                             </form>
@@ -231,4 +237,24 @@
         </div>
     </div>
 </section>
+<?= $this->endSection() ?>
+
+<?= $this->section('scripts') ?>
+<script>
+    function swalConfirm(form, message, btnText, btnColor = '#1B5E20') {
+        Swal.fire({
+            title: 'Konfirmasi',
+            text: message,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: btnColor,
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: btnText
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+        });
+    }
+</script>
 <?= $this->endSection() ?>

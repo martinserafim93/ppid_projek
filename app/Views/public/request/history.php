@@ -21,7 +21,7 @@
                         <a href="<?= base_url('permohonan/riwayat') ?>" class="list-group-item list-group-item-action p-3 active bg-primary bg-opacity-10 text-primary border-start border-4 border-primary">
                             <i class="bi bi-clock-history me-2"></i> Riwayat Permohonan
                         </a>
-                        <a href="<?= base_url('auth/logout') ?>" class="list-group-item list-group-item-action text-danger p-3">
+                        <a href="<?= base_url('user/logout') ?>" class="list-group-item list-group-item-action text-danger p-3" onclick="event.preventDefault(); Swal.fire({title: 'Konfirmasi Keluar', text: 'Apakah Anda yakin ingin keluar dari portal?', icon: 'warning', showCancelButton: true, confirmButtonColor: '#dc3545', cancelButtonColor: '#6c757d', confirmButtonText: 'Ya, Keluar'}).then((result) => { if (result.isConfirmed) { window.location.href = this.href; } });">
                             <i class="bi bi-box-arrow-right me-2"></i> Keluar
                         </a>
                     </div>
@@ -87,7 +87,7 @@
                                                 <p class="text-muted mb-0 line-clamp-2"><?= esc($req['subject']) ?></p>
                                             </div>
                                             <div class="d-flex align-items-center">
-                                                <a href="<?= base_url('permohonan/detail/' . $req['id']) ?>" class="btn btn-outline-primary-custom w-100 w-md-auto stretched-link">Lihat Detail <i class="bi bi-arrow-right ms-2"></i></a>
+                                                <a href="<?= base_url('permohonan/detail/' . $req['slug']) ?>" class="btn btn-outline-primary-custom w-100 w-md-auto stretched-link">Lihat Detail <i class="bi bi-arrow-right ms-2"></i></a>
                                             </div>
                                         </div>
                                     </div>

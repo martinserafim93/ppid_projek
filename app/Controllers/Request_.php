@@ -43,6 +43,7 @@ class Request_ extends BaseController
             'ticket_number' => $ticketNumber,
             'user_id'       => session()->get('user_id'),
             'subject'       => $this->request->getPost('subject'),
+            'slug'          => url_title($this->request->getPost('subject'), '-', true) . '-' . strtolower(substr($ticketNumber, -5)),
             'description'   => $this->request->getPost('description'),
             'purpose'       => $this->request->getPost('purpose'),
             'status'        => 'pending',
@@ -157,19 +158,20 @@ class Request_ extends BaseController
         return view('public/request/history', $data);
     }
 
-    public function detail($id)
+    public function detail($slug)
     {
         if (!session()->get('logged_in')) {
             return redirect()->to('/user/login');
         }
 
         $requestModel = new RequestModel();
-        $requestData = $requestModel->where('id', $id)->where('user_id', session()->get('user_id'))->first();
+        $requestData = $requestModel->where('slug', $slug)->where('user_id', session()->get('user_id'))->first();
 
         if (!$requestData) {
             return redirect()->to('/permohonan/riwayat')->with('error', 'Data tidak ditemukan atau Anda tidak memiliki akses.');
         }
 
+        $id = $requestData['id'];
         $fileModel = new RequestFileModel();
         $files = $fileModel->where('request_id', $id)->findAll();
 
@@ -186,14 +188,14 @@ class Request_ extends BaseController
         return view('public/request/detail', $data);
     }
 
-    public function objection($id)
+    public function objection($slug)
     {
         if (!session()->get('logged_in')) {
             return redirect()->to('/user/login');
         }
 
         $requestModel = new RequestModel();
-        $requestData = $requestModel->where('id', $id)->where('user_id', session()->get('user_id'))->first();
+        $requestData = $requestModel->where('slug', $slug)->where('user_id', session()->get('user_id'))->first();
 
         if (!$requestData || $requestData['status'] !== 'rejected') {
             return redirect()->back()->with('error', 'Pengajuan keberatan hanya berlaku untuk tiket yang ditolak.');
@@ -204,6 +206,7 @@ class Request_ extends BaseController
             return redirect()->back()->with('error', 'Alasan keberatan wajib diisi.');
         }
 
+        $id = $requestData['id'];
         $requestModel->update($id, [
             'status' => 'objection',
             'response' => $requestData['response'] . "\n\n[KEBERATAN PEMOHON]: " . $objectionReason
@@ -212,14 +215,14 @@ class Request_ extends BaseController
         return redirect()->back()->with('success', 'Pengajuan keberatan berhasil dikirim dan akan ditinjau kembali oleh tim PPID.');
     }
 
-    public function submitSurvey($id)
+    public function submitSurvey($slug)
     {
         if (!session()->get('logged_in')) {
             return redirect()->to('/user/login');
         }
 
         $requestModel = new RequestModel();
-        $requestData = $requestModel->where('id', $id)->where('user_id', session()->get('user_id'))->first();
+        $requestData = $requestModel->where('slug', $slug)->where('user_id', session()->get('user_id'))->first();
 
         if (!$requestData || $requestData['status'] !== 'approved') {
             return redirect()->back()->with('error', 'Survei hanya dapat diisi untuk permohonan yang telah disetujui.');
@@ -237,6 +240,7 @@ class Request_ extends BaseController
             return redirect()->back()->with('error', 'Rating bintang wajib diisi.');
         }
 
+        $id = $requestData['id'];
         $surveyModel->insert([
             'request_id' => $id,
             'rating'     => $rating,

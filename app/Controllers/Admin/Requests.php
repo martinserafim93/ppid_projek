@@ -24,19 +24,20 @@ class Requests extends BaseController
         return view('admin/requests/index', $data);
     }
 
-    public function detail($id)
+    public function detail($slug)
     {
         $requestModel = new RequestModel();
         
         $requestData = $requestModel->select('requests.*, users.name as user_name, users.email, users.nik, users.phone')
                                    ->join('users', 'users.id = requests.user_id')
-                                   ->where('requests.id', $id)
+                                   ->where('requests.slug', $slug)
                                    ->first();
                                    
         if (!$requestData) {
             return redirect()->to('/admin/requests')->with('error', 'Data permohonan tidak ditemukan.');
         }
 
+        $id = $requestData['id'];
         $fileModel = new RequestFileModel();
         $files = $fileModel->where('request_id', $id)->findAll();
 
@@ -49,14 +50,16 @@ class Requests extends BaseController
         return view('admin/requests/detail', $data);
     }
 
-    public function update($id)
+    public function update($slug)
     {
         $requestModel = new RequestModel();
-        $requestData = $requestModel->find($id);
+        $requestData = $requestModel->where('slug', $slug)->first();
 
         if (!$requestData) {
             return redirect()->to('/admin/requests')->with('error', 'Data tidak ditemukan.');
         }
+
+        $id = $requestData['id'];
 
         $status = $this->request->getPost('status');
         $responseText = $this->request->getPost('response');
@@ -67,14 +70,11 @@ class Requests extends BaseController
             'responded_by' => session()->get('user_id')
         ];
 
-        if ($status === 'rejected') {
-            if (empty($responseText)) {
-                return redirect()->back()->withInput()->with('error', 'Alasan penolakan wajib diisi jika menolak permohonan.');
-            }
-            $updateData['response'] = $responseText;
-        } else {
-            $updateData['response'] = $responseText; // Can be empty or filled
+        if ($status !== 'pending' && empty($responseText)) {
+            return redirect()->back()->withInput()->with('error', 'Pesan balasan wajib diisi saat memproses permohonan.');
         }
+
+        $updateData['response'] = $responseText;
 
         // Handle response file if approved
         if ($status === 'approved') {
@@ -94,7 +94,7 @@ class Requests extends BaseController
 
         $requestModel->update($id, $updateData);
 
-        return redirect()->to('/admin/requests/detail/' . $id)->with('success', 'Status permohonan berhasil diperbarui.');
+        return redirect()->to('/admin/requests/detail/' . $slug)->with('success', 'Status permohonan berhasil diperbarui.');
     }
 
     public function create()
@@ -131,6 +131,7 @@ class Requests extends BaseController
             'ticket_number' => $ticketNumber,
             'user_id'       => $this->request->getPost('user_id'),
             'subject'       => $this->request->getPost('subject'),
+            'slug'          => url_title($this->request->getPost('subject'), '-', true) . '-' . strtolower(substr($ticketNumber, -5)),
             'description'   => $this->request->getPost('description'),
             'purpose'       => $this->request->getPost('purpose'),
             'status'        => 'pending'
@@ -159,10 +160,10 @@ class Requests extends BaseController
         return redirect()->to('/admin/requests')->with('success', 'Permohonan informasi berhasil ditambahkan.');
     }
 
-    public function edit($id)
+    public function edit($slug)
     {
         $requestModel = new RequestModel();
-        $requestData = $requestModel->find($id);
+        $requestData = $requestModel->where('slug', $slug)->first();
 
         if (!$requestData) {
             return redirect()->to('/admin/requests')->with('error', 'Data tidak ditemukan.');
@@ -180,14 +181,16 @@ class Requests extends BaseController
         return view('admin/requests/edit', $data);
     }
 
-    public function updateData($id)
+    public function updateData($slug)
     {
         $requestModel = new RequestModel();
-        $requestData = $requestModel->find($id);
+        $requestData = $requestModel->where('slug', $slug)->first();
 
         if (!$requestData) {
             return redirect()->to('/admin/requests')->with('error', 'Data tidak ditemukan.');
         }
+
+        $id = $requestData['id'];
 
         $rules = [
             'user_id'     => 'required|numeric',
@@ -212,14 +215,16 @@ class Requests extends BaseController
         return redirect()->to('/admin/requests')->with('success', 'Data permohonan berhasil diperbarui.');
     }
 
-    public function delete($id)
+    public function delete($slug)
     {
         $requestModel = new RequestModel();
-        $requestData = $requestModel->find($id);
+        $requestData = $requestModel->where('slug', $slug)->first();
 
         if (!$requestData) {
             return redirect()->to('/admin/requests')->with('error', 'Data tidak ditemukan.');
         }
+
+        $id = $requestData['id'];
 
         // Hapus file balasan jika ada
         if (!empty($requestData['response_file']) && file_exists(FCPATH . $requestData['response_file'])) {

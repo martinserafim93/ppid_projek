@@ -58,6 +58,7 @@
     <script src="<?= base_url('assets/vendor/bootstrap/bootstrap.bundle.min.js') ?>"></script>
     <script src="<?= base_url('assets/vendor/aos/aos.js') ?>"></script>
     <script src="<?= base_url('assets/vendor/glightbox/glightbox.min.js') ?>"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         // Initialize AOS

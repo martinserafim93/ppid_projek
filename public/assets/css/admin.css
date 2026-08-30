@@ -21,6 +21,12 @@
     --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
     --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+    
+    /* Bootstrap Overrides */
+    --bs-primary: #1B5E20;
+    --bs-primary-rgb: 27, 94, 32;
+    --bs-primary-hover: #2E7D32;
+    --bs-primary-active: #0D3B13;
 }
 
 /* ===========================
@@ -628,3 +634,42 @@ footer {
 html {
     scroll-behavior: smooth;
 }
+
+/* ===========================
+   Bootstrap Primary Overrides & Helpers
+   =========================== */
+.btn-primary { 
+    background-color: #1B5E20; 
+    border-color: #1B5E20; 
+    color: #fff; 
+    --bs-btn-bg: #1B5E20;
+    --bs-btn-border-color: #1B5E20;
+    --bs-btn-hover-bg: #2E7D32;
+    --bs-btn-hover-border-color: #2E7D32;
+    --bs-btn-active-bg: #0D3B13;
+    --bs-btn-active-border-color: #0D3B13;
+    --bs-btn-focus-shadow-rgb: 27, 94, 32;
+}
+.btn-primary:hover, .btn-primary:focus { background-color: #2E7D32; border-color: #2E7D32; color: #fff; }
+.btn-primary:active, .btn-primary:focus:active { background-color: #0D3B13; border-color: #0D3B13; color: #fff; box-shadow: 0 0 0 0.25rem rgba(27, 94, 32, 0.25) !important; }
+.btn-primary:focus { box-shadow: 0 0 0 0.25rem rgba(27, 94, 32, 0.25) !important; }
+
+.btn-outline-primary { 
+    color: #1B5E20; 
+    border-color: #1B5E20; 
+    --bs-btn-color: #1B5E20;
+    --bs-btn-border-color: #1B5E20;
+    --bs-btn-hover-bg: #1B5E20;
+    --bs-btn-hover-border-color: #1B5E20;
+    --bs-btn-active-bg: #1B5E20;
+    --bs-btn-active-border-color: #1B5E20;
+    --bs-btn-focus-shadow-rgb: 27, 94, 32;
+}
+.btn-outline-primary:hover, .btn-outline-primary:focus { background-color: #1B5E20; color: #fff; border-color: #1B5E20; }
+.btn-outline-primary:active, .btn-outline-primary:focus:active { background-color: #1B5E20; color: #fff; box-shadow: 0 0 0 0.25rem rgba(27, 94, 32, 0.25) !important; }
+.btn-outline-primary:focus { box-shadow: 0 0 0 0.25rem rgba(27, 94, 32, 0.25) !important; }
+.text-primary { color: #1B5E20 !important; }
+.badge.bg-primary { background-color: #1B5E20 !important; }
+
+.hover-lift { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.hover-lift:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }

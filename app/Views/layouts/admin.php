@@ -34,7 +34,7 @@
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
     
     <!-- Custom Admin CSS -->
-    <link href="<?= base_url('assets/css/admin.css') ?>" rel="stylesheet">
+    <link href="<?= base_url('assets/css/admin.css?v=' . time()) ?>" rel="stylesheet">
 </head>
 <body>
     
