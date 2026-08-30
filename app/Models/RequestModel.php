@@ -12,7 +12,7 @@ class RequestModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['ticket_number', 'user_id', 'subject', 'description', 'purpose', 'status', 'response', 'response_file', 'responded_by', 'responded_at'];
+    protected $allowedFields    = ['ticket_number', 'slug', 'user_id', 'subject', 'description', 'purpose', 'status', 'response', 'response_file', 'responded_by', 'responded_at'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;

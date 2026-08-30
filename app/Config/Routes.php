@@ -100,11 +100,11 @@ $routes->group('admin', ['filter' => 'admin', 'namespace' => 'App\Controllers\Ad
     $routes->get('requests', 'Requests::index');
     $routes->get('requests/create', 'Requests::create');
     $routes->post('requests/store', 'Requests::store');
-    $routes->get('requests/detail/(:num)', 'Requests::detail/$1');
-    $routes->post('requests/update/(:num)', 'Requests::update/$1'); // Update Status
-    $routes->get('requests/edit/(:num)', 'Requests::edit/$1');
-    $routes->post('requests/update_data/(:num)', 'Requests::updateData/$1'); // Update Data
-    $routes->get('requests/delete/(:num)', 'Requests::delete/$1');
+    $routes->get('requests/detail/(:segment)', 'Requests::detail/$1');
+    $routes->post('requests/update/(:segment)', 'Requests::update/$1'); // Update Status
+    $routes->get('requests/edit/(:segment)', 'Requests::edit/$1');
+    $routes->post('requests/update_data/(:segment)', 'Requests::updateData/$1'); // Update Data
+    $routes->get('requests/delete/(:segment)', 'Requests::delete/$1');
 
     // Settings
     $routes->get('settings', 'Settings::index');
@@ -130,9 +130,9 @@ $routes->group('permohonan', static function ($routes) {
     
     // User routes (requires login)
     $routes->get('riwayat', 'Request_::history');
-    $routes->get('detail/(:num)', 'Request_::detail/$1');
-    $routes->post('keberatan/(:num)', 'Request_::objection/$1');
-    $routes->post('survei/(:num)', 'Request_::submitSurvey/$1');
+    $routes->get('detail/(:segment)', 'Request_::detail/$1');
+    $routes->post('keberatan/(:segment)', 'Request_::objection/$1');
+    $routes->post('survei/(:segment)', 'Request_::submitSurvey/$1');
 });
 
 // Dokumen publik (SOP dll)

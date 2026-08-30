@@ -62,7 +62,7 @@
                     <hr class="my-4">
                     <div class="d-flex justify-content-end gap-2">
                         <button type="reset" class="btn btn-light rounded-pill px-4">Reset</button>
-                        <button type="submit" class="btn btn-primary rounded-pill px-4 fw-bold">
+                        <button type="submit" class="btn btn-primary rounded-pill px-4 fw-bold hover-lift">
                             <i class="bi bi-save me-1"></i> Simpan Permohonan
                         </button>
                     </div>

@@ -22,7 +22,7 @@
                     </div>
                 <?php endif; ?>
 
-                <form action="<?= base_url('admin/requests/update_data/' . $request['id']) ?>" method="POST">
+                <form action="<?= base_url('admin/requests/update_data/' . $request['slug']) ?>" method="POST">
                     <?= csrf_field() ?>
 
                     <div class="mb-4">
@@ -55,7 +55,7 @@
                     <hr class="my-4">
                     <div class="d-flex justify-content-end gap-2">
                         <a href="<?= base_url('admin/requests') ?>" class="btn btn-light rounded-pill px-4">Batal</a>
-                        <button type="submit" class="btn btn-warning rounded-pill px-4 fw-bold text-dark">
+                        <button type="submit" class="btn btn-warning rounded-pill px-4 fw-bold text-dark hover-lift">
                             <i class="bi bi-save me-1"></i> Simpan Perubahan
                         </button>
                     </div>
