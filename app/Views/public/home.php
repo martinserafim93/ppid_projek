@@ -24,9 +24,11 @@
                             <i class="bi bi-file-earmark-text me-2"></i> Daftarkan Permohonan
                         </button>
                     <?php endif; ?>
-                    <a href="#" class="btn btn-outline-light btn-lg px-4">
-                        <i class="bi bi-ui-checks me-2"></i> Survei Kepuasan
-                    </a>
+                    <?php if($survei = getSetting('survei_link')): ?>
+                        <a href="<?= esc($survei) ?>" target="_blank" class="btn btn-outline-light btn-lg px-4">
+                            <i class="bi bi-ui-checks me-2"></i> Survei Kepuasan
+                        </a>
+                    <?php endif; ?>
                 </div>
             </div>
             <div class="col-lg-4 d-none d-lg-block text-center" data-aos="fade-left" data-aos-delay="200">
@@ -147,7 +149,7 @@
                                         <?= ucwords(str_replace('_', ' ', $info['category'])) ?>
                                     </span>
                                     <h5 class="heading-font fs-6 mb-3 line-clamp-2">
-                                        <a href="#" class="text-dark text-decoration-none text-hover-primary"><?= esc($info['title']) ?></a>
+                                        <a href="<?= base_url('informasi-publik/' . $info['category']) ?>" class="text-dark text-decoration-none text-hover-primary"><?= esc($info['title']) ?></a>
                                     </h5>
                                     
                                     <div class="d-flex gap-3 mt-auto">
@@ -221,7 +223,7 @@
     <div class="container">
         <div class="row g-4 justify-content-center">
             <div class="col-md-2 col-6 text-center">
-                <a href="#" class="text-decoration-none text-white d-block opacity-75 hover-opacity-100" style="transition: var(--transition);">
+                <a href="https://lpse.kemenag.go.id/" target="_blank" class="text-decoration-none text-white d-block opacity-75 hover-opacity-100" style="transition: var(--transition);">
                     <div class="bg-white bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 70px; height: 70px;">
                         <i class="bi bi-cart3 fs-3"></i>
                     </div>
@@ -229,7 +231,7 @@
                 </a>
             </div>
             <div class="col-md-2 col-6 text-center">
-                <a href="#" class="text-decoration-none text-white d-block opacity-75 hover-opacity-100" style="transition: var(--transition);">
+                <a href="https://simdumas.kemenag.go.id/" target="_blank" class="text-decoration-none text-white d-block opacity-75 hover-opacity-100" style="transition: var(--transition);">
                     <div class="bg-white bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 70px; height: 70px;">
                         <i class="bi bi-megaphone fs-3"></i>
                     </div>
@@ -237,7 +239,7 @@
                 </a>
             </div>
             <div class="col-md-2 col-6 text-center">
-                <a href="#" class="text-decoration-none text-white d-block opacity-75 hover-opacity-100" style="transition: var(--transition);">
+                <a href="https://kemenag.go.id/" target="_blank" class="text-decoration-none text-white d-block opacity-75 hover-opacity-100" style="transition: var(--transition);">
                     <div class="bg-white bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 70px; height: 70px;">
                         <i class="bi bi-building fs-3"></i>
                     </div>
@@ -245,7 +247,7 @@
                 </a>
             </div>
             <div class="col-md-2 col-6 text-center">
-                <a href="#" class="text-decoration-none text-white d-block opacity-75 hover-opacity-100" style="transition: var(--transition);">
+                <a href="https://rb.kemenag.go.id/" target="_blank" class="text-decoration-none text-white d-block opacity-75 hover-opacity-100" style="transition: var(--transition);">
                     <div class="bg-white bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 70px; height: 70px;">
                         <i class="bi bi-award fs-3"></i>
                     </div>
@@ -253,7 +255,7 @@
                 </a>
             </div>
             <div class="col-md-2 col-6 text-center">
-                <a href="#" class="text-decoration-none text-white d-block opacity-75 hover-opacity-100" style="transition: var(--transition);">
+                <a href="<?= esc(getSetting('whatsapp_link') ?? 'https://wa.me/6281234567890') ?>" target="_blank" class="text-decoration-none text-white d-block opacity-75 hover-opacity-100" style="transition: var(--transition);">
                     <div class="bg-white bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 70px; height: 70px;">
                         <i class="bi bi-whatsapp fs-3"></i>
                     </div>
@@ -285,10 +287,12 @@
                     <a href="<?= base_url('user/login') ?>" class="btn btn-outline-primary-custom py-2">
                         Sudah punya akun? Masuk
                     </a>
-                    <!-- Fallback download form manual kalau ada setting dokumen_form -->
-                    <a href="#" class="btn btn-light py-2 text-muted mt-2 border">
-                        <i class="bi bi-download me-1"></i> Unduh Form Manual (PDF)
-                    </a>
+                    <?php if($form = getSetting('form_manual')): ?>
+                        <!-- Fallback download form manual kalau ada setting dokumen_form -->
+                        <a href="<?= base_url($form) ?>" target="_blank" class="btn btn-light py-2 text-muted mt-2 border">
+                            <i class="bi bi-download me-1"></i> Unduh Form Manual (PDF)
+                        </a>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

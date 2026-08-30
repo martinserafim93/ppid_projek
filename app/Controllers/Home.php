@@ -6,7 +6,7 @@ use App\Models\InfographicModel;
 use App\Models\PublicInformationModel;
 use App\Models\DocumentModel;
 use App\Models\PageModel;
-// use App\Models\RequestModel; // If RequestModel exists later, uncomment
+use App\Models\RequestModel;
 
 class Home extends BaseController
 {
@@ -17,15 +17,15 @@ class Home extends BaseController
         $documentModel = new DocumentModel();
 
         // Calculate some statistics
-        // For now, totalRequests might be dummy or from another table if available
-        $totalRequests = 1250; // Placeholder
-        $totalDocs = $documentModel->countAllResults();
-        $totalInfo = $infoModel->countAllResults();
+        $requestModel = new RequestModel();
+        $totalRequests = $requestModel->countAllResults();
+        $totalDocs = $documentModel->where('is_active', 1)->countAllResults();
+        $totalInfo = $infoModel->where('is_active', 1)->countAllResults();
 
         $data = [
             'title' => 'Beranda',
             'infographics' => $infographicModel->orderBy('sort_order', 'ASC')->orderBy('created_at', 'DESC')->findAll(6),
-            'latestInfo'   => $infoModel->orderBy('created_at', 'DESC')->findAll(4),
+            'latestInfo'   => $infoModel->where('is_active', 1)->orderBy('created_at', 'DESC')->findAll(4),
             'totalRequests'=> $totalRequests,
             'totalDocs'    => $totalDocs,
             'totalInfo'    => $totalInfo,

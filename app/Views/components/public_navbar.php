@@ -16,7 +16,7 @@ $menuInformasi = array_filter($activePages, fn($p) => $p['category'] === 'layana
     <div class="container">
         <!-- Tampil di mobile jika topbar hidden -->
         <a class="navbar-brand d-lg-none d-flex align-items-center" href="<?= base_url() ?>">
-            <img src="<?= base_url('assets/img/kemenag-new-2025.png') ?>" alt="Logo Kemenag" class="me-2" style="height: 40px;">
+            <img src="<?= base_url(getSetting('site_logo') ?: 'assets/img/kemenag-new-2025.png') ?>" alt="Logo Kemenag" class="me-2" style="height: 40px;">
             <span class="heading-font fw-bold text-white lh-sm" style="font-size: 14px; white-space: normal; line-height: 1.2;">
                 PPID Kantor Wilayah Kementerian Agama Provinsi Kalimantan Utara
             </span>
@@ -97,11 +97,12 @@ $menuInformasi = array_filter($activePages, fn($p) => $p['category'] === 'layana
                 </li>
                 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle <?= in_array($segment1, ['data', 'infografis']) ? 'active' : '' ?>" href="#" id="navbarData" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle <?= in_array($segment1, ['data', 'statistik', 'infografis']) ? 'active' : '' ?>" href="#" id="navbarData" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Data & Infografis
                     </a>
                     <ul class="dropdown-menu shadow-lg border-0" aria-labelledby="navbarData">
-                        <li><a class="dropdown-item <?= $segment1 == 'data' ? 'active text-primary' : '' ?>" href="<?= base_url('data') ?>">Data & Statistik</a></li>
+                        <li><a class="dropdown-item <?= $segment1 == 'data' ? 'active text-primary' : '' ?>" href="<?= base_url('data') ?>">Publikasi Statistik</a></li>
+                        <li><a class="dropdown-item <?= $segment1 == 'statistik' ? 'active text-primary' : '' ?>" href="<?= base_url('statistik') ?>">Statistik Layanan Publik</a></li>
                         <li><a class="dropdown-item <?= $segment1 == 'infografis' ? 'active text-primary' : '' ?>" href="<?= base_url('infografis') ?>">Galeri Infografis</a></li>
                     </ul>
                 </li>
@@ -117,24 +118,22 @@ $menuInformasi = array_filter($activePages, fn($p) => $p['category'] === 'layana
                 </li>
             </ul>
 
-            <!-- Login / Akun Menu -->
-            <ul class="navbar-nav ms-lg-3">
+            <!-- Login / Akun Menu (Mobile Only) -->
+            <ul class="navbar-nav d-lg-none mt-2 border-top pt-2">
                 <?php if(session()->get('logged_in')): ?>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-warning fw-bold d-flex align-items-center" href="#" id="navbarAkun" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-person-circle me-1"></i> Akun Saya
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0" aria-labelledby="navbarAkun">
-                            <li><h6 class="dropdown-header text-truncate" style="max-width: 200px;"><?= esc(session()->get('user_name')) ?></h6></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <?php if(session()->get('user_role') === 'admin'): ?>
-                                <li><a class="dropdown-item" href="<?= base_url('admin/dashboard') ?>"><i class="bi bi-speedometer2 me-2"></i>Dashboard Admin</a></li>
-                            <?php else: ?>
-                                <li><a class="dropdown-item" href="<?= base_url('permohonan/riwayat') ?>"><i class="bi bi-clock-history me-2"></i>Riwayat Permohonan</a></li>
-                            <?php endif; ?>
-                            <li><a class="dropdown-item text-danger" href="<?= base_url('user/logout') ?>"><i class="bi bi-box-arrow-right me-2"></i>Keluar</a></li>
-                        </ul>
+                    <li class="nav-item">
+                        <span class="nav-link text-warning fw-bold"><i class="bi bi-person-circle me-1"></i> <?= esc(session()->get('user_name')) ?></span>
                     </li>
+                    <?php if(session()->get('user_role') === 'admin'): ?>
+                        <li class="nav-item"><a class="nav-link" href="<?= base_url('admin/dashboard') ?>"><i class="bi bi-speedometer2 me-2"></i>Dashboard Admin</a></li>
+                    <?php elseif(session()->get('user_role') === 'pimpinan'): ?>
+                        <li class="nav-item"><a class="nav-link" href="<?= base_url('pimpinan/dashboard') ?>"><i class="bi bi-speedometer2 me-2"></i>Dashboard Pimpinan</a></li>
+                    <?php else: ?>
+                        <li class="nav-item"><a class="nav-link" href="<?= base_url('permohonan/riwayat') ?>"><i class="bi bi-clock-history me-2"></i>Riwayat Permohonan</a></li>
+                    <?php endif; ?>
+                    <li class="nav-item"><a class="nav-link text-danger" href="<?= base_url('user/logout') ?>"><i class="bi bi-box-arrow-right me-2"></i>Keluar</a></li>
+                <?php else: ?>
+                    <li class="nav-item"><a class="nav-link" href="<?= base_url('user/login') ?>"><i class="bi bi-box-arrow-in-right me-1"></i> Masuk / Daftar</a></li>
                 <?php endif; ?>
             </ul>
             

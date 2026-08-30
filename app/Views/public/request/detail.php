@@ -175,6 +175,57 @@
                     </div>
                 </div>
                 <?php endif; ?>
+
+                <!-- Form Survei (Hanya jika Disetujui) -->
+                <?php if($status == 'approved'): ?>
+                <div class="card-glass border-0 shadow-sm rounded-4 border-start border-4 border-success mt-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="p-4 p-md-5">
+                        <h5 class="heading-font fw-bold text-success mb-3"><i class="bi bi-star-fill me-2"></i> Survei Kepuasan Masyarakat</h5>
+                        <?php if($hasSurveyed): ?>
+                            <div class="alert alert-success border-0 mb-0">
+                                <i class="bi bi-check-circle-fill me-2"></i> Terima kasih, Anda telah mengisi survei kepuasan untuk layanan ini.
+                            </div>
+                        <?php else: ?>
+                            <p class="text-muted mb-4">Silakan berikan penilaian Anda terhadap layanan informasi yang telah kami berikan.</p>
+                            
+                            <form action="<?= base_url('permohonan/survei/' . $request['id']) ?>" method="POST">
+                                <?= csrf_field() ?>
+                                
+                                <div class="mb-4">
+                                    <label class="form-label fw-semibold">Penilaian Anda <span class="text-danger">*</span></label>
+                                    <style>
+                                        .star-rating input { display: none; }
+                                        .star-rating label { font-size: 2rem; color: #ddd; cursor: pointer; transition: color 0.2s; padding: 0 0.1rem; }
+                                        .star-rating label:hover,
+                                        .star-rating label:hover ~ label,
+                                        .star-rating input:checked ~ label { color: #ffc107; }
+                                    </style>
+                                    <div class="star-rating d-flex flex-row-reverse justify-content-end align-items-center">
+                                        <input type="radio" id="star5" name="rating" value="5" required>
+                                        <label for="star5" title="5 Bintang"><i class="bi bi-star-fill"></i></label>
+                                        <input type="radio" id="star4" name="rating" value="4">
+                                        <label for="star4" title="4 Bintang"><i class="bi bi-star-fill"></i></label>
+                                        <input type="radio" id="star3" name="rating" value="3">
+                                        <label for="star3" title="3 Bintang"><i class="bi bi-star-fill"></i></label>
+                                        <input type="radio" id="star2" name="rating" value="2">
+                                        <label for="star2" title="2 Bintang"><i class="bi bi-star-fill"></i></label>
+                                        <input type="radio" id="star1" name="rating" value="1">
+                                        <label for="star1" title="1 Bintang"><i class="bi bi-star-fill"></i></label>
+                                    </div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label for="feedback" class="form-label fw-semibold">Ulasan / Saran (Opsional)</label>
+                                    <textarea class="form-control" id="feedback" name="feedback" rows="3" placeholder="Tuliskan ulasan atau saran Anda untuk perbaikan layanan kami..."></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-success px-4" onclick="return confirm('Kirim penilaian sekarang?');">
+                                    <i class="bi bi-send-fill me-2"></i> Kirim Penilaian
+                                </button>
+                            </form>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <?php endif; ?>
                 
             </div>
         </div>

@@ -13,9 +13,8 @@
     
     <!-- Meta SEO & Favicon -->
     <meta name="description" content="<?= esc(getSetting('site_description') ?? 'Portal Resmi Pejabat Pengelola Informasi dan Dokumentasi (PPID) Kanwil Kemenag Kalimantan Utara') ?>">
-    <?php if ($logo = getSetting('site_logo')): ?>
-        <link rel="icon" href="<?= base_url($logo) ?>">
-    <?php endif; ?>
+    <?php $favicon = getSetting('site_favicon') ?: 'assets/img/kemenag-new-2025.png'; ?>
+    <link rel="icon" href="<?= base_url($favicon) ?>">
 
     <!-- Libraries -->
     <!-- Bootstrap 5.3 -->

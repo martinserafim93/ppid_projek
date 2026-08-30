@@ -105,6 +105,12 @@
                                             title="Reset Password">
                                             <i class="bi bi-key"></i> Reset
                                         </button>
+                                        <button type="button" class="btn btn-outline-danger btn-delete" 
+                                            data-id="<?= $user['id'] ?>" 
+                                            data-name="<?= esc($user['name']) ?>"
+                                            title="Hapus Pemohon">
+                                            <i class="bi bi-trash"></i> Hapus
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
@@ -292,6 +298,63 @@ document.addEventListener('DOMContentLoaded', function() {
                 copyBtn.innerHTML = originalText;
                 copyBtn.classList.replace('btn-success', 'btn-primary');
             }, 2000);
+        });
+    });
+
+    // Handle Delete Pemohon
+    const deleteButtons = document.querySelectorAll('.btn-delete:not(:disabled)');
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const id = this.getAttribute('data-id');
+            const name = this.getAttribute('data-name');
+            
+            Swal.fire({
+                title: 'Hapus Pemohon?',
+                html: `Anda yakin ingin menghapus pemohon <strong>${name}</strong>?<br><br><span class="text-danger small">Pemohon hanya dapat dihapus jika tidak memiliki riwayat permohonan.</span>`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#dc3545',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Ya, Hapus',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: 'Menghapus Data...',
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+                    
+                    fetch(`<?= base_url('admin/pemohon/delete/') ?>${id}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                            'X-Requested-With': 'XMLHttpRequest'
+                        },
+                        body: `${csrfName}=${csrfHash}`
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            Swal.fire({
+                                title: 'Berhasil!',
+                                text: data.message,
+                                icon: 'success'
+                            }).then(() => {
+                                window.location.reload();
+                            });
+                        } else {
+                            Swal.fire('Gagal', data.message, 'error');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        Swal.fire('Error', 'Terjadi kesalahan sistem saat menghapus data.', 'error');
+                    });
+                }
+            });
         });
     });
 });

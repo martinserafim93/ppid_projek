@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Models\UserModel;
+use App\Models\RequestModel;
 
 class Pemohon extends BaseController
 {
@@ -163,6 +164,35 @@ class Pemohon extends BaseController
             'success' => true,
             'message' => 'Password berhasil direset.',
             'new_password' => $newPassword
+        ]);
+    }
+
+    public function delete($id)
+    {
+        $user = $this->userModel->find($id);
+
+        if (!$user || $user['role'] !== 'pemohon') {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Pemohon tidak ditemukan.'
+            ]);
+        }
+
+        $requestModel = new RequestModel();
+        $hasRequests = $requestModel->where('user_id', $id)->countAllResults() > 0;
+
+        if ($hasRequests) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Pemohon tidak dapat dihapus karena memiliki riwayat permohonan aktif maupun lampau.'
+            ]);
+        }
+
+        $this->userModel->delete($id);
+
+        return $this->response->setJSON([
+            'success' => true,
+            'message' => 'Pemohon berhasil dihapus.'
         ]);
     }
 }

@@ -65,6 +65,34 @@ class SettingsSeeder extends Seeder
                 'description' => 'Link WhatsApp'
             ],
             [
+                'key'         => 'social_facebook',
+                'value'       => 'https://facebook.com/',
+                'group'       => 'contact',
+                'type'        => 'text',
+                'description' => 'Link Facebook'
+            ],
+            [
+                'key'         => 'social_twitter',
+                'value'       => 'https://twitter.com/',
+                'group'       => 'contact',
+                'type'        => 'text',
+                'description' => 'Link Twitter/X'
+            ],
+            [
+                'key'         => 'social_instagram',
+                'value'       => 'https://instagram.com/',
+                'group'       => 'contact',
+                'type'        => 'text',
+                'description' => 'Link Instagram'
+            ],
+            [
+                'key'         => 'social_youtube',
+                'value'       => 'https://youtube.com/',
+                'group'       => 'contact',
+                'type'        => 'text',
+                'description' => 'Link YouTube'
+            ],
+            [
                 'key'         => 'footer_text',
                 'value'       => '© Copyright ' . date('Y') . '. PPID Kanwil Kemenag Kaltara. All right reserved.',
                 'group'       => 'general',

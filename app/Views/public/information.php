@@ -31,7 +31,6 @@
                 <!-- Search -->
                 <form action="<?= base_url('informasi-publik/' . $activeTab) ?>" method="GET" class="mb-4">
                     <div class="row justify-content-end g-3">
-                        <?php if (!empty($subCategories)): ?>
                         <div class="col-md-4 col-lg-3">
                             <select name="sub_category" class="form-select" onchange="this.form.submit()">
                                 <option value="">-- Semua Sub Kategori --</option>
@@ -42,9 +41,7 @@
                                 <?php endforeach; ?>
                             </select>
                         </div>
-                        <?php endif; ?>
                         
-                        <?php if (!empty($years)): ?>
                         <div class="col-md-3 col-lg-2">
                             <select name="year" class="form-select" onchange="this.form.submit()">
                                 <option value="">-- Semua Tahun --</option>
@@ -55,7 +52,6 @@
                                 <?php endforeach; ?>
                             </select>
                         </div>
-                        <?php endif; ?>
 
                         <div class="col-md-5 col-lg-4">
                             <div class="input-group">

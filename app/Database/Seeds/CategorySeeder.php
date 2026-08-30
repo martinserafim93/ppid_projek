@@ -119,8 +119,15 @@ class CategorySeeder extends Seeder
         ];
 
         // Using Query Builder
-        // Hapus data lama agar tidak duplicate saat seeding
-        $this->db->table('categories')->truncate();
-        $this->db->table('categories')->insertBatch($data);
+        // Hapus logika truncate agar tidak menghapus kategori yang dibuat manual oleh Admin
+        foreach ($data as $row) {
+            $exists = $this->db->table('categories')
+                               ->where('slug', $row['slug'])
+                               ->where('type', $row['type'])
+                               ->countAllResults();
+            if ($exists == 0) {
+                $this->db->table('categories')->insert($row);
+            }
+        }
     }
 }

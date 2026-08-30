@@ -173,10 +173,14 @@ class Request_ extends BaseController
         $fileModel = new RequestFileModel();
         $files = $fileModel->where('request_id', $id)->findAll();
 
+        $surveyModel = new \App\Models\SurveyModel();
+        $hasSurveyed = $surveyModel->where('request_id', $id)->first() !== null;
+
         $data = [
-            'title'   => 'Detail Permohonan',
-            'request' => $requestData,
-            'files'   => $files
+            'title'       => 'Detail Permohonan',
+            'request'     => $requestData,
+            'files'       => $files,
+            'hasSurveyed' => $hasSurveyed
         ];
 
         return view('public/request/detail', $data);
@@ -206,5 +210,39 @@ class Request_ extends BaseController
         ]);
 
         return redirect()->back()->with('success', 'Pengajuan keberatan berhasil dikirim dan akan ditinjau kembali oleh tim PPID.');
+    }
+
+    public function submitSurvey($id)
+    {
+        if (!session()->get('logged_in')) {
+            return redirect()->to('/user/login');
+        }
+
+        $requestModel = new RequestModel();
+        $requestData = $requestModel->where('id', $id)->where('user_id', session()->get('user_id'))->first();
+
+        if (!$requestData || $requestData['status'] !== 'approved') {
+            return redirect()->back()->with('error', 'Survei hanya dapat diisi untuk permohonan yang telah disetujui.');
+        }
+
+        $surveyModel = new \App\Models\SurveyModel();
+        if ($surveyModel->where('request_id', $id)->first()) {
+            return redirect()->back()->with('error', 'Anda sudah mengisi survei untuk permohonan ini.');
+        }
+
+        $rating = $this->request->getPost('rating');
+        $feedback = $this->request->getPost('feedback');
+
+        if (empty($rating)) {
+            return redirect()->back()->with('error', 'Rating bintang wajib diisi.');
+        }
+
+        $surveyModel->insert([
+            'request_id' => $id,
+            'rating'     => $rating,
+            'feedback'   => $feedback,
+        ]);
+
+        return redirect()->back()->with('success', 'Terima kasih atas penilaian Anda!');
     }
 }
