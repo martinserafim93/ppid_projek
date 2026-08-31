@@ -109,6 +109,10 @@ $routes->group('admin', ['filter' => 'admin', 'namespace' => 'App\Controllers\Ad
     // Settings
     $routes->get('settings', 'Settings::index');
     $routes->post('settings/update', 'Settings::update');
+
+    // Profile
+    $routes->get('profile', '\App\Controllers\ProfileController::index');
+    $routes->post('profile/update', '\App\Controllers\ProfileController::update');
 });
 
 // === PIMPINAN (dilindungi filter pimpinan) ===
@@ -117,7 +121,16 @@ $routes->group('pimpinan', ['filter' => 'pimpinan'], function($routes) {
     $routes->get('monitoring', 'Pimpinan\Dashboard::monitoring');
     $routes->get('laporan', 'Pimpinan\Dashboard::laporan');
     $routes->get('laporan/export', 'Pimpinan\Dashboard::exportCsv');
-    $routes->get('survei', 'Pimpinan\Dashboard::surveys');
+
+    // Survei (Hasil Respon Pemohon)
+    $routes->get('survei', 'Pimpinan\SurveiController::index');
+    $routes->post('survei/store', 'Pimpinan\SurveiController::store');
+    $routes->post('survei/update/(:num)', 'Pimpinan\SurveiController::update/$1');
+    $routes->get('survei/delete/(:num)', 'Pimpinan\SurveiController::delete/$1');
+
+    // Profile
+    $routes->get('profile', '\App\Controllers\ProfileController::index');
+    $routes->post('profile/update', '\App\Controllers\ProfileController::update');
 });
 
 // === PUBLIC ===

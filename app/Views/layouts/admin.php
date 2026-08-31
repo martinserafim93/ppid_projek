@@ -32,6 +32,7 @@
     
     <!-- SweetAlert2 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <link href="<?= base_url('assets/css/swal-premium.css') ?>" rel="stylesheet">
     
     <!-- Custom Admin CSS -->
     <link href="<?= base_url('assets/css/admin.css?v=' . time()) ?>" rel="stylesheet">
@@ -81,6 +82,9 @@
     <script src="<?= base_url('assets/js/admin/delete-confirm.js') ?>"></script>
     <script src="<?= base_url('assets/js/admin/form-validation.js') ?>"></script>
     <script src="<?= base_url('assets/js/admin/image-preview.js') ?>"></script>
+    
+    <!-- Logout Confirm JS -->
+    <script src="<?= base_url('assets/js/logout-confirm.js') ?>"></script>
     
     <!-- Custom Scripts for specific views -->
     <?= $this->renderSection('scripts') ?>

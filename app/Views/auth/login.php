@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login — PPID Kaltara</title>
+    <?php $favicon = function_exists('getSetting') ? getSetting('site_favicon') : ''; ?>
+    <link rel="icon" href="<?= base_url($favicon ?: 'assets/img/kemenag-new-2025.png') ?>">
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

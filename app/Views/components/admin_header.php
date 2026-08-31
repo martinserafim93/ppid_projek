@@ -30,8 +30,12 @@
         <!-- User Menu -->
         <div class="user-menu">
             <div class="user-info" id="userMenuToggle">
-                <div class="user-avatar">
-                    <?= getUserInitial(session()->get('user_name')) ?>
+                <div class="user-avatar" <?php if(session()->get('user_avatar')) echo 'style="padding: 0; overflow: hidden; background: transparent;"'; ?>>
+                    <?php if (session()->get('user_avatar')) : ?>
+                        <img src="<?= base_url('uploads/avatars/' . session()->get('user_avatar')) ?>" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover;">
+                    <?php else : ?>
+                        <?= getUserInitial(session()->get('user_name')) ?>
+                    <?php endif; ?>
                 </div>
                 <div class="user-details">
                     <span class="user-name"><?= esc(session()->get('user_name') ?? 'Administrator') ?></span>

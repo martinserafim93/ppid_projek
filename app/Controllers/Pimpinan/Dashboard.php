@@ -117,23 +117,7 @@ class Dashboard extends BaseController
         exit;
     }
 
-    public function surveys()
-    {
-        $surveyModel = new SurveyModel();
-        
-        $db      = \Config\Database::connect();
-        $builder = $db->table('surveys');
-        $builder->select('surveys.*, requests.ticket_number, users.name as applicant_name');
-        $builder->join('requests', 'requests.id = surveys.request_id', 'left');
-        $builder->join('users', 'users.id = requests.user_id', 'left');
-        $builder->orderBy('surveys.created_at', 'DESC');
-        
-        $data = [
-            'title'   => 'Hasil Survei Kepuasan',
-            'surveys' => $builder->get()->getResultArray()
-        ];
-        return view('pimpinan/survei', $data);
-    }
+
 
     private function getMonthlyData(): array
     {

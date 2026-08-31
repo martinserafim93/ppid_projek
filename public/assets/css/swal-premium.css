@@ -1,0 +1,94 @@
+/* Premium SweetAlert2 overrides for PPID Kaltara */
+body.swal2-shown {
+    /* Prevent backdrop shifting content */
+    padding-right: 0 !important;
+}
+
+.swal2-popup {
+    border-radius: 12px !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0,0,0,0.05) !important;
+    border: none !important;
+    padding: 1.5em !important;
+    font-family: inherit !important;
+}
+
+.swal2-backdrop-show {
+    backdrop-filter: blur(5px) !important;
+    background: rgba(15, 23, 42, 0.4) !important; /* Slightly cool dark overlay */
+}
+
+.swal2-title {
+    color: #333333 !important;
+    font-weight: 600 !important;
+    font-size: 1.25rem !important;
+}
+
+.swal2-html-container {
+    color: #666666 !important;
+    font-size: 0.95rem !important;
+    margin-top: 10px !important;
+}
+
+.swal2-actions {
+    gap: 8px !important;
+    margin-top: 1.5em !important;
+}
+
+/* Button overrides for a more modern, slightly rounded look */
+.swal2-confirm, .swal2-cancel, .swal2-deny {
+    border-radius: 8px !important;
+    padding: 10px 24px !important;
+    font-weight: 500 !important;
+    font-size: 0.95rem !important;
+    transition: all 0.2s ease !important;
+    box-shadow: none !important;
+}
+
+.swal2-confirm:hover, .swal2-cancel:hover, .swal2-deny:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Theme Colors Matching Kemenag / DESIGN.md */
+.swal2-icon.swal2-warning {
+    border-color: #C9A84C !important;
+    color: #C9A84C !important;
+}
+
+.swal2-icon.swal2-success {
+    border-color: #1B5E20 !important;
+    color: #1B5E20 !important;
+}
+
+.swal2-icon.swal2-error {
+    border-color: #dc3545 !important;
+    color: #dc3545 !important;
+}
+
+.swal2-icon.swal2-info {
+    border-color: #0dcaf0 !important;
+    color: #0dcaf0 !important;
+}
+
+.swal2-icon.swal2-question {
+    border-color: #6c757d !important;
+    color: #6c757d !important;
+}
+
+/* Ensure success checkmark matches the green */
+.swal2-icon.swal2-success [class^=swal2-success-line] {
+    background-color: #1B5E20 !important;
+}
+.swal2-icon.swal2-success .swal2-success-ring {
+    border-color: rgba(27, 94, 32, 0.3) !important;
+}
+
+/* Toast Overrides */
+.swal2-toast {
+    border-radius: 8px !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+    padding: 12px 20px !important;
+}
+.swal2-toast .swal2-title {
+    font-size: 0.9rem !important;
+}

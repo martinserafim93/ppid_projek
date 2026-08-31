@@ -27,6 +27,7 @@
     <link href="<?= base_url('assets/vendor/glightbox/glightbox.min.css') ?>" rel="stylesheet">
     
     <!-- Custom CSS -->
+    <link rel="stylesheet" href="<?= base_url('assets/css/swal-premium.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/css/style.css?v=' . time()) ?>">
     
     <?= $this->renderSection('styles') ?>
@@ -88,6 +89,9 @@
             return false;
         });
     </script>
+
+    <!-- Logout Confirm JS -->
+    <script src="<?= base_url('assets/js/logout-confirm.js') ?>"></script>
 
     <?= $this->renderSection('scripts') ?>
 </body>

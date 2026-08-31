@@ -1,4 +1,4 @@
-<aside class="sidebar" id="sidebar" style="background-color: #1A237E;">
+<aside class="sidebar" id="sidebar">
     <!-- Logo Section -->
     <div class="sidebar-logo">
         <img src="<?= base_url(getSetting('site_logo') ?: 'assets/img/kemenag-new-2025.png') ?>" alt="Logo Kemenag">

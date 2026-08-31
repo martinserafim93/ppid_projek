@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Masuk - PPID Kaltara</title>
     
+    <?php $favicon = function_exists('getSetting') ? getSetting('site_favicon') : ''; ?>
+    <link rel="icon" href="<?= base_url($favicon ?: 'assets/img/kemenag-new-2025.png') ?>">
+    
     <!-- Google Fonts: Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
