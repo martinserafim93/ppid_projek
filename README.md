@@ -9,7 +9,7 @@ Aplikasi Sistem Informasi Layanan PPID (Pejabat Pengelola Informasi dan Dokument
 - **Portal Admin**: Manajemen dinamis halaman statis (WYSIWYG), manajemen regulasi, informasi publik, dokumen, user, pengaturan website, serta pengelolaan permohonan masyarakat.
 
 ## Requirements
-- **PHP** >= 8.1 (Disarankan 8.3+)
+- **PHP** >= 8.2 (Disarankan 8.3+)
 - **MySQL** >= 8.0
 - **Composer** (untuk dependensi PHP)
 - **Ext-intl**, **Ext-mbstring**, **Ext-gd** (Aktifkan di `php.ini`)
@@ -55,7 +55,7 @@ Aplikasi Sistem Informasi Layanan PPID (Pejabat Pengelola Informasi dan Dokument
   - Password: `pimpinan123`
 
 ## Tech Stack
-- [CodeIgniter 4](https://codeigniter.com/) - Backend Framework
+- [CodeIgniter 4.7](https://codeigniter.com/) - Backend Framework
 - MySQL - Database
 - Bootstrap 5 - Frontend Framework
 - Chart.js - Data Visualization
