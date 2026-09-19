@@ -12,7 +12,7 @@
         border-radius: 14px;
         font-size: 1.75rem;
     }
-    .icon-primary { background: rgba(26, 35, 126, 0.1); color: #1A237E; }
+    .icon-primary { background: rgba(27, 94, 32, 0.1); color: #1B5E20; }
     .icon-warning { background: rgba(255, 193, 7, 0.15); color: #b28904; }
     .icon-success { background: rgba(25, 135, 84, 0.1); color: #198754; }
     .icon-danger { background: rgba(220, 53, 69, 0.1); color: #dc3545; }
@@ -29,7 +29,7 @@
 <div class="container-fluid p-0">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h4 class="fw-bold mb-1" style="color: #1A237E;">Dashboard Eksekutif</h4>
+            <h4 class="fw-bold mb-1" style="color: #1B5E20;">Dashboard Eksekutif</h4>
             <p class="text-muted mb-0">Ringkasan performa layanan informasi publik</p>
         </div>
         <div>
@@ -117,7 +117,7 @@
                 </div>
             </div>
             
-            <div class="card" style="background: linear-gradient(135deg, #1A237E, #283593); color: white;">
+            <div class="card" style="background: linear-gradient(135deg, #1B5E20, #2E7D32); color: white;">
                 <div class="card-body p-4 text-center">
                     <div class="row">
                         <div class="col-6 border-end border-light border-opacity-25">
@@ -172,7 +172,7 @@
                             <?php foreach($recentRequests as $req): ?>
                             <tr>
                                 <td class="ps-4 py-3">
-                                    <span class="fw-medium" style="color: #1A237E;"><?= esc($req['ticket_number']) ?></span>
+                                    <span class="fw-medium" style="color: #1B5E20;"><?= esc($req['ticket_number']) ?></span>
                                 </td>
                                 <td>
                                     <span class="text-muted small"><?= date('d M Y', strtotime($req['created_at'])) ?></span>
@@ -220,8 +220,8 @@ document.addEventListener("DOMContentLoaded", function() {
     
     // Create gradient for line chart
     let gradient = ctxMonthly.createLinearGradient(0, 0, 0, 300);
-    gradient.addColorStop(0, 'rgba(26, 35, 126, 0.4)');
-    gradient.addColorStop(1, 'rgba(26, 35, 126, 0.0)');
+    gradient.addColorStop(0, 'rgba(27, 94, 32, 0.4)');
+    gradient.addColorStop(1, 'rgba(27, 94, 32, 0.0)');
 
     new Chart(ctxMonthly, {
         type: 'line',
@@ -230,13 +230,13 @@ document.addEventListener("DOMContentLoaded", function() {
             datasets: [{
                 label: 'Permohonan',
                 data: <?= json_encode($monthlyData['data']) ?>,
-                borderColor: '#1A237E',
+                borderColor: '#1B5E20',
                 backgroundColor: gradient,
                 borderWidth: 3,
                 fill: true,
                 tension: 0.4, // Smooth curve
                 pointBackgroundColor: '#fff',
-                pointBorderColor: '#1A237E',
+                pointBorderColor: '#1B5E20',
                 pointBorderWidth: 2,
                 pointRadius: 4,
                 pointHoverRadius: 6
@@ -248,7 +248,7 @@ document.addEventListener("DOMContentLoaded", function() {
             plugins: {
                 legend: { display: false },
                 tooltip: {
-                    backgroundColor: '#1A237E',
+                    backgroundColor: '#1B5E20',
                     padding: 12,
                     titleFont: { size: 13, family: 'Inter' },
                     bodyFont: { size: 14, family: 'Inter' },

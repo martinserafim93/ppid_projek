@@ -47,11 +47,11 @@
     <!-- Header -->
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
         <div>
-            <h4 class="fw-bold mb-1" style="color: #1A237E;">Hasil Survei Kepuasan Masyarakat</h4>
+            <h4 class="fw-bold mb-1" style="color: #1B5E20;">Hasil Survei Kepuasan Masyarakat</h4>
             <p class="text-muted mb-0">Kelola ulasan dan tingkat kepuasan dari pemohon informasi publik</p>
         </div>
         <div>
-            <button type="button" class="btn text-white rounded-pill px-4 shadow-sm" style="background: linear-gradient(135deg, #1A237E, #283593); border: none;" data-bs-toggle="modal" data-bs-target="#modalTambahSurvei">
+            <button type="button" class="btn text-white rounded-pill px-4 shadow-sm" style="background: linear-gradient(135deg, #1B5E20, #2E7D32); border: none;" data-bs-toggle="modal" data-bs-target="#modalTambahSurvei">
                 <i class="bi bi-plus-circle me-2"></i> Tambah Respon Manual
             </button>
         </div>
@@ -96,7 +96,7 @@
                                 </td>
                             </tr>
                         <?php else: ?>
-                            <?php $no = 1; foreach ($surveys as $survey): ?>
+                            <?php $no = 1 + (15 * ($pager->getCurrentPage() - 1)); foreach ($surveys as $survey): ?>
                                 <tr>
                                     <td class="ps-4 text-muted fw-medium py-4"><?= $no++ ?></td>
                                     <td>
@@ -105,14 +105,14 @@
                                     </td>
                                     <td>
                                         <?php if(!empty($survey['ticket_number'])): ?>
-                                            <span class="fw-bold" style="color: #1A237E;"><?= esc($survey['ticket_number']) ?></span>
+                                            <span class="fw-bold" style="color: #1B5E20;"><?= esc($survey['ticket_number']) ?></span>
                                         <?php else: ?>
                                             <span class="text-muted fst-italic">Tanpa Tiket</span>
                                         <?php endif; ?>
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <div class="rounded-circle d-flex align-items-center justify-content-center text-white fw-bold me-2 shadow-sm" style="width: 36px; height: 36px; font-size: 0.9rem; background: linear-gradient(135deg, #1A237E, #283593);">
+                                            <div class="rounded-circle d-flex align-items-center justify-content-center text-white fw-bold me-2 shadow-sm" style="width: 36px; height: 36px; font-size: 0.9rem; background: linear-gradient(135deg, #1B5E20, #2E7D32);">
                                                 <?= substr(esc($survey['applicant_name'] ?? 'A'), 0, 1) ?>
                                             </div>
                                             <span class="fw-medium text-dark"><?= esc($survey['applicant_name'] ?? 'Anonim') ?></span>
@@ -157,6 +157,12 @@
                     </tbody>
                 </table>
             </div>
+
+            <?php if ($pager->getPageCount() > 1): ?>
+                <div class="p-3 d-flex justify-content-center border-top bg-white">
+                    <?= $pager->links('default', 'bootstrap_pagination') ?>
+                </div>
+            <?php endif; ?>
         </div>
     </div>
 </div>
@@ -166,7 +172,7 @@
     <div class="modal-dialog modal-dialog-centered border-0">
         <div class="modal-content border-0 rounded-4 shadow-lg" style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);">
             <div class="modal-header border-0 pb-0 pt-4 px-4">
-                <h5 class="modal-title fw-bold" style="color: #1A237E;">Tambah Respon Manual</h5>
+                <h5 class="modal-title fw-bold" style="color: #1B5E20;">Tambah Respon Manual</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="<?= base_url('pimpinan/survei/store') ?>" method="post">
@@ -210,7 +216,7 @@
                 </div>
                 <div class="modal-footer border-0 px-4 pb-4 pt-0">
                     <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn text-white rounded-pill px-4 shadow-sm" style="background: linear-gradient(135deg, #1A237E, #283593); border: none;">Simpan Respon</button>
+                    <button type="submit" class="btn text-white rounded-pill px-4 shadow-sm" style="background: linear-gradient(135deg, #1B5E20, #2E7D32); border: none;">Simpan Respon</button>
                 </div>
             </form>
         </div>
@@ -222,7 +228,7 @@
     <div class="modal-dialog modal-dialog-centered border-0">
         <div class="modal-content border-0 rounded-4 shadow-lg" style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);">
             <div class="modal-header border-0 pb-0 pt-4 px-4">
-                <h5 class="modal-title fw-bold" style="color: #1A237E;">Edit Respon Survei</h5>
+                <h5 class="modal-title fw-bold" style="color: #1B5E20;">Edit Respon Survei</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form id="formEditSurvei" action="" method="post">
@@ -256,7 +262,7 @@
                 </div>
                 <div class="modal-footer border-0 px-4 pb-4 pt-0">
                     <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn text-white rounded-pill px-4 shadow-sm" style="background: linear-gradient(135deg, #1A237E, #283593); border: none;">Update Respon</button>
+                    <button type="submit" class="btn text-white rounded-pill px-4 shadow-sm" style="background: linear-gradient(135deg, #1B5E20, #2E7D32); border: none;">Update Respon</button>
                 </div>
             </form>
         </div>

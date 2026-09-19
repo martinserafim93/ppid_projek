@@ -681,3 +681,40 @@ html {
 
 /* Kelas heading lama yang belum terdefinisi -> ikat ke warna teks DESIGN.md */
 .text-gray-800 { color: #333333 !important; }
+
+/* === PAGINATION === */
+/* ponytail: token digandakan dari style.css (public layout). Ceiling: jika
+   token design melebar lagi, satukan ke satu shared CSS agar tidak duplikasi. */
+.pagination {
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.page-item .page-link {
+    border: none;
+    border-radius: var(--border-radius) !important;
+    padding: 8px 18px;
+    font-weight: 600;
+    color: #666666;
+    background-color: #F4F6F9;
+    transition: var(--transition);
+    box-shadow: none;
+}
+.page-item:not(.disabled):not(.active) .page-link:hover {
+    background-color: rgba(27, 94, 32, 0.1);
+    color: #1B5E20;
+    transform: translateY(-2px);
+}
+.page-item.active .page-link,
+.page-item.active .page-link:hover {
+    background-color: #1B5E20 !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 4px 10px rgba(27, 94, 32, 0.3);
+}
+.page-item.disabled .page-link {
+    background-color: transparent;
+    color: #999999;
+    opacity: 0.5;
+    pointer-events: none;
+}

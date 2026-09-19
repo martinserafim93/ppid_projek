@@ -54,9 +54,9 @@
                             </td>
                         </tr>
                     <?php else: ?>
-                        <?php $i = 1; foreach ($requests as $req): ?>
+                        <?php $no = 1 + (10 * ($pager->getCurrentPage() - 1)); foreach ($requests as $req): ?>
                             <tr>
-                                <td class="text-center"><?= $i++ ?></td>
+                                <td class="text-center"><?= $no++ ?></td>
                                 <td><span class="fw-bold"><?= esc($req['ticket_number']) ?></span></td>
                                 <td>
                                     <?= esc($req['user_name']) ?><br>
@@ -105,6 +105,12 @@
             </table>
         </div>
     </div>
+
+    <?php if ($pager->getPageCount() > 1) : ?>
+    <div class="card-footer bg-white border-top-0 pt-3 pb-2">
+        <?= $pager->links('default', 'bootstrap_pagination') ?>
+    </div>
+    <?php endif; ?>
 </div>
 <?= $this->endSection() ?>
 

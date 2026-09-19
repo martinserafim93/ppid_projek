@@ -36,6 +36,8 @@ class Regulations extends BaseController
             'categories'  => $categoryModel->where('type', 'regulations')->findAll(),
         ];
 
+        $this->regulationModel->pager->only(['type']);
+
         return view('admin/regulations/index', $data);
     }
 

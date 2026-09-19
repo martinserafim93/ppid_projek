@@ -152,7 +152,8 @@ class Request_ extends BaseController
 
         $data = [
             'title'    => 'Riwayat Permohonan',
-            'requests' => $requestModel->where('user_id', $userId)->orderBy('created_at', 'DESC')->findAll(),
+            'requests' => $requestModel->where('user_id', $userId)->orderBy('created_at', 'DESC')->paginate(10),
+            'pager'    => $requestModel->pager,
         ];
 
         return view('public/request/history', $data);

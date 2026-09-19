@@ -21,7 +21,7 @@
 <div class="container-fluid p-0">
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
         <div>
-            <h4 class="fw-bold mb-1" style="color: #1A237E;">Monitoring Permohonan</h4>
+            <h4 class="fw-bold mb-1" style="color: #1B5E20;">Monitoring Permohonan</h4>
             <p class="text-muted mb-0">Pantau status dan riwayat seluruh permohonan informasi</p>
         </div>
     </div>
@@ -89,7 +89,7 @@
                                 <tr>
                                     <td class="ps-4 text-muted fw-medium py-3"><?= $no++ ?></td>
                                     <td>
-                                        <span class="fw-bold" style="color: #1A237E;"><?= esc($req['ticket_number']) ?></span>
+                                        <span class="fw-bold" style="color: #1B5E20;"><?= esc($req['ticket_number']) ?></span>
                                     </td>
                                     <td>
                                         <div class="text-dark fw-medium"><?= date('d M Y', strtotime($req['created_at'])) ?></div>
@@ -97,7 +97,7 @@
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <div class="rounded-circle d-flex align-items-center justify-content-center text-white fw-bold me-3 shadow-sm" style="width: 40px; height: 40px; font-size: 1rem; background: linear-gradient(135deg, #1A237E, #283593);">
+                                            <div class="rounded-circle d-flex align-items-center justify-content-center text-white fw-bold me-3 shadow-sm" style="width: 40px; height: 40px; font-size: 1rem; background: linear-gradient(135deg, #1B5E20, #2E7D32);">
                                                 <?= substr(esc($req['applicant_name']), 0, 1) ?>
                                             </div>
                                             <div>

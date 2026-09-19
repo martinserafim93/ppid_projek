@@ -18,9 +18,10 @@ class Requests extends BaseController
             'requests' => $requestModel->select('requests.*, users.name as user_name, users.email')
                                        ->join('users', 'users.id = requests.user_id')
                                        ->orderBy('requests.created_at', 'DESC')
-                                       ->findAll()
+                                       ->paginate(10),
+            'pager'    => $requestModel->pager,
         ];
-        
+
         return view('admin/requests/index', $data);
     }
 

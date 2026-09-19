@@ -60,7 +60,7 @@
                             </td>
                         </tr>
                     <?php else : ?>
-                        <?php $no = 1; foreach ($categories as $category) : ?>
+                        <?php $no = 1 + (10 * ($pager->getCurrentPage() - 1)); foreach ($categories as $category) : ?>
                             <tr>
                                 <td class="py-3 text-center"><?= $no++ ?></td>
                                 <td class="py-3 fw-bold text-dark"><?= esc($category['name']) ?></td>
@@ -87,6 +87,12 @@
             </table>
         </div>
     </div>
+
+    <?php if ($pager->getPageCount() > 1) : ?>
+    <div class="card-footer bg-white border-top-0 pt-3 pb-2">
+        <?= $pager->links('default', 'bootstrap_pagination') ?>
+    </div>
+    <?php endif; ?>
 </div>
 
 <?= $this->endSection() ?>

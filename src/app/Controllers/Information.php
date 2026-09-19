@@ -90,7 +90,9 @@ class Information extends BaseController
                 ['label' => 'Informasi Publik', 'active' => true]
             ]
         ];
-        
+
+        $infoModel->pager->only(['search', 'sub_category', 'year']);
+
         return view('public/information', $data);
     }
 }

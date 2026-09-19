@@ -16,9 +16,12 @@ class Category extends BaseController
 
     public function index($type)
     {
+        $query = $this->categoryModel->where('type', $type)->orderBy('name', 'ASC');
+
         $data = [
             'title'      => 'Kelola Kategori ' . ucfirst($type),
-            'categories' => $this->categoryModel->where('type', $type)->findAll(),
+            'categories' => $query->paginate(10),
+            'pager'      => $this->categoryModel->pager,
             'type'       => $type,
         ];
 

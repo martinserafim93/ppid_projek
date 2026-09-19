@@ -29,6 +29,8 @@ class Data extends BaseController
                 ['label' => 'Data & Statistik', 'active' => true]
             ]
         ];
+
+        $documentModel->pager->only(['search']);
         
         return view('public/data', $data);
     }

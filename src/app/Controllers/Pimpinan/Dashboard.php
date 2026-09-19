@@ -64,6 +64,8 @@ class Dashboard extends BaseController
             'status'   => $status
         ];
 
+        $requestModel->pager->only(['search', 'status']);
+
         return view('pimpinan/monitoring', $data);
     }
 

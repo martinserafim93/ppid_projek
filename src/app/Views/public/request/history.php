@@ -100,6 +100,12 @@
                             </div>
                         <?php endforeach; ?>
                     </div>
+
+                    <?php if ($pager->getPageCount() > 1): ?>
+                        <div class="mt-4 d-flex justify-content-center">
+                            <?= $pager->links('default', 'bootstrap_pagination') ?>
+                        </div>
+                    <?php endif; ?>
                 <?php endif; ?>
             </div>
         </div>

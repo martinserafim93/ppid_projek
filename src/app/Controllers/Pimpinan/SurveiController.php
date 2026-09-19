@@ -19,27 +19,27 @@ class SurveiController extends BaseController
 
     public function index()
     {
-        $db      = \Config\Database::connect();
-        
-        // Ambil Data Survei
-        $builder = $db->table('surveys');
-        $builder->select('surveys.*, requests.ticket_number, users.name as applicant_name');
-        $builder->join('requests', 'requests.id = surveys.request_id', 'left');
-        $builder->join('users', 'users.id = requests.user_id', 'left');
-        $builder->orderBy('surveys.created_at', 'DESC');
-        
+        // Ambil Data Survei (paginated)
+        $surveys = $this->surveyModel->select('surveys.*, requests.ticket_number, users.name as applicant_name')
+                                     ->join('requests', 'requests.id = surveys.request_id', 'left')
+                                     ->join('users', 'users.id = requests.user_id', 'left')
+                                     ->orderBy('surveys.created_at', 'DESC')
+                                     ->paginate(15);
+
         // Ambil Data Permohonan yang belum ada surveinya (untuk dropdown modal)
+        $db = \Config\Database::connect();
         $availableRequests = $db->query("
-            SELECT id, ticket_number, subject 
-            FROM requests 
-            WHERE status IN ('approved', 'rejected') 
+            SELECT id, ticket_number, subject
+            FROM requests
+            WHERE status IN ('approved', 'rejected')
             AND id NOT IN (SELECT request_id FROM surveys)
             ORDER BY created_at DESC
         ")->getResultArray();
 
         $data = [
             'title'   => 'Hasil Survei Kepuasan',
-            'surveys' => $builder->get()->getResultArray(),
+            'surveys' => $surveys,
+            'pager'   => $this->surveyModel->pager,
             'availableRequests' => $availableRequests
         ];
         return view('pimpinan/survei', $data);

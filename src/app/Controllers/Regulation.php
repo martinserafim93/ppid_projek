@@ -40,6 +40,8 @@ class Regulation extends BaseController
                 ['label' => 'Regulasi', 'active' => true]
             ]
         ];
+
+        $regulationModel->pager->only(['type', 'search']);
         
         return view('public/regulation', $data);
     }

@@ -40,6 +40,8 @@ class PublicInformations extends BaseController
             'categories'      => $categories
         ];
 
+        $this->infoModel->pager->only(['category']);
+
         return view('admin/public-informations/index', $data);
     }
 

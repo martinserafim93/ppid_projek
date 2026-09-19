@@ -44,6 +44,8 @@ class Pages extends BaseController
             'status'   => $status,
         ];
 
+        $this->pageModel->pager->only(['category', 'search', 'status']);
+
         return view('admin/pages/index', $data);
     }
 
